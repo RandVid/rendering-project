@@ -31,7 +31,7 @@ struct RayMarchingRender {
         RayMarchingRender(width, height, fov, Z*-1, objects) {}
     void renderFrame(Ray ray);
     std::tuple<double, Vector3, Object&> intersection(Ray ray);
-    std::pair<double, Object&> distanceToClosest(Ray &ray);
+    std::pair<double, Object*> distanceToClosest(Ray &ray);
 };
 
 

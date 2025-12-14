@@ -7,13 +7,13 @@
 
 
 
-std::pair<double, Object &> RayMarchingRender::distanceToClosest(Ray &ray) {
+std::pair<double, Object*> RayMarchingRender::distanceToClosest(Ray &ray) {
     double closest_distance = INFINITY;
-    Object &closest_object = *objects[0];
+    Object *closest_object = objects[0];
     for (auto &object : objects) {
         if (const auto dist = object->distanceToSurface(ray.getOrigin()); dist < closest_distance) {
             closest_distance = dist;
-            closest_object = *object;
+            closest_object = object;
         }
     }
     return {closest_distance, closest_object};
@@ -24,7 +24,7 @@ std::tuple<double, Vector3, Object &> RayMarchingRender::intersection(Ray ray) {
     double distance_marched = 0.0;
     unsigned steps = 0;
     double closest_distance = INFINITY;
-    Object &closest_object = *objects[0];
+    Object *closest_object = objects[0];
     while (closest_distance > 0.1 && distance_marched < 100.0 && steps < 50) {
         auto [dist, obj] = distanceToClosest(ray);
         closest_distance = dist;
@@ -35,7 +35,7 @@ std::tuple<double, Vector3, Object &> RayMarchingRender::intersection(Ray ray) {
     }
     if (closest_distance > 0.1)
         distance_marched = -1;
-    return {distance_marched, ray.getOrigin(), closest_object};
+    return {distance_marched, ray.getOrigin(), *closest_object};
 }
 
 
