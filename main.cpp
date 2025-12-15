@@ -26,11 +26,20 @@ int main()
 
     while (window.isOpen())
     {
-        while (const std::optional event = window.pollEvent())
+        while (const std::optional<sf::Event> event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
             {
                 window.close();
+            }
+            else if (event->is<sf::Event::Resized>()) {
+                if (const auto* resized = event->getIf<sf::Event::Resized>()) {
+                    unsigned newWidth = resized->size.x;
+                    unsigned newHeight = resized->size.y;
+                    renderer.setSize(newWidth, newHeight);
+                }
+            }
+            else if (event->is<sf::Event::MouseMoved>()) {
             }
         }
         renderer.renderFrame(camera);

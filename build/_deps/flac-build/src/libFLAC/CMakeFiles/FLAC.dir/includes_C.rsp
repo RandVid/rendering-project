@@ -1,0 +1,1 @@
+-I"D:/rendering-project/build/_deps/flac-src/include" -I"D:/rendering-project/build/_deps/flac-build" -I"D:/rendering-project/build/_deps/flac-src/src/libFLAC/include" -isystem "D:/rendering-project/build/_deps/ogg-src/include" -isystem "D:/rendering-project/build/_deps/ogg-build/include"

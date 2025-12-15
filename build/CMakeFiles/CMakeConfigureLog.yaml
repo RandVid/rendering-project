@@ -1,0 +1,2092 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.26200 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/msys64/mingw64/bin/clang.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is Clang, found in:
+        D:/rendering-project/build/CMakeFiles/3.31.5/CompilerIdC/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/msys64/mingw64/bin/clang++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is Clang, found in:
+        D:/rendering-project/build/CMakeFiles/3.31.5/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_1866c/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_1866c.dir\\build.make CMakeFiles/cmTC_1866c.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48'
+        Building C object CMakeFiles/cmTC_1866c.dir/CMakeCCompilerABI.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -v -MD -MT CMakeFiles/cmTC_1866c.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_1866c.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_1866c.dir\\CMakeCCompilerABI.c.obj -c C:\\msys64\\mingw64\\share\\cmake\\Modules\\CMakeCCompilerABI.c
+        clang version 19.1.7
+        Target: x86_64-w64-windows-gnu
+        Thread model: posix
+        InstalledDir: C:/msys64/mingw64/bin
+         (in-process)
+         "C:/msys64/mingw64/bin/clang.exe" -cc1 -triple x86_64-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=none -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -mms-bitfields -funwind-tables=2 -fno-sized-deallocation -fno-use-init-array -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48 -v -fcoverage-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48 -resource-dir C:/msys64/mingw64/lib/clang/19 -dependency-file "CMakeFiles\\\\cmTC_1866c.dir\\\\CMakeCCompilerABI.c.obj.d" -MT CMakeFiles/cmTC_1866c.dir/CMakeCCompilerABI.c.obj -sys-header-deps -internal-isystem C:/msys64/mingw64/lib/clang/19/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/usr/include -internal-isystem C:/msys64/mingw64/include -ferror-limit 19 -femulated-tls -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -exception-model=seh -faddrsig -o "CMakeFiles\\\\cmTC_1866c.dir\\\\CMakeCCompilerABI.c.obj" -x c "C:\\\\msys64\\\\mingw64\\\\share\\\\cmake\\\\Modules\\\\CMakeCCompilerABI.c"
+        clang -cc1 version 19.1.7 based upon LLVM 19.1.7 default target x86_64-w64-windows-gnu
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/usr/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         C:/msys64/mingw64/lib/clang/19/include
+         C:/msys64/mingw64/include
+        End of search list.
+        Linking C executable cmTC_1866c.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_1866c.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_1866c.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_1866c.dir/objects.a @CMakeFiles\\cmTC_1866c.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_1866c.dir/objects.a -Wl,--no-whole-archive -o cmTC_1866c.exe -Wl,--out-implib,libcmTC_1866c.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        clang version 19.1.7
+        Target: x86_64-w64-windows-gnu
+        Thread model: posix
+        InstalledDir: C:/msys64/mingw64/bin
+         "C:/msys64/mingw64/bin/ld" -m i386pep -Bdynamic -o cmTC_1866c.exe C:/msys64/mingw64/lib/crt2.o C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o -LC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0 -LC:/msys64/mingw64/x86_64-w64-mingw32/lib -LC:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib -LC:/msys64/mingw64/lib -v --whole-archive "CMakeFiles\\\\cmTC_1866c.dir/objects.a" --no-whole-archive --out-implib libcmTC_1866c.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o
+        GNU ld (GNU Binutils) 2.44
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [C:/msys64/mingw64/lib/clang/19/include]
+          add: [C:/msys64/mingw64/include]
+        end of search list found
+        collapse include dir [C:/msys64/mingw64/lib/clang/19/include] ==> [C:/msys64/mingw64/lib/clang/19/include]
+        collapse include dir [C:/msys64/mingw64/include] ==> [C:/msys64/mingw64/include]
+        implicit include dirs: [C:/msys64/mingw64/lib/clang/19/include;C:/msys64/mingw64/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48']
+        ignore line: []
+        ignore line: [Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_1866c/fast]
+        ignore line: [C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_1866c.dir\\build.make CMakeFiles/cmTC_1866c.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48']
+        ignore line: [Building C object CMakeFiles/cmTC_1866c.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [C:\\msys64\\mingw64\\bin\\clang.exe   -v -MD -MT CMakeFiles/cmTC_1866c.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_1866c.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_1866c.dir\\CMakeCCompilerABI.c.obj -c C:\\msys64\\mingw64\\share\\cmake\\Modules\\CMakeCCompilerABI.c]
+        ignore line: [clang version 19.1.7]
+        ignore line: [Target: x86_64-w64-windows-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: C:/msys64/mingw64/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "C:/msys64/mingw64/bin/clang.exe" -cc1 -triple x86_64-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=none -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -mms-bitfields -funwind-tables=2 -fno-sized-deallocation -fno-use-init-array -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48 -v -fcoverage-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-i69y48 -resource-dir C:/msys64/mingw64/lib/clang/19 -dependency-file "CMakeFiles\\\\cmTC_1866c.dir\\\\CMakeCCompilerABI.c.obj.d" -MT CMakeFiles/cmTC_1866c.dir/CMakeCCompilerABI.c.obj -sys-header-deps -internal-isystem C:/msys64/mingw64/lib/clang/19/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/usr/include -internal-isystem C:/msys64/mingw64/include -ferror-limit 19 -femulated-tls -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -exception-model=seh -faddrsig -o "CMakeFiles\\\\cmTC_1866c.dir\\\\CMakeCCompilerABI.c.obj" -x c "C:\\\\msys64\\\\mingw64\\\\share\\\\cmake\\\\Modules\\\\CMakeCCompilerABI.c"]
+        ignore line: [clang -cc1 version 19.1.7 based upon LLVM 19.1.7 default target x86_64-w64-windows-gnu]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/usr/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ C:/msys64/mingw64/lib/clang/19/include]
+        ignore line: [ C:/msys64/mingw64/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking C executable cmTC_1866c.exe]
+        ignore line: [C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_1866c.dir\\link.txt --verbose=1]
+        ignore line: [C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_1866c.dir/objects.a]
+        ignore line: [C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_1866c.dir/objects.a @CMakeFiles\\cmTC_1866c.dir\\objects1.rsp]
+        ignore line: [C:\\msys64\\mingw64\\bin\\clang.exe  -v -Wl -v -Wl --whole-archive CMakeFiles\\cmTC_1866c.dir/objects.a -Wl --no-whole-archive -o cmTC_1866c.exe -Wl --out-implib libcmTC_1866c.dll.a -Wl --major-image-version 0 --minor-image-version 0]
+        ignore line: [clang version 19.1.7]
+        ignore line: [Target: x86_64-w64-windows-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: C:/msys64/mingw64/bin]
+        link line: [ "C:/msys64/mingw64/bin/ld" -m i386pep -Bdynamic -o cmTC_1866c.exe C:/msys64/mingw64/lib/crt2.o C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o -LC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0 -LC:/msys64/mingw64/x86_64-w64-mingw32/lib -LC:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib -LC:/msys64/mingw64/lib -v --whole-archive "CMakeFiles\\\\cmTC_1866c.dir/objects.a" --no-whole-archive --out-implib libcmTC_1866c.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o]
+          arg [C:/msys64/mingw64/bin/ld] ==> ignore
+          arg [-m] ==> ignore
+          arg [i386pep] ==> ignore
+          arg [-Bdynamic] ==> search dynamic
+          arg [-o] ==> ignore
+          arg [cmTC_1866c.exe] ==> ignore
+          arg [C:/msys64/mingw64/lib/crt2.o] ==> obj [C:/msys64/mingw64/lib/crt2.o]
+          arg [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o] ==> obj [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o]
+          arg [-LC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0] ==> dir [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0]
+          arg [-LC:/msys64/mingw64/x86_64-w64-mingw32/lib] ==> dir [C:/msys64/mingw64/x86_64-w64-mingw32/lib]
+          arg [-LC:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib] ==> dir [C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib]
+          arg [-LC:/msys64/mingw64/lib] ==> dir [C:/msys64/mingw64/lib]
+          arg [-v] ==> ignore
+          arg [--whole-archive] ==> ignore
+          arg [CMakeFiles\\\\cmTC_1866c.dir/objects.a] ==> ignore
+          arg [--no-whole-archive] ==> ignore
+          arg [--out-implib] ==> ignore
+          arg [libcmTC_1866c.dll.a] ==> ignore
+          arg [--major-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [--minor-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lpthread] ==> lib [pthread]
+          arg [-ladvapi32] ==> lib [advapi32]
+          arg [-lshell32] ==> lib [shell32]
+          arg [-luser32] ==> lib [user32]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o] ==> obj [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o]
+        linker tool for 'C': C:/msys64/mingw64/bin/ld
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        collapse library dir [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0] ==> [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0]
+        collapse library dir [C:/msys64/mingw64/x86_64-w64-mingw32/lib] ==> [C:/msys64/mingw64/x86_64-w64-mingw32/lib]
+        collapse library dir [C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib] ==> [C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib]
+        collapse library dir [C:/msys64/mingw64/lib] ==> [C:/msys64/mingw64/lib]
+        implicit libs: [mingw32;gcc;moldname;mingwex;pthread;advapi32;shell32;user32;kernel32;mingw32;gcc;moldname;mingwex;kernel32]
+        implicit objs: [C:/msys64/mingw64/lib/crt2.o;C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o;C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o]
+        implicit dirs: [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0;C:/msys64/mingw64/x86_64-w64-mingw32/lib;C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib;C:/msys64/mingw64/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "C:/msys64/mingw64/bin/ld" "-v"
+      GNU ld (GNU Binutils) 2.44
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_d2dde/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d2dde.dir\\build.make CMakeFiles/cmTC_d2dde.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj'
+        Building CXX object CMakeFiles/cmTC_d2dde.dir/CMakeCXXCompilerABI.cpp.obj
+        C:\\msys64\\mingw64\\bin\\clang++.exe   -v -MD -MT CMakeFiles/cmTC_d2dde.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_d2dde.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_d2dde.dir\\CMakeCXXCompilerABI.cpp.obj -c C:\\msys64\\mingw64\\share\\cmake\\Modules\\CMakeCXXCompilerABI.cpp
+        clang version 19.1.7
+        Target: x86_64-w64-windows-gnu
+        Thread model: posix
+        InstalledDir: C:/msys64/mingw64/bin
+         (in-process)
+         "C:/msys64/mingw64/bin/clang++.exe" -cc1 -triple x86_64-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=none -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -mms-bitfields -funwind-tables=2 -fno-sized-deallocation -fno-use-init-array -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj -v -fcoverage-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj -resource-dir C:/msys64/mingw64/lib/clang/19 -dependency-file "CMakeFiles\\\\cmTC_d2dde.dir\\\\CMakeCXXCompilerABI.cpp.obj.d" -MT CMakeFiles/cmTC_d2dde.dir/CMakeCXXCompilerABI.cpp.obj -sys-header-deps -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++ -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/backward -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0 -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/backward -internal-isystem C:/msys64/mingw64/include/c++/14.2.0 -internal-isystem C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/include/c++/14.2.0/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++ -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/backward -internal-isystem C:/msys64/mingw64/lib/clang/19/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/usr/include -internal-isystem C:/msys64/mingw64/include -fdeprecated-macro -ferror-limit 19 -femulated-tls -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -exception-model=seh -faddrsig -o "CMakeFiles\\\\cmTC_d2dde.dir\\\\CMakeCXXCompilerABI.cpp.obj" -x c++ "C:\\\\msys64\\\\mingw64\\\\share\\\\cmake\\\\Modules\\\\CMakeCXXCompilerABI.cpp"
+        clang -cc1 version 19.1.7 based upon LLVM 19.1.7 default target x86_64-w64-windows-gnu
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/x86_64-w64-mingw32"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/backward"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/x86_64-w64-mingw32"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/backward"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/x86_64-w64-mingw32"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/backward"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/x86_64-w64-mingw32"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/backward"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/x86_64-w64-mingw32"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/backward"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/x86_64-w64-mingw32"
+        ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/backward"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include"
+        ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/usr/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         C:/msys64/mingw64/include/c++/14.2.0
+         C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32
+         C:/msys64/mingw64/include/c++/14.2.0/backward
+         C:/msys64/mingw64/lib/clang/19/include
+         C:/msys64/mingw64/include
+        End of search list.
+        Linking CXX executable cmTC_d2dde.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_d2dde.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_d2dde.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_d2dde.dir/objects.a @CMakeFiles\\cmTC_d2dde.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang++.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_d2dde.dir/objects.a -Wl,--no-whole-archive -o cmTC_d2dde.exe -Wl,--out-implib,libcmTC_d2dde.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        clang version 19.1.7
+        Target: x86_64-w64-windows-gnu
+        Thread model: posix
+        InstalledDir: C:/msys64/mingw64/bin
+         "C:/msys64/mingw64/bin/ld" -m i386pep -Bdynamic -o cmTC_d2dde.exe C:/msys64/mingw64/lib/crt2.o C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o -LC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0 -LC:/msys64/mingw64/x86_64-w64-mingw32/lib -LC:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib -LC:/msys64/mingw64/lib -v --whole-archive "CMakeFiles\\\\cmTC_d2dde.dir/objects.a" --no-whole-archive --out-implib libcmTC_d2dde.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o
+        GNU ld (GNU Binutils) 2.44
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [C:/msys64/mingw64/include/c++/14.2.0]
+          add: [C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32]
+          add: [C:/msys64/mingw64/include/c++/14.2.0/backward]
+          add: [C:/msys64/mingw64/lib/clang/19/include]
+          add: [C:/msys64/mingw64/include]
+        end of search list found
+        collapse include dir [C:/msys64/mingw64/include/c++/14.2.0] ==> [C:/msys64/mingw64/include/c++/14.2.0]
+        collapse include dir [C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32] ==> [C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32]
+        collapse include dir [C:/msys64/mingw64/include/c++/14.2.0/backward] ==> [C:/msys64/mingw64/include/c++/14.2.0/backward]
+        collapse include dir [C:/msys64/mingw64/lib/clang/19/include] ==> [C:/msys64/mingw64/lib/clang/19/include]
+        collapse include dir [C:/msys64/mingw64/include] ==> [C:/msys64/mingw64/include]
+        implicit include dirs: [C:/msys64/mingw64/include/c++/14.2.0;C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32;C:/msys64/mingw64/include/c++/14.2.0/backward;C:/msys64/mingw64/lib/clang/19/include;C:/msys64/mingw64/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj']
+        ignore line: []
+        ignore line: [Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_d2dde/fast]
+        ignore line: [C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d2dde.dir\\build.make CMakeFiles/cmTC_d2dde.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj']
+        ignore line: [Building CXX object CMakeFiles/cmTC_d2dde.dir/CMakeCXXCompilerABI.cpp.obj]
+        ignore line: [C:\\msys64\\mingw64\\bin\\clang++.exe   -v -MD -MT CMakeFiles/cmTC_d2dde.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_d2dde.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_d2dde.dir\\CMakeCXXCompilerABI.cpp.obj -c C:\\msys64\\mingw64\\share\\cmake\\Modules\\CMakeCXXCompilerABI.cpp]
+        ignore line: [clang version 19.1.7]
+        ignore line: [Target: x86_64-w64-windows-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: C:/msys64/mingw64/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "C:/msys64/mingw64/bin/clang++.exe" -cc1 -triple x86_64-w64-windows-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=none -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -mms-bitfields -funwind-tables=2 -fno-sized-deallocation -fno-use-init-array -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj -v -fcoverage-compilation-dir=D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-41eqtj -resource-dir C:/msys64/mingw64/lib/clang/19 -dependency-file "CMakeFiles\\\\cmTC_d2dde.dir\\\\CMakeCXXCompilerABI.cpp.obj.d" -MT CMakeFiles/cmTC_d2dde.dir/CMakeCXXCompilerABI.cpp.obj -sys-header-deps -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++ -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/backward -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0 -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/backward -internal-isystem C:/msys64/mingw64/include/c++/14.2.0 -internal-isystem C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/include/c++/14.2.0/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++ -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/backward -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/x86_64-w64-mingw32 -internal-isystem C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/backward -internal-isystem C:/msys64/mingw64/lib/clang/19/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/include -internal-isystem C:/msys64/mingw64/x86_64-w64-mingw32/usr/include -internal-isystem C:/msys64/mingw64/include -fdeprecated-macro -ferror-limit 19 -femulated-tls -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -exception-model=seh -faddrsig -o "CMakeFiles\\\\cmTC_d2dde.dir\\\\CMakeCXXCompilerABI.cpp.obj" -x c++ "C:\\\\msys64\\\\mingw64\\\\share\\\\cmake\\\\Modules\\\\CMakeCXXCompilerABI.cpp"]
+        ignore line: [clang -cc1 version 19.1.7 based upon LLVM 19.1.7 default target x86_64-w64-windows-gnu]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/x86_64-w64-mingw32"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/backward"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/x86_64-w64-mingw32"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include/c++/14.2.0/backward"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/x86_64-w64-mingw32"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/backward"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/x86_64-w64-mingw32"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2.0/backward"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/x86_64-w64-mingw32"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14.2/backward"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/x86_64-w64-mingw32"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/g++-v14/backward"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/include"]
+        ignore line: [ignoring nonexistent directory "C:/msys64/mingw64/x86_64-w64-mingw32/usr/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ C:/msys64/mingw64/include/c++/14.2.0]
+        ignore line: [ C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32]
+        ignore line: [ C:/msys64/mingw64/include/c++/14.2.0/backward]
+        ignore line: [ C:/msys64/mingw64/lib/clang/19/include]
+        ignore line: [ C:/msys64/mingw64/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking CXX executable cmTC_d2dde.exe]
+        ignore line: [C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_d2dde.dir\\link.txt --verbose=1]
+        ignore line: [C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_d2dde.dir/objects.a]
+        ignore line: [C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_d2dde.dir/objects.a @CMakeFiles\\cmTC_d2dde.dir\\objects1.rsp]
+        ignore line: [C:\\msys64\\mingw64\\bin\\clang++.exe  -v -Wl -v -Wl --whole-archive CMakeFiles\\cmTC_d2dde.dir/objects.a -Wl --no-whole-archive -o cmTC_d2dde.exe -Wl --out-implib libcmTC_d2dde.dll.a -Wl --major-image-version 0 --minor-image-version 0]
+        ignore line: [clang version 19.1.7]
+        ignore line: [Target: x86_64-w64-windows-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: C:/msys64/mingw64/bin]
+        link line: [ "C:/msys64/mingw64/bin/ld" -m i386pep -Bdynamic -o cmTC_d2dde.exe C:/msys64/mingw64/lib/crt2.o C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o -LC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0 -LC:/msys64/mingw64/x86_64-w64-mingw32/lib -LC:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib -LC:/msys64/mingw64/lib -v --whole-archive "CMakeFiles\\\\cmTC_d2dde.dir/objects.a" --no-whole-archive --out-implib libcmTC_d2dde.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o]
+          arg [C:/msys64/mingw64/bin/ld] ==> ignore
+          arg [-m] ==> ignore
+          arg [i386pep] ==> ignore
+          arg [-Bdynamic] ==> search dynamic
+          arg [-o] ==> ignore
+          arg [cmTC_d2dde.exe] ==> ignore
+          arg [C:/msys64/mingw64/lib/crt2.o] ==> obj [C:/msys64/mingw64/lib/crt2.o]
+          arg [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o] ==> obj [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o]
+          arg [-LC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0] ==> dir [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0]
+          arg [-LC:/msys64/mingw64/x86_64-w64-mingw32/lib] ==> dir [C:/msys64/mingw64/x86_64-w64-mingw32/lib]
+          arg [-LC:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib] ==> dir [C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib]
+          arg [-LC:/msys64/mingw64/lib] ==> dir [C:/msys64/mingw64/lib]
+          arg [-v] ==> ignore
+          arg [--whole-archive] ==> ignore
+          arg [CMakeFiles\\\\cmTC_d2dde.dir/objects.a] ==> ignore
+          arg [--no-whole-archive] ==> ignore
+          arg [--out-implib] ==> ignore
+          arg [libcmTC_d2dde.dll.a] ==> ignore
+          arg [--major-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [--minor-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lpthread] ==> lib [pthread]
+          arg [-ladvapi32] ==> lib [advapi32]
+          arg [-lshell32] ==> lib [shell32]
+          arg [-luser32] ==> lib [user32]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o] ==> obj [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o]
+        linker tool for 'CXX': C:/msys64/mingw64/bin/ld
+        remove lib [msvcrt]
+        remove lib [msvcrt]
+        collapse library dir [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0] ==> [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0]
+        collapse library dir [C:/msys64/mingw64/x86_64-w64-mingw32/lib] ==> [C:/msys64/mingw64/x86_64-w64-mingw32/lib]
+        collapse library dir [C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib] ==> [C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib]
+        collapse library dir [C:/msys64/mingw64/lib] ==> [C:/msys64/mingw64/lib]
+        implicit libs: [stdc++;mingw32;gcc_s;gcc;moldname;mingwex;pthread;advapi32;shell32;user32;kernel32;mingw32;gcc_s;gcc;moldname;mingwex;kernel32]
+        implicit objs: [C:/msys64/mingw64/lib/crt2.o;C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtbegin.o;C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/crtend.o]
+        implicit dirs: [C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0;C:/msys64/mingw64/x86_64-w64-mingw32/lib;C:/msys64/mingw64/x86_64-w64-mingw32/mingw/lib;C:/msys64/mingw64/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/msys64/mingw64/bin/ld" "-v"
+      GNU ld (GNU Binutils) 2.44
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "C:/msys64/mingw64/share/cmake/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/msys64/mingw64/share/cmake/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "build/_deps/sfml-src/src/SFML/System/CMakeLists.txt:69 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ej2wsy"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ej2wsy"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ej2wsy'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_b422e/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_b422e.dir\\build.make CMakeFiles/cmTC_b422e.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ej2wsy'
+        Building C object CMakeFiles/cmTC_b422e.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DCMAKE_HAVE_LIBC_PTHREAD   -MD -MT CMakeFiles/cmTC_b422e.dir/src.c.obj -MF CMakeFiles\\cmTC_b422e.dir\\src.c.obj.d -o CMakeFiles\\cmTC_b422e.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ej2wsy\\src.c
+        Linking C executable cmTC_b422e.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_b422e.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_b422e.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_b422e.dir/objects.a @CMakeFiles\\cmTC_b422e.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_b422e.dir/objects.a -Wl,--no-whole-archive -o cmTC_b422e.exe -Wl,--out-implib,libcmTC_b422e.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_b422e.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ej2wsy'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFileCXX.cmake:98 (try_compile)"
+      - "build/_deps/sfml-src/src/SFML/Window/CMakeLists.txt:317 (check_include_file_cxx)"
+    checks:
+      - "Looking for C++ include dinput.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-928z4b"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-928z4b"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "DINPUT_H_FOUND"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-928z4b'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_726cd/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_726cd.dir\\build.make CMakeFiles/cmTC_726cd.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-928z4b'
+        Building CXX object CMakeFiles/cmTC_726cd.dir/CheckIncludeFile.cxx.obj
+        C:\\msys64\\mingw64\\bin\\clang++.exe   -std=gnu++20 -MD -MT CMakeFiles/cmTC_726cd.dir/CheckIncludeFile.cxx.obj -MF CMakeFiles\\cmTC_726cd.dir\\CheckIncludeFile.cxx.obj.d -o CMakeFiles\\cmTC_726cd.dir\\CheckIncludeFile.cxx.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-928z4b\\CheckIncludeFile.cxx
+        Linking CXX executable cmTC_726cd.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_726cd.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_726cd.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_726cd.dir/objects.a @CMakeFiles\\cmTC_726cd.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang++.exe -Wl,--whole-archive CMakeFiles\\cmTC_726cd.dir/objects.a -Wl,--no-whole-archive -o cmTC_726cd.exe -Wl,--out-implib,libcmTC_726cd.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_726cd.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-928z4b'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "build/_deps/ogg-src/CMakeLists.txt:57 (check_include_files)"
+    checks:
+      - "Looking for include file inttypes.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-v5foa6"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-v5foa6"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "INCLUDE_INTTYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-v5foa6'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_0b599/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_0b599.dir\\build.make CMakeFiles/cmTC_0b599.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-v5foa6'
+        Building C object CMakeFiles/cmTC_0b599.dir/INCLUDE_INTTYPES_H.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_0b599.dir/INCLUDE_INTTYPES_H.c.obj -MF CMakeFiles\\cmTC_0b599.dir\\INCLUDE_INTTYPES_H.c.obj.d -o CMakeFiles\\cmTC_0b599.dir\\INCLUDE_INTTYPES_H.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-v5foa6\\INCLUDE_INTTYPES_H.c
+        Linking C executable cmTC_0b599.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_0b599.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_0b599.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_0b599.dir/objects.a @CMakeFiles\\cmTC_0b599.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_0b599.dir/objects.a -Wl,--no-whole-archive -o cmTC_0b599.exe -Wl,--out-implib,libcmTC_0b599.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_0b599.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-v5foa6'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "build/_deps/ogg-src/CMakeLists.txt:58 (check_include_files)"
+    checks:
+      - "Looking for include file stdint.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-2b2g37"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-2b2g37"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "INCLUDE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-2b2g37'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_6ce48/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_6ce48.dir\\build.make CMakeFiles/cmTC_6ce48.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-2b2g37'
+        Building C object CMakeFiles/cmTC_6ce48.dir/INCLUDE_STDINT_H.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_6ce48.dir/INCLUDE_STDINT_H.c.obj -MF CMakeFiles\\cmTC_6ce48.dir\\INCLUDE_STDINT_H.c.obj.d -o CMakeFiles\\cmTC_6ce48.dir\\INCLUDE_STDINT_H.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2b2g37\\INCLUDE_STDINT_H.c
+        Linking C executable cmTC_6ce48.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_6ce48.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_6ce48.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_6ce48.dir/objects.a @CMakeFiles\\cmTC_6ce48.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_6ce48.dir/objects.a -Wl,--no-whole-archive -o cmTC_6ce48.exe -Wl,--out-implib,libcmTC_6ce48.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_6ce48.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-2b2g37'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "build/_deps/ogg-src/CMakeLists.txt:59 (check_include_files)"
+    checks:
+      - "Looking for include file sys/types.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dt5jqr"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dt5jqr"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "INCLUDE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dt5jqr'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_49350/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_49350.dir\\build.make CMakeFiles/cmTC_49350.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dt5jqr'
+        Building C object CMakeFiles/cmTC_49350.dir/INCLUDE_SYS_TYPES_H.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_49350.dir/INCLUDE_SYS_TYPES_H.c.obj -MF CMakeFiles\\cmTC_49350.dir\\INCLUDE_SYS_TYPES_H.c.obj.d -o CMakeFiles\\cmTC_49350.dir\\INCLUDE_SYS_TYPES_H.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dt5jqr\\INCLUDE_SYS_TYPES_H.c
+        Linking C executable cmTC_49350.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_49350.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_49350.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_49350.dir/objects.a @CMakeFiles\\cmTC_49350.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_49350.dir/objects.a -Wl,--no-whole-archive -o cmTC_49350.exe -Wl,--out-implib,libcmTC_49350.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_49350.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dt5jqr'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:262 (check_include_file)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:3 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-amt14l"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-amt14l"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-amt14l'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_07300/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_07300.dir\\build.make CMakeFiles/cmTC_07300.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-amt14l'
+        Building C object CMakeFiles/cmTC_07300.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_07300.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_07300.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_07300.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-amt14l\\CheckIncludeFile.c
+        Linking C executable cmTC_07300.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_07300.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_07300.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_07300.dir/objects.a @CMakeFiles\\cmTC_07300.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_07300.dir/objects.a -Wl,--no-whole-archive -o cmTC_07300.exe -Wl,--out-implib,libcmTC_07300.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_07300.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-amt14l'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:263 (check_include_file)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:3 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dtig6y"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dtig6y"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dtig6y'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_202e6/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_202e6.dir\\build.make CMakeFiles/cmTC_202e6.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dtig6y'
+        Building C object CMakeFiles/cmTC_202e6.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_202e6.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_202e6.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_202e6.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dtig6y\\CheckIncludeFile.c
+        Linking C executable cmTC_202e6.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_202e6.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_202e6.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_202e6.dir/objects.a @CMakeFiles\\cmTC_202e6.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_202e6.dir/objects.a -Wl,--no-whole-archive -o cmTC_202e6.exe -Wl,--out-implib,libcmTC_202e6.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_202e6.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-dtig6y'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:264 (check_include_file)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:3 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-yxn3y3"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-yxn3y3"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-yxn3y3'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_fcfd8/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_fcfd8.dir\\build.make CMakeFiles/cmTC_fcfd8.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-yxn3y3'
+        Building C object CMakeFiles/cmTC_fcfd8.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_fcfd8.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_fcfd8.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_fcfd8.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yxn3y3\\CheckIncludeFile.c
+        Linking C executable cmTC_fcfd8.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_fcfd8.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_fcfd8.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_fcfd8.dir/objects.a @CMakeFiles\\cmTC_fcfd8.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_fcfd8.dir/objects.a -Wl,--no-whole-archive -o cmTC_fcfd8.exe -Wl,--out-implib,libcmTC_fcfd8.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_fcfd8.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-yxn3y3'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:3 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of int16_t"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rz7our"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rz7our"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_INT16_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rz7our'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_31332/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_31332.dir\\build.make CMakeFiles/cmTC_31332.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rz7our'
+        Building C object CMakeFiles/cmTC_31332.dir/INT16_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_31332.dir/INT16_SIZE.c.obj -MF CMakeFiles\\cmTC_31332.dir\\INT16_SIZE.c.obj.d -o CMakeFiles\\cmTC_31332.dir\\INT16_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rz7our\\INT16_SIZE.c
+        Linking C executable cmTC_31332.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_31332.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_31332.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_31332.dir/objects.a @CMakeFiles\\cmTC_31332.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_31332.dir/objects.a -Wl,--no-whole-archive -o cmTC_31332.exe -Wl,--out-implib,libcmTC_31332.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_31332.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rz7our'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:4 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of uint16_t"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rtou9k"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rtou9k"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_UINT16_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rtou9k'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_38b30/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_38b30.dir\\build.make CMakeFiles/cmTC_38b30.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rtou9k'
+        Building C object CMakeFiles/cmTC_38b30.dir/UINT16_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_38b30.dir/UINT16_SIZE.c.obj -MF CMakeFiles\\cmTC_38b30.dir\\UINT16_SIZE.c.obj.d -o CMakeFiles\\cmTC_38b30.dir\\UINT16_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rtou9k\\UINT16_SIZE.c
+        Linking C executable cmTC_38b30.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_38b30.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_38b30.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_38b30.dir/objects.a @CMakeFiles\\cmTC_38b30.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_38b30.dir/objects.a -Wl,--no-whole-archive -o cmTC_38b30.exe -Wl,--out-implib,libcmTC_38b30.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_38b30.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-rtou9k'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:5 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of u_int16_t"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-suhmr1"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-suhmr1"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_U_INT16_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-suhmr1'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_d6f7c/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d6f7c.dir\\build.make CMakeFiles/cmTC_d6f7c.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-suhmr1'
+        Building C object CMakeFiles/cmTC_d6f7c.dir/U_INT16_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_d6f7c.dir/U_INT16_SIZE.c.obj -MF CMakeFiles\\cmTC_d6f7c.dir\\U_INT16_SIZE.c.obj.d -o CMakeFiles\\cmTC_d6f7c.dir\\U_INT16_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:29:12: error: use of undeclared identifier 'u_int16_t'
+           29 |   ('0' + ((SIZE / 10000)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int16_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:30:12: error: use of undeclared identifier 'u_int16_t'
+           30 |   ('0' + ((SIZE / 1000)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int16_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:31:12: error: use of undeclared identifier 'u_int16_t'
+           31 |   ('0' + ((SIZE / 100)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int16_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:32:12: error: use of undeclared identifier 'u_int16_t'
+           32 |   ('0' + ((SIZE / 10)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int16_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:33:12: error: use of undeclared identifier 'u_int16_t'
+           33 |   ('0' +  (SIZE    % 10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-suhmr1\\U_INT16_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int16_t))
+              |                      ^
+        5 errors generated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_d6f7c.dir\\build.make:81: CMakeFiles/cmTC_d6f7c.dir/U_INT16_SIZE.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-suhmr1'
+        mingw32-make: *** [Makefile:133: cmTC_d6f7c/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:6 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of int32_t"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-n18jkf"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-n18jkf"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_INT32_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-n18jkf'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_46690/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_46690.dir\\build.make CMakeFiles/cmTC_46690.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-n18jkf'
+        Building C object CMakeFiles/cmTC_46690.dir/INT32_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_46690.dir/INT32_SIZE.c.obj -MF CMakeFiles\\cmTC_46690.dir\\INT32_SIZE.c.obj.d -o CMakeFiles\\cmTC_46690.dir\\INT32_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-n18jkf\\INT32_SIZE.c
+        Linking C executable cmTC_46690.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_46690.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_46690.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_46690.dir/objects.a @CMakeFiles\\cmTC_46690.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_46690.dir/objects.a -Wl,--no-whole-archive -o cmTC_46690.exe -Wl,--out-implib,libcmTC_46690.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_46690.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-n18jkf'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:7 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of uint32_t"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-89mrrt"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-89mrrt"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_UINT32_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-89mrrt'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_94a94/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_94a94.dir\\build.make CMakeFiles/cmTC_94a94.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-89mrrt'
+        Building C object CMakeFiles/cmTC_94a94.dir/UINT32_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_94a94.dir/UINT32_SIZE.c.obj -MF CMakeFiles\\cmTC_94a94.dir\\UINT32_SIZE.c.obj.d -o CMakeFiles\\cmTC_94a94.dir\\UINT32_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-89mrrt\\UINT32_SIZE.c
+        Linking C executable cmTC_94a94.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_94a94.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_94a94.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_94a94.dir/objects.a @CMakeFiles\\cmTC_94a94.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_94a94.dir/objects.a -Wl,--no-whole-archive -o cmTC_94a94.exe -Wl,--out-implib,libcmTC_94a94.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_94a94.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-89mrrt'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:8 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of u_int32_t"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-t6s5ow"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-t6s5ow"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_U_INT32_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-t6s5ow'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_5c274/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_5c274.dir\\build.make CMakeFiles/cmTC_5c274.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-t6s5ow'
+        Building C object CMakeFiles/cmTC_5c274.dir/U_INT32_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_5c274.dir/U_INT32_SIZE.c.obj -MF CMakeFiles\\cmTC_5c274.dir\\U_INT32_SIZE.c.obj.d -o CMakeFiles\\cmTC_5c274.dir\\U_INT32_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:29:12: error: use of undeclared identifier 'u_int32_t'
+           29 |   ('0' + ((SIZE / 10000)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int32_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:30:12: error: use of undeclared identifier 'u_int32_t'
+           30 |   ('0' + ((SIZE / 1000)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int32_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:31:12: error: use of undeclared identifier 'u_int32_t'
+           31 |   ('0' + ((SIZE / 100)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int32_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:32:12: error: use of undeclared identifier 'u_int32_t'
+           32 |   ('0' + ((SIZE / 10)%10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int32_t))
+              |                      ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:33:12: error: use of undeclared identifier 'u_int32_t'
+           33 |   ('0' +  (SIZE    % 10)),
+              |            ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t6s5ow\\U_INT32_SIZE.c:27:22: note: expanded from macro 'SIZE'
+           27 | #define SIZE (sizeof(u_int32_t))
+              |                      ^
+        5 errors generated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_5c274.dir\\build.make:81: CMakeFiles/cmTC_5c274.dir/U_INT32_SIZE.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-t6s5ow'
+        mingw32-make: *** [Makefile:133: cmTC_5c274/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:9 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of int64_t"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-k206p2"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-k206p2"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_INT64_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-k206p2'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_c7e6d/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_c7e6d.dir\\build.make CMakeFiles/cmTC_c7e6d.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-k206p2'
+        Building C object CMakeFiles/cmTC_c7e6d.dir/INT64_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_c7e6d.dir/INT64_SIZE.c.obj -MF CMakeFiles\\cmTC_c7e6d.dir\\INT64_SIZE.c.obj.d -o CMakeFiles\\cmTC_c7e6d.dir\\INT64_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k206p2\\INT64_SIZE.c
+        Linking C executable cmTC_c7e6d.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_c7e6d.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_c7e6d.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_c7e6d.dir/objects.a @CMakeFiles\\cmTC_c7e6d.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_c7e6d.dir/objects.a -Wl,--no-whole-archive -o cmTC_c7e6d.exe -Wl,--out-implib,libcmTC_c7e6d.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_c7e6d.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-k206p2'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:10 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of short"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-l0bwjl"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-l0bwjl"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_SHORT_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-l0bwjl'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_51865/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_51865.dir\\build.make CMakeFiles/cmTC_51865.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-l0bwjl'
+        Building C object CMakeFiles/cmTC_51865.dir/SHORT_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_51865.dir/SHORT_SIZE.c.obj -MF CMakeFiles\\cmTC_51865.dir\\SHORT_SIZE.c.obj.d -o CMakeFiles\\cmTC_51865.dir\\SHORT_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-l0bwjl\\SHORT_SIZE.c
+        Linking C executable cmTC_51865.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_51865.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_51865.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_51865.dir/objects.a @CMakeFiles\\cmTC_51865.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_51865.dir/objects.a -Wl,--no-whole-archive -o cmTC_51865.exe -Wl,--out-implib,libcmTC_51865.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_51865.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-l0bwjl'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:11 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of int"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xzngec"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xzngec"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_INT_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xzngec'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_a7ca9/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_a7ca9.dir\\build.make CMakeFiles/cmTC_a7ca9.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xzngec'
+        Building C object CMakeFiles/cmTC_a7ca9.dir/INT_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_a7ca9.dir/INT_SIZE.c.obj -MF CMakeFiles\\cmTC_a7ca9.dir\\INT_SIZE.c.obj.d -o CMakeFiles\\cmTC_a7ca9.dir\\INT_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xzngec\\INT_SIZE.c
+        Linking C executable cmTC_a7ca9.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_a7ca9.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_a7ca9.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_a7ca9.dir/objects.a @CMakeFiles\\cmTC_a7ca9.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_a7ca9.dir/objects.a -Wl,--no-whole-archive -o cmTC_a7ca9.exe -Wl,--out-implib,libcmTC_a7ca9.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_a7ca9.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xzngec'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:12 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of long"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3pzbwz"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3pzbwz"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_LONG_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3pzbwz'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_bb547/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_bb547.dir\\build.make CMakeFiles/cmTC_bb547.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3pzbwz'
+        Building C object CMakeFiles/cmTC_bb547.dir/LONG_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_bb547.dir/LONG_SIZE.c.obj -MF CMakeFiles\\cmTC_bb547.dir\\LONG_SIZE.c.obj.d -o CMakeFiles\\cmTC_bb547.dir\\LONG_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3pzbwz\\LONG_SIZE.c
+        Linking C executable cmTC_bb547.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_bb547.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_bb547.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_bb547.dir/objects.a @CMakeFiles\\cmTC_bb547.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_bb547.dir/objects.a -Wl,--no-whole-archive -o cmTC_bb547.exe -Wl,--out-implib,libcmTC_bb547.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_bb547.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3pzbwz'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:156 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckTypeSize.cmake:283 (__check_type_size_impl)"
+      - "build/_deps/ogg-src/cmake/CheckSizes.cmake:13 (check_type_size)"
+      - "build/_deps/ogg-src/CMakeLists.txt:69 (include)"
+    checks:
+      - "Check size of long long"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-4nmfml"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-4nmfml"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/ogg-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_LONG_LONG_SIZE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-4nmfml'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_db0b3/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_db0b3.dir\\build.make CMakeFiles/cmTC_db0b3.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-4nmfml'
+        Building C object CMakeFiles/cmTC_db0b3.dir/LONG_LONG_SIZE.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe    -MD -MT CMakeFiles/cmTC_db0b3.dir/LONG_LONG_SIZE.c.obj -MF CMakeFiles\\cmTC_db0b3.dir\\LONG_LONG_SIZE.c.obj.d -o CMakeFiles\\cmTC_db0b3.dir\\LONG_LONG_SIZE.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4nmfml\\LONG_LONG_SIZE.c
+        Linking C executable cmTC_db0b3.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_db0b3.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_db0b3.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_db0b3.dir/objects.a @CMakeFiles\\cmTC_db0b3.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wl,--whole-archive CMakeFiles\\cmTC_db0b3.dir/objects.a -Wl,--no-whole-archive -o cmTC_db0b3.exe -Wl,--out-implib,libcmTC_db0b3.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_db0b3.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-4nmfml'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "build/_deps/flac-src/cmake/UseSystemExtensions.cmake:3 (check_c_source_compiles)"
+      - "build/_deps/flac-src/CMakeLists.txt:107 (include)"
+    checks:
+      - "Performing Test HAVE_MBSTATE"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-z4ruu5"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-z4ruu5"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_MBSTATE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-z4ruu5'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_7bcd5/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_7bcd5.dir\\build.make CMakeFiles/cmTC_7bcd5.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-z4ruu5'
+        Building C object CMakeFiles/cmTC_7bcd5.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_MBSTATE  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_7bcd5.dir/src.c.obj -MF CMakeFiles\\cmTC_7bcd5.dir\\src.c.obj.d -o CMakeFiles\\cmTC_7bcd5.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-z4ruu5\\src.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-z4ruu5\\src.c:4:13: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+            4 |     int main() { return 0; }
+              |             ^
+              |              void
+        1 warning generated.
+        Linking C executable cmTC_7bcd5.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_7bcd5.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_7bcd5.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_7bcd5.dir/objects.a @CMakeFiles\\cmTC_7bcd5.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_7bcd5.dir/objects.a -Wl,--no-whole-archive -o cmTC_7bcd5.exe -Wl,--out-implib,libcmTC_7bcd5.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_7bcd5.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-z4ruu5'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "build/_deps/flac-src/cmake/UseSystemExtensions.cmake:16 (check_c_source_compiles)"
+      - "build/_deps/flac-src/CMakeLists.txt:107 (include)"
+    checks:
+      - "Performing Test DODEFINE_EXTENSIONS"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-1aisjs"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-1aisjs"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "DODEFINE_EXTENSIONS"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-1aisjs'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_56ddd/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_56ddd.dir\\build.make CMakeFiles/cmTC_56ddd.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-1aisjs'
+        Building C object CMakeFiles/cmTC_56ddd.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DDODEFINE_EXTENSIONS  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_56ddd.dir/src.c.obj -MF CMakeFiles\\cmTC_56ddd.dir\\src.c.obj.d -o CMakeFiles\\cmTC_56ddd.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1aisjs\\src.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-1aisjs\\src.c:36:13: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+           36 |     int main() { return 0; }
+              |             ^
+              |              void
+        1 warning generated.
+        Linking C executable cmTC_56ddd.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_56ddd.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_56ddd.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_56ddd.dir/objects.a @CMakeFiles\\cmTC_56ddd.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_56ddd.dir/objects.a -Wl,--no-whole-archive -o cmTC_56ddd.exe -Wl,--out-implib,libcmTC_56ddd.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_56ddd.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-1aisjs'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "build/_deps/flac-src/CMakeLists.txt:111 (check_include_file)"
+    checks:
+      - "Looking for byteswap.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tjn0zg"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tjn0zg"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_BYTESWAP_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tjn0zg'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_fe59b/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_fe59b.dir\\build.make CMakeFiles/cmTC_fe59b.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tjn0zg'
+        Building C object CMakeFiles/cmTC_fe59b.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_fe59b.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_fe59b.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_fe59b.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-tjn0zg\\CheckIncludeFile.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-tjn0zg\\CheckIncludeFile.c:1:10: fatal error: 'byteswap.h' file not found
+            1 | #include <byteswap.h>
+              |          ^~~~~~~~~~~~
+        1 error generated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_fe59b.dir\\build.make:81: CMakeFiles/cmTC_fe59b.dir/CheckIncludeFile.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tjn0zg'
+        mingw32-make: *** [Makefile:133: cmTC_fe59b/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "build/_deps/flac-src/CMakeLists.txt:112 (check_include_file)"
+    checks:
+      - "Looking for inttypes.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-oq6aw5"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-oq6aw5"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_INTTYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-oq6aw5'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_9e8f9/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_9e8f9.dir\\build.make CMakeFiles/cmTC_9e8f9.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-oq6aw5'
+        Building C object CMakeFiles/cmTC_9e8f9.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_9e8f9.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_9e8f9.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_9e8f9.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-oq6aw5\\CheckIncludeFile.c
+        Linking C executable cmTC_9e8f9.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_9e8f9.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_9e8f9.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_9e8f9.dir/objects.a @CMakeFiles\\cmTC_9e8f9.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_9e8f9.dir/objects.a -Wl,--no-whole-archive -o cmTC_9e8f9.exe -Wl,--out-implib,libcmTC_9e8f9.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_9e8f9.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-oq6aw5'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "build/_deps/flac-src/CMakeLists.txt:114 (check_include_file)"
+    checks:
+      - "Looking for stdbool.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xcn9gv"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xcn9gv"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_STDBOOL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xcn9gv'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_a992a/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_a992a.dir\\build.make CMakeFiles/cmTC_a992a.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xcn9gv'
+        Building C object CMakeFiles/cmTC_a992a.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_a992a.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_a992a.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_a992a.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xcn9gv\\CheckIncludeFile.c
+        Linking C executable cmTC_a992a.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_a992a.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_a992a.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_a992a.dir/objects.a @CMakeFiles\\cmTC_a992a.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_a992a.dir/objects.a -Wl,--no-whole-archive -o cmTC_a992a.exe -Wl,--out-implib,libcmTC_a992a.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_a992a.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-xcn9gv'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "build/_deps/flac-src/CMakeLists.txt:115 (check_include_file)"
+    checks:
+      - "Looking for arm_neon.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-qwpkwr"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-qwpkwr"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "FLAC__HAS_NEONINTRIN"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-qwpkwr'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_71916/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_71916.dir\\build.make CMakeFiles/cmTC_71916.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-qwpkwr'
+        Building C object CMakeFiles/cmTC_71916.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_71916.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_71916.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_71916.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qwpkwr\\CheckIncludeFile.c
+        In file included from D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qwpkwr\\CheckIncludeFile.c:1:
+        C:/msys64/mingw64/lib/clang/19/include/arm_neon.h:28:2: error: "NEON intrinsics not available with the soft-float ABI. Please use -mfloat-abi=softfp or -mfloat-abi=hard"
+           28 | #error "NEON intrinsics not available with the soft-float ABI. Please use -mfloat-abi=softfp or -mfloat-abi=hard"
+              |  ^
+        1 error generated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_71916.dir\\build.make:81: CMakeFiles/cmTC_71916.dir/CheckIncludeFile.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-qwpkwr'
+        mingw32-make: *** [Makefile:133: cmTC_71916/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "build/_deps/flac-src/CMakeLists.txt:124 (check_include_file)"
+    checks:
+      - "Looking for x86intrin.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ecvj3m"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ecvj3m"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "FLAC__HAS_X86INTRIN"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ecvj3m'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_bf521/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_bf521.dir\\build.make CMakeFiles/cmTC_bf521.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ecvj3m'
+        Building C object CMakeFiles/cmTC_bf521.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_bf521.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_bf521.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_bf521.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ecvj3m\\CheckIncludeFile.c
+        Linking C executable cmTC_bf521.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_bf521.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_bf521.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_bf521.dir/objects.a @CMakeFiles\\cmTC_bf521.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_bf521.dir/objects.a -Wl,--no-whole-archive -o cmTC_bf521.exe -Wl,--out-implib,libcmTC_bf521.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_bf521.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ecvj3m'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "build/_deps/flac-src/CMakeLists.txt:127 (check_function_exists)"
+    checks:
+      - "Looking for fseeko"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-m6dn3r"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-m6dn3r"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_FSEEKO"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-m6dn3r'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_d0e76/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d0e76.dir\\build.make CMakeFiles/cmTC_d0e76.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-m6dn3r'
+        Building C object CMakeFiles/cmTC_d0e76.dir/CheckFunctionExists.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline  -DCHECK_FUNCTION_EXISTS=fseeko -MD -MT CMakeFiles/cmTC_d0e76.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_d0e76.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles\\cmTC_d0e76.dir\\CheckFunctionExists.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m6dn3r\\CheckFunctionExists.c
+        Linking C executable cmTC_d0e76.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_d0e76.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_d0e76.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_d0e76.dir/objects.a @CMakeFiles\\cmTC_d0e76.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline  -DCHECK_FUNCTION_EXISTS=fseeko -Wl,--whole-archive CMakeFiles\\cmTC_d0e76.dir/objects.a -Wl,--no-whole-archive -o cmTC_d0e76.exe -Wl,--out-implib,libcmTC_d0e76.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_d0e76.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-m6dn3r'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "build/_deps/flac-src/CMakeLists.txt:129 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_BSWAP16"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-5rozqa"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-5rozqa"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_BSWAP16"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-5rozqa'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_cd5b5/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_cd5b5.dir\\build.make CMakeFiles/cmTC_cd5b5.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-5rozqa'
+        Building C object CMakeFiles/cmTC_cd5b5.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_BSWAP16  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_cd5b5.dir/src.c.obj -MF CMakeFiles\\cmTC_cd5b5.dir\\src.c.obj.d -o CMakeFiles\\cmTC_cd5b5.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5rozqa\\src.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5rozqa\\src.c:1:9: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+            1 | int main() { return __builtin_bswap16 (0) ; }
+              |         ^
+              |          void
+        1 warning generated.
+        Linking C executable cmTC_cd5b5.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_cd5b5.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_cd5b5.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_cd5b5.dir/objects.a @CMakeFiles\\cmTC_cd5b5.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_cd5b5.dir/objects.a -Wl,--no-whole-archive -o cmTC_cd5b5.exe -Wl,--out-implib,libcmTC_cd5b5.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_cd5b5.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-5rozqa'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "build/_deps/flac-src/CMakeLists.txt:130 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_BSWAP32"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-gpspch"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-gpspch"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_BSWAP32"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-gpspch'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_d272c/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d272c.dir\\build.make CMakeFiles/cmTC_d272c.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-gpspch'
+        Building C object CMakeFiles/cmTC_d272c.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_BSWAP32  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_d272c.dir/src.c.obj -MF CMakeFiles\\cmTC_d272c.dir\\src.c.obj.d -o CMakeFiles\\cmTC_d272c.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-gpspch\\src.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-gpspch\\src.c:1:9: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+            1 | int main() { return __builtin_bswap32 (0) ; }
+              |         ^
+              |          void
+        1 warning generated.
+        Linking C executable cmTC_d272c.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_d272c.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_d272c.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_d272c.dir/objects.a @CMakeFiles\\cmTC_d272c.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_d272c.dir/objects.a -Wl,--no-whole-archive -o cmTC_d272c.exe -Wl,--out-implib,libcmTC_d272c.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_d272c.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-gpspch'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "build/_deps/flac-src/CMakeLists.txt:131 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_LANGINFO_CODESET"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tkfpkp"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tkfpkp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_LANGINFO_CODESET"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tkfpkp'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_5069f/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_5069f.dir\\build.make CMakeFiles/cmTC_5069f.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tkfpkp'
+        Building C object CMakeFiles/cmTC_5069f.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_LANGINFO_CODESET  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_5069f.dir/src.c.obj -MF CMakeFiles\\cmTC_5069f.dir\\src.c.obj.d -o CMakeFiles\\cmTC_5069f.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-tkfpkp\\src.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-tkfpkp\\src.c:2:14: fatal error: 'langinfo.h' file not found
+            2 |     #include <langinfo.h>
+              |              ^~~~~~~~~~~~
+        1 error generated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_5069f.dir\\build.make:81: CMakeFiles/cmTC_5069f.dir/src.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-tkfpkp'
+        mingw32-make: *** [Makefile:133: cmTC_5069f/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCCompilerFlag.cmake:56 (cmake_check_compiler_flag)"
+      - "build/_deps/flac-src/CMakeLists.txt:142 (check_c_compiler_flag)"
+    checks:
+      - "Performing Test HAVE_WERROR_FLAG"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-si2t74"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-si2t74"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_WERROR_FLAG"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-si2t74'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_4be40/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_4be40.dir\\build.make CMakeFiles/cmTC_4be40.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-si2t74'
+        Building C object CMakeFiles/cmTC_4be40.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_WERROR_FLAG  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline     -Werror -MD -MT CMakeFiles/cmTC_4be40.dir/src.c.obj -MF CMakeFiles\\cmTC_4be40.dir\\src.c.obj.d -o CMakeFiles\\cmTC_4be40.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-si2t74\\src.c
+        Linking C executable cmTC_4be40.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_4be40.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_4be40.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_4be40.dir/objects.a @CMakeFiles\\cmTC_4be40.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_4be40.dir/objects.a -Wl,--no-whole-archive -o cmTC_4be40.exe -Wl,--out-implib,libcmTC_4be40.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_4be40.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-si2t74'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCCompilerFlag.cmake:56 (cmake_check_compiler_flag)"
+      - "build/_deps/flac-src/CMakeLists.txt:143 (check_c_compiler_flag)"
+    checks:
+      - "Performing Test HAVE_DECL_AFTER_STMT_FLAG"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3l4610"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3l4610"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_DECL_AFTER_STMT_FLAG"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3l4610'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_bc0eb/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_bc0eb.dir\\build.make CMakeFiles/cmTC_bc0eb.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3l4610'
+        Building C object CMakeFiles/cmTC_bc0eb.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_DECL_AFTER_STMT_FLAG  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline     -Wdeclaration-after-statement -MD -MT CMakeFiles/cmTC_bc0eb.dir/src.c.obj -MF CMakeFiles\\cmTC_bc0eb.dir\\src.c.obj.d -o CMakeFiles\\cmTC_bc0eb.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3l4610\\src.c
+        Linking C executable cmTC_bc0eb.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_bc0eb.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_bc0eb.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_bc0eb.dir/objects.a @CMakeFiles\\cmTC_bc0eb.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_bc0eb.dir/objects.a -Wl,--no-whole-archive -o cmTC_bc0eb.exe -Wl,--out-implib,libcmTC_bc0eb.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_bc0eb.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-3l4610'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCCompilerFlag.cmake:56 (cmake_check_compiler_flag)"
+      - "build/_deps/flac-src/CMakeLists.txt:144 (check_c_compiler_flag)"
+    checks:
+      - "Performing Test HAVE_STACKREALIGN_FLAG"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ar0pq5"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ar0pq5"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_STACKREALIGN_FLAG"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ar0pq5'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_7ec15/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_7ec15.dir\\build.make CMakeFiles/cmTC_7ec15.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ar0pq5'
+        Building C object CMakeFiles/cmTC_7ec15.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_STACKREALIGN_FLAG  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline     -mstackrealign -MD -MT CMakeFiles/cmTC_7ec15.dir/src.c.obj -MF CMakeFiles\\cmTC_7ec15.dir\\src.c.obj.d -o CMakeFiles\\cmTC_7ec15.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ar0pq5\\src.c
+        Linking C executable cmTC_7ec15.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_7ec15.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_7ec15.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_7ec15.dir/objects.a @CMakeFiles\\cmTC_7ec15.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_7ec15.dir/objects.a -Wl,--no-whole-archive -o cmTC_7ec15.exe -Wl,--out-implib,libcmTC_7ec15.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_7ec15.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-ar0pq5'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCXXCompilerFlag.cmake:55 (cmake_check_compiler_flag)"
+      - "build/_deps/flac-src/CMakeLists.txt:145 (check_cxx_compiler_flag)"
+    checks:
+      - "Performing Test HAVE_WEFFCXX_FLAG"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p9uyp9"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p9uyp9"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_CXX_FLAGS: "-Wall -Wextra -Wcast-align -Wshadow -Wwrite-strings -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wsign-promo -Wundef "
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_WEFFCXX_FLAG"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p9uyp9'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_8bb91/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_8bb91.dir\\build.make CMakeFiles/cmTC_8bb91.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p9uyp9'
+        Building CXX object CMakeFiles/cmTC_8bb91.dir/src.cxx.obj
+        C:\\msys64\\mingw64\\bin\\clang++.exe -DHAVE_WEFFCXX_FLAG  -Wall -Wextra -Wcast-align -Wshadow -Wwrite-strings -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wsign-promo -Wundef   -std=gnu++20   -Weffc++ -MD -MT CMakeFiles/cmTC_8bb91.dir/src.cxx.obj -MF CMakeFiles\\cmTC_8bb91.dir\\src.cxx.obj.d -o CMakeFiles\\cmTC_8bb91.dir\\src.cxx.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p9uyp9\\src.cxx
+        Linking CXX executable cmTC_8bb91.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_8bb91.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_8bb91.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_8bb91.dir/objects.a @CMakeFiles\\cmTC_8bb91.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang++.exe -Wall -Wextra -Wcast-align -Wshadow -Wwrite-strings -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wsign-promo -Wundef   -Wl,--whole-archive CMakeFiles\\cmTC_8bb91.dir/objects.a -Wl,--no-whole-archive -o cmTC_8bb91.exe -Wl,--out-implib,libcmTC_8bb91.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_8bb91.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p9uyp9'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "build/_deps/flac-src/src/libFLAC/CMakeLists.txt:3 (check_include_file)"
+    checks:
+      - "Looking for cpuid.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-x4fvh1"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-x4fvh1"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_CPUID_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-x4fvh1'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_75ee1/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_75ee1.dir\\build.make CMakeFiles/cmTC_75ee1.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-x4fvh1'
+        Building C object CMakeFiles/cmTC_75ee1.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_75ee1.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_75ee1.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_75ee1.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-x4fvh1\\CheckIncludeFile.c
+        Linking C executable cmTC_75ee1.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_75ee1.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_75ee1.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_75ee1.dir/objects.a @CMakeFiles\\cmTC_75ee1.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_75ee1.dir/objects.a -Wl,--no-whole-archive -o cmTC_75ee1.exe -Wl,--out-implib,libcmTC_75ee1.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_75ee1.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-x4fvh1'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "build/_deps/flac-src/src/libFLAC/CMakeLists.txt:4 (check_include_file)"
+    checks:
+      - "Looking for sys/param.h"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-6eoa1g"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-6eoa1g"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_SYS_PARAM_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-6eoa1g'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_b03f0/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_b03f0.dir\\build.make CMakeFiles/cmTC_b03f0.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-6eoa1g'
+        Building C object CMakeFiles/cmTC_b03f0.dir/CheckIncludeFile.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_b03f0.dir/CheckIncludeFile.c.obj -MF CMakeFiles\\cmTC_b03f0.dir\\CheckIncludeFile.c.obj.d -o CMakeFiles\\cmTC_b03f0.dir\\CheckIncludeFile.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6eoa1g\\CheckIncludeFile.c
+        Linking C executable cmTC_b03f0.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_b03f0.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_b03f0.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_b03f0.dir/objects.a @CMakeFiles\\cmTC_b03f0.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_b03f0.dir/objects.a -Wl,--no-whole-archive -o cmTC_b03f0.exe -Wl,--out-implib,libcmTC_b03f0.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_b03f0.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-6eoa1g'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "build/_deps/flac-src/src/libFLAC/CMakeLists.txt:7 (check_function_exists)"
+    checks:
+      - "Looking for lround"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-uj5rnn"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-uj5rnn"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_LROUND"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-uj5rnn'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_99b57/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_99b57.dir\\build.make CMakeFiles/cmTC_99b57.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-uj5rnn'
+        Building C object CMakeFiles/cmTC_99b57.dir/CheckFunctionExists.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline  -DCHECK_FUNCTION_EXISTS=lround -MD -MT CMakeFiles/cmTC_99b57.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_99b57.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles\\cmTC_99b57.dir\\CheckFunctionExists.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uj5rnn\\CheckFunctionExists.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uj5rnn\\CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'lround' [-Wincompatible-library-redeclaration]
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS lround
+              |                               ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uj5rnn\\CheckFunctionExists.c:7:3: note: 'lround' is a builtin with type 'long (double)'
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS lround
+              |                               ^
+        1 warning generated.
+        Linking C executable cmTC_99b57.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_99b57.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_99b57.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_99b57.dir/objects.a @CMakeFiles\\cmTC_99b57.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline  -DCHECK_FUNCTION_EXISTS=lround -Wl,--whole-archive CMakeFiles\\cmTC_99b57.dir/objects.a -Wl,--no-whole-archive -o cmTC_99b57.exe -Wl,--out-implib,libcmTC_99b57.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_99b57.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-uj5rnn'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "build/_deps/flac-src/cmake/CheckCPUArch.cmake:6 (try_compile)"
+      - "build/_deps/flac-src/cmake/CheckCPUArch.cmake:18 (_CHECK_CPU_ARCH)"
+      - "build/_deps/flac-src/src/libFLAC/CMakeLists.txt:13 (check_cpu_arch_x64)"
+    directories:
+      source: "D:/rendering-project/build/_deps/flac-build/CMakeFiles/CMakeTmp"
+      binary: "D:/rendering-project/build/_deps/flac-build/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_FLAC__CPU_X86_64"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/_deps/flac-build/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_c87a1/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_c87a1.dir\\build.make CMakeFiles/cmTC_c87a1.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/_deps/flac-build/CMakeFiles/CMakeTmp'
+        Building C object CMakeFiles/cmTC_c87a1.dir/CheckCPUArch.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -MD -MT CMakeFiles/cmTC_c87a1.dir/CheckCPUArch.c.obj -MF CMakeFiles\\cmTC_c87a1.dir\\CheckCPUArch.c.obj.d -o CMakeFiles\\cmTC_c87a1.dir\\CheckCPUArch.c.obj -c D:\\rendering-project\\build\\_deps\\flac-build\\CMakeFiles\\CMakeTmp\\CheckCPUArch.c
+        Linking C executable cmTC_c87a1.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_c87a1.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_c87a1.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_c87a1.dir/objects.a @CMakeFiles\\cmTC_c87a1.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_c87a1.dir/objects.a -Wl,--no-whole-archive -o cmTC_c87a1.exe -Wl,--out-implib,libcmTC_c87a1.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_c87a1.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/_deps/flac-build/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/msys64/mingw64/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckCCompilerFlag.cmake:56 (cmake_check_compiler_flag)"
+      - "build/_deps/flac-src/src/libFLAC/CMakeLists.txt:101 (check_c_compiler_flag)"
+    checks:
+      - "Performing Test HAVE_ASSOC_MATH"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-lulcb3"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-lulcb3"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_ASSOC_MATH"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-lulcb3'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_ba040/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_ba040.dir\\build.make CMakeFiles/cmTC_ba040.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-lulcb3'
+        Building C object CMakeFiles/cmTC_ba040.dir/src.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe -DHAVE_ASSOC_MATH  -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline     -fassociative-math -fno-signed-zeros -fno-trapping-math -freciprocal-math -MD -MT CMakeFiles/cmTC_ba040.dir/src.c.obj -MF CMakeFiles\\cmTC_ba040.dir\\src.c.obj.d -o CMakeFiles\\cmTC_ba040.dir\\src.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lulcb3\\src.c
+        Linking C executable cmTC_ba040.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_ba040.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_ba040.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_ba040.dir/objects.a @CMakeFiles\\cmTC_ba040.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline   -Wl,--whole-archive CMakeFiles\\cmTC_ba040.dir/objects.a -Wl,--no-whole-archive -o cmTC_ba040.exe -Wl,--out-implib,libcmTC_ba040.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_ba040.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-lulcb3'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "build/_deps/flac-src/microbench/CMakeLists.txt:6 (check_function_exists)"
+    checks:
+      - "Looking for clock_gettime"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p95se2"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p95se2"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: "-Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/flac-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_CLOCK_GETTIME"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p95se2'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_e5f87/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_e5f87.dir\\build.make CMakeFiles/cmTC_e5f87.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p95se2'
+        Building C object CMakeFiles/cmTC_e5f87.dir/CheckFunctionExists.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline  -DCHECK_FUNCTION_EXISTS=clock_gettime -MD -MT CMakeFiles/cmTC_e5f87.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_e5f87.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles\\cmTC_e5f87.dir\\CheckFunctionExists.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p95se2\\CheckFunctionExists.c
+        Linking C executable cmTC_e5f87.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_e5f87.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_e5f87.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_e5f87.dir/objects.a @CMakeFiles\\cmTC_e5f87.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe -Wall -Wextra -Wstrict-prototypes -Wmissing-prototypes -Waggregate-return -Wcast-align -Wnested-externs -Wshadow -Wundef -Wmissing-declarations -Winline  -DCHECK_FUNCTION_EXISTS=clock_gettime -Wl,--whole-archive CMakeFiles\\cmTC_e5f87.dir/objects.a -Wl,--no-whole-archive -o cmTC_e5f87.exe -Wl,--out-implib,libcmTC_e5f87.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_e5f87.dir\\linkLibs.rsp
+        C:/msys64/mingw64/bin/ld: cannot find -lrt: No such file or directory
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_e5f87.dir\\build.make:104: cmTC_e5f87.exe] Error 1
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-p95se2'
+        mingw32-make: *** [Makefile:133: cmTC_e5f87/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/mingw64/share/cmake/Modules/CheckLibraryExists.cmake:78 (try_compile)"
+      - "build/_deps/vorbis-src/CMakeLists.txt:62 (check_library_exists)"
+    checks:
+      - "Looking for floor in m"
+    directories:
+      source: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-235ozq"
+      binary: "D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-235ozq"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/msys64/mingw64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/rendering-project/build/_deps/sfml-src/cmake/Modules/;D:/rendering-project/build/_deps/vorbis-src/cmake"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "HAVE_LIBM"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-235ozq'
+        
+        Run Build Command(s): C:/msys64/mingw64/bin/cmake.exe -E env VERBOSE=1 C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_131d3/fast
+        C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_131d3.dir\\build.make CMakeFiles/cmTC_131d3.dir/build
+        mingw32-make[1]: Entering directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-235ozq'
+        Building C object CMakeFiles/cmTC_131d3.dir/CheckFunctionExists.c.obj
+        C:\\msys64\\mingw64\\bin\\clang.exe   -DCHECK_FUNCTION_EXISTS=floor -MD -MT CMakeFiles/cmTC_131d3.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_131d3.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles\\cmTC_131d3.dir\\CheckFunctionExists.c.obj -c D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-235ozq\\CheckFunctionExists.c
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-235ozq\\CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'floor' [-Wincompatible-library-redeclaration]
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS floor
+              |                               ^
+        D:\\rendering-project\\build\\CMakeFiles\\CMakeScratch\\TryCompile-235ozq\\CheckFunctionExists.c:7:3: note: 'floor' is a builtin with type 'double (double)'
+        <command line>:1:31: note: expanded from macro 'CHECK_FUNCTION_EXISTS'
+            1 | #define CHECK_FUNCTION_EXISTS floor
+              |                               ^
+        1 warning generated.
+        Linking C executable cmTC_131d3.exe
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_131d3.dir\\link.txt --verbose=1
+        C:\\msys64\\mingw64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_131d3.dir/objects.a
+        C:\\msys64\\mingw64\\bin\\llvm-ar.exe qc CMakeFiles\\cmTC_131d3.dir/objects.a @CMakeFiles\\cmTC_131d3.dir\\objects1.rsp
+        C:\\msys64\\mingw64\\bin\\clang.exe  -DCHECK_FUNCTION_EXISTS=floor -Wl,--whole-archive CMakeFiles\\cmTC_131d3.dir/objects.a -Wl,--no-whole-archive -o cmTC_131d3.exe -Wl,--out-implib,libcmTC_131d3.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_131d3.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/rendering-project/build/CMakeFiles/CMakeScratch/TryCompile-235ozq'
+        
+      exitCode: 0
+...

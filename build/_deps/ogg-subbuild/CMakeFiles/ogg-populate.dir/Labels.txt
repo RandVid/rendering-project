@@ -1,0 +1,14 @@
+# Target labels
+ ogg-populate
+# Source files and their labels
+D:/rendering-project/build/_deps/ogg-subbuild/CMakeFiles/ogg-populate
+D:/rendering-project/build/_deps/ogg-subbuild/CMakeFiles/ogg-populate.rule
+D:/rendering-project/build/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test.rule
+D:/rendering-project/build/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update.rule
