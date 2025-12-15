@@ -1,3 +1,0 @@
-C:\msys64\mingw64\bin\cmake.exe -E rm -f CMakeFiles\rendering_project.dir/objects.a
-C:\msys64\mingw64\bin\llvm-ar.exe qc CMakeFiles\rendering_project.dir/objects.a @CMakeFiles\rendering_project.dir\objects1.rsp
-C:\msys64\mingw64\bin\clang++.exe -g -Wl,--whole-archive CMakeFiles\rendering_project.dir/objects.a -Wl,--no-whole-archive -o rendering_project.exe -Wl,--out-implib,librendering_project.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\rendering_project.dir\linkLibs.rsp
