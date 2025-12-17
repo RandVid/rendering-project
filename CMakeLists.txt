@@ -21,7 +21,9 @@ add_executable(rendering_project
         Objects/Object.h
         Objects/Sphere.h
         RayMarchingRender.h
-        RayMarchingRender.cpp)
+        RayMarchingRender.cpp
+        CameraBasis.cpp
+        CameraBasis.h)
 
 target_compile_features(rendering_project PRIVATE cxx_std_20)
 target_link_libraries(rendering_project PRIVATE SFML::Graphics)

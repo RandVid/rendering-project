@@ -15,12 +15,12 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    Ray camera = Ray((X)*4+Z*1, X*-1-Z*0.2);
+    Ray camera = Ray((X)*4, X*-1);
 
     auto sphere1 = new Sphere({-1, 0, 0}, 1, sf::Color::Red);
     auto sphere2 = new Sphere({1, 0, 0}, 0.5, sf::Color::Blue);
 
-    RayMarchingRender renderer = RayMarchingRender(480, 360, PI/2, (X*-2+Y-Z*5).normalized(),
+    RayMarchingRender renderer = RayMarchingRender(1280, 720, PI/2, (X*-2+Y-Z*5).normalized(),
         {sphere1, sphere2});
     auto &window = renderer.window;
 
@@ -44,8 +44,8 @@ int main()
         }
         renderer.renderFrame(camera);
         // house[0].rotate(Angle(-PI/40, Z));
-        renderer.light.rotate(fromAngleAxis(-PI/10, Z));
-        camera.setOrigin(camera.getOrigin().rotated(fromAngleAxis(-PI/40, Z)));
+        // renderer.light.rotate(fromAngleAxis(-PI/10, Z));
+        camera.getOrigin().rotate(fromAngleAxis(-PI/40, Z));
         camera.rotate(fromAngleAxis(-PI/40, Z));
 
         window.display();
