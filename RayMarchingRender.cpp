@@ -8,6 +8,8 @@
 #include <vector>
 
 #include "CameraBasis.h"
+#include "Objects/Sphere.h"
+#include "Objects/Plane.h"
 
 
 std::pair<double, Object*> RayMarchingRender::distanceToClosest(Vector3& p) {
@@ -64,86 +66,91 @@ RayMarchingRender::intersection(const Vector3& origin, const Vector3& dir) {
 
 
 void RayMarchingRender::renderFrame(Ray ray) {
-    auto xy_rotation = ray.getDirection().cross(Z);
-    // ray.rotate(fromAngleAxis(fov/2.0 * height / width, xy_rotation)*fromAngleAxis(-fov/2.0, Z));
-
-    std::vector<sf::Vertex> vertex_vector(height * width);
-
-    // Determine number of threads
-    unsigned numThreads = std::thread::hardware_concurrency();
-    if (numThreads == 0) numThreads = 4;
-
-    std::vector<std::thread> threads;
-    threads.reserve(numThreads);
-
-    CameraBasis cam = CameraBasis(ray.getOrigin(), ray.getDirection(), Z*-1);
-
-    unsigned rowsPerThread = (height + numThreads - 1) / numThreads;
-    light.normalize();
-
-    for (unsigned t = 0; t < numThreads; ++t) {
-        threads.emplace_back([this, t, rowsPerThread, ray, xy_rotation, &vertex_vector, &cam]() {
-            unsigned startY = t * rowsPerThread;
-            unsigned endY = std::min(startY + rowsPerThread, static_cast<unsigned>(height));
-
-            // Each thread gets its own copy of the ray
-            Ray threadRay = ray;
-
-            // Skip to the starting row - need to apply end-of-row rotation for each skipped row
-            // AND apply all the X rotations for each skipped row
-            // for (unsigned skip = 0; skip < startY; ++skip) {
-            //     // Simulate going through all X pixels in this row
-            //     for (unsigned x = 0; x < width; x++) {
-            //         threadRay.rotate(fromAngleAxis(fov/width, Z));
-            //     }
-            //     // Then apply end-of-row rotations
-            //     threadRay.rotate(fromAngleAxis(-fov/2, Z));
-            //     threadRay.rotate(fromAngleAxis(fov/width, xy_rotation*-1));
-            //     threadRay.rotate(fromAngleAxis(-fov/2, Z));
-            // }
-
-            // Process assigned rows
-            for (unsigned y = startY; y < endY; y++) {
-                for (unsigned x = 0; x < width; x++) {
-                    Vector3 dir = cam.pixelDir(x, y, width, height, fov);
-                    auto [dist, point, object] = intersection(threadRay.getOrigin(),
-                        dir);
-
-                    sf::Vertex vertex(sf::Vector2f(static_cast<float>(x),
-                                  static_cast<float>(y)));
-
-                    if (dist >= 0) {
-                        Vector3 tr_normal = object.getNormalAt(point).normalized();
-                        double brightness = tr_normal.dot(light);
-                        brightness = std::min(std::max(brightness, 0.0)+0.3, 1.0);
-                        const auto colorAt = object.getColorAt(point);
-
-                        vertex.color = {
-                            static_cast<std::uint8_t>(colorAt.r*brightness),
-                            static_cast<std::uint8_t>(colorAt.g*brightness),
-                            static_cast<std::uint8_t>(colorAt.b*brightness)
-                        };
-                    }
-                    else {
-                        vertex.color = {50, 50, 50};
-                    }
-
-                    vertex_vector[y * width + x] = vertex;
-                    // threadRay.rotate(fromAngleAxis(fov/width, Z));
-                }
-
-                // threadRay.rotate(fromAngleAxis(-fov/2, Z));
-                // threadRay.rotate(fromAngleAxis(fov/width, xy_rotation*-1));
-                // threadRay.rotate(fromAngleAxis(-fov/2, Z));
-            }
-        });
+    // GPU path: ensure shader loaded
+    if (!ensureShaderLoaded()) {
+        return; // fallback: shader failed to load
     }
 
-    // Wait for all threads to complete
-    for (auto& thread : threads) {
-        thread.join();
+    // Prepare camera basis
+    Vector3 camOrigin = ray.getOrigin();
+    Vector3 camForward = ray.getDirection().normalized();
+    Vector3 camRight = camForward.cross(Z).normalized();
+    if (camRight.magnitude() == 0) { // fallback if forward parallel to Z
+        camRight = Vector3(1,0,0);
+    }
+    Vector3 camUp = camRight.cross(camForward).normalized();
+
+    // Gather object data (limit to MAX_OBJECTS)
+    unsigned count = std::min<unsigned>(objects.size(), MAX_OBJECTS);
+    std::vector<sf::Glsl::Vec3> objPos(count);
+    std::vector<float> objRadius(count);
+    std::vector<sf::Glsl::Vec3> objColor(count);
+    std::vector<float> objType(count);
+    std::vector<sf::Glsl::Vec3> objNormal(count);
+
+    for (unsigned i = 0; i < count; ++i) {
+        Object* o = objects[i];
+        if (auto* sph = dynamic_cast<class Sphere*>(o)) {
+            objType[i] = 0.0f;
+            objPos[i] = sf::Glsl::Vec3(static_cast<float>(sph->getCenter().getX()), static_cast<float>(sph->getCenter().getY()), static_cast<float>(sph->getCenter().getZ()));
+            objRadius[i] = static_cast<float>(sph->getRadius());
+            sf::Color c = sph->getColorAt(*const_cast<Vector3*>(&sph->getCenter()));
+            objColor[i] = sf::Glsl::Vec3(c.r/255.f, c.g/255.f, c.b/255.f);
+            objNormal[i] = sf::Glsl::Vec3(0.f,0.f,0.f);
+        }
+        else if (auto* pl = dynamic_cast<class Plane*>(o)) {
+            objType[i] = 1.0f;
+            objPos[i] = sf::Glsl::Vec3(static_cast<float>(pl->getPoint().getX()), static_cast<float>(pl->getPoint().getY()), static_cast<float>(pl->getPoint().getZ()));
+            objRadius[i] = 0.0f;
+            objNormal[i] = sf::Glsl::Vec3(static_cast<float>(pl->getNormal().getX()), static_cast<float>(pl->getNormal().getY()), static_cast<float>(pl->getNormal().getZ()));
+            sf::Color c = pl->getColorAt(*const_cast<Vector3*>(&pl->getPoint()));
+            objColor[i] = sf::Glsl::Vec3(c.r/255.f, c.g/255.f, c.b/255.f);
+        } else {
+            objType[i] = -1.0f;
+            objPos[i] = sf::Glsl::Vec3(0,0,0);
+            objRadius[i] = 0.0f;
+            objColor[i] = sf::Glsl::Vec3(0,0,0);
+            objNormal[i] = sf::Glsl::Vec3(0,0,0);
+        }
     }
 
-    window.draw(vertex_vector.data(), vertex_vector.size(), sf::PrimitiveType::Points);
+    // Set shader uniforms
+    shader.setUniform("u_resolution", sf::Glsl::Vec2(static_cast<float>(width), static_cast<float>(height)));
+    shader.setUniform("u_camOrigin", sf::Glsl::Vec3(static_cast<float>(camOrigin.getX()), static_cast<float>(camOrigin.getY()), static_cast<float>(camOrigin.getZ())));
+    shader.setUniform("u_camForward", sf::Glsl::Vec3(static_cast<float>(camForward.getX()), static_cast<float>(camForward.getY()), static_cast<float>(camForward.getZ())));
+    shader.setUniform("u_camRight", sf::Glsl::Vec3(static_cast<float>(camRight.getX()), static_cast<float>(camRight.getY()), static_cast<float>(camRight.getZ())));
+    shader.setUniform("u_camUp", sf::Glsl::Vec3(static_cast<float>(camUp.getX()), static_cast<float>(camUp.getY()), static_cast<float>(camUp.getZ())));
+    shader.setUniform("u_fov", static_cast<float>(fov));
+    shader.setUniform("u_light", sf::Glsl::Vec3(static_cast<float>(light.getX()), static_cast<float>(light.getY()), static_cast<float>(light.getZ())));
+    shader.setUniform("u_objCount", static_cast<int>(count));
+    if (count > 0) {
+        shader.setUniformArray("u_objPos", objPos.data(), count);
+        shader.setUniformArray("u_objColor", objColor.data(), count);
+        shader.setUniformArray("u_objNormal", objNormal.data(), count);
+        shader.setUniformArray("u_objRadius", objRadius.data(), count);
+        shader.setUniformArray("u_objType", objType.data(), count);
+    }
+
+    // Draw full-screen quad with shader
+    sf::RectangleShape quad(sf::Vector2f(static_cast<float>(width), static_cast<float>(height)));
+    quad.setPosition(sf::Vector2f(0.f, 0.f));
+    window.draw(quad, &shader);
+}
+
+
+bool RayMarchingRender::ensureShaderLoaded() {
+    if (shaderLoaded) return true;
+    // Try load from project-relative shaders folder
+    if (shader.loadFromFile("shaders/raymarch.frag", sf::Shader::Type::Fragment)) {
+        shaderLoaded = true;
+        return true;
+    }
+    // Try load from working dir
+    if (shader.loadFromFile(std::string("./shaders/raymarch.frag"), sf::Shader::Type::Fragment)) {
+        shaderLoaded = true;
+        return true;
+    }
+    // failed
+    return false;
 }
 

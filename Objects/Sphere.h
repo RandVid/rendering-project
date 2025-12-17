@@ -23,6 +23,9 @@ class Sphere : public Object {
     double distanceToSurface(Vector3& point) override { return (point - center).magnitude() - radius; }
     Vector3 getNormalAt(Vector3& point) override { return (point - center).normalized(); }
     sf::Color getColorAt(Vector3& point) override { return color_func(point); }
+    // Getters for GPU upload
+    const Vector3& getCenter() const { return center; }
+    double getRadius() const { return radius; }
 };
 
 
