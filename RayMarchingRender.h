@@ -30,8 +30,8 @@ struct RayMarchingRender {
     RayMarchingRender(const short width, const short height, const double fov, const std::vector<Object*>& objects) :
         RayMarchingRender(width, height, fov, Z*-1, objects) {}
     void renderFrame(Ray);
-    std::tuple<double, Vector3, Object&> intersection(Vector3&, Vector3&);
-    std::pair<double, Object*> distanceToClosest(Ray &ray);
+    std::tuple<double, Vector3, Object&> intersection(const Vector3&, const Vector3&);
+    std::pair<double, Object*> distanceToClosest(Vector3&);
 
     void setWidth(unsigned newWidth) {
         width = newWidth;

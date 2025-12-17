@@ -10,54 +10,56 @@
 #include "CameraBasis.h"
 
 
-std::pair<double, Object*> RayMarchingRender::distanceToClosest(Ray &ray) {
-    double closest_distance = INFINITY;
-    Object *closest_object = objects[0];
-    for (auto &object : objects) {
-        if (const auto dist = object->distanceToSurface(ray.getOrigin()); dist < closest_distance) {
+std::pair<double, Object*> RayMarchingRender::distanceToClosest(Vector3& p) {
+    double closest_distance = std::numeric_limits<double>::infinity();
+    Object* closest_object = nullptr;
+
+    for (auto* object : objects) {
+        double dist = object->distanceToSurface(p);
+        if (dist < closest_distance) {
             closest_distance = dist;
             closest_object = object;
         }
     }
+
     return {closest_distance, closest_object};
 }
 
 
-std::tuple<double, Vector3, Object &> RayMarchingRender::intersection(Vector3& origin, Vector3& dir) {
-    Vector3 pos = {origin};
+
+std::tuple<double, Vector3, Object&>
+RayMarchingRender::intersection(const Vector3& origin, const Vector3& dir) {
+    Vector3 pos = origin;
     double distance_marched = 0.0;
-    unsigned steps = 0;
 
-    double closest_distance = std::numeric_limits<double>::infinity();
-    Object* closest_object = objects[0];
+    constexpr double hit_epsilon  = 0.01;
+    constexpr double max_distance = 200.0;
+    constexpr unsigned max_steps  = 64;
 
-    // Tunables
-    constexpr double hit_epsilon = 0.001; // tighter eps speeds up and improves accuracy
-    constexpr double max_distance = 200.0; // increase if your scene is large
-    constexpr unsigned max_steps = 128;    // allow more steps if needed
+    Object* hit_obj = nullptr;
 
-    while (closest_distance > hit_epsilon && distance_marched < max_distance && steps < max_steps) {
-        // SDF query at current point
-        double d = std::numeric_limits<double>::infinity();
-        Object* obj = objects[0];
-        for (auto* o : objects) {
-            double od = o->distanceToSurface(pos);
-            if (od < d) { d = od; obj = o; }
+    for (unsigned step = 0;
+         step < max_steps && distance_marched < max_distance;
+         ++step)
+    {
+        auto [d, obj] = distanceToClosest(pos);
+        if (!obj) break;                // no objects in scene – safety
+
+        if (d < hit_epsilon) {          // HIT: stop *before* marching past
+            hit_obj = obj;
+            break;
         }
 
-        closest_distance = d;
-        closest_object = obj;
-
         // Sphere-trace step
-        pos += dir * closest_distance;
-        distance_marched += closest_distance;
-        ++steps;
+        pos += dir * d;                 // no temp
+        distance_marched += d;
     }
 
-    if (closest_distance > hit_epsilon) {
-        return {-1.0, pos, *closest_object};
+    if (!hit_obj) {
+        return {-1.0, pos, *objects[0]};
     }
-    return {distance_marched, pos, *closest_object};
+
+    return {distance_marched, pos, *hit_obj};
 }
 
 
