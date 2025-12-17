@@ -1,5 +1,3 @@
-#version 330 core
-
 uniform vec2 u_resolution;
 uniform vec3 u_camOrigin;
 uniform vec3 u_camForward;
@@ -9,14 +7,14 @@ uniform float u_fov;
 uniform vec3 u_light;
 uniform int u_objCount;
 
-const int MAX_OBJECTS = 32;
+const int MAX_OBJECTS = 128;
 uniform vec3 u_objPos[MAX_OBJECTS];
 uniform vec3 u_objColor[MAX_OBJECTS];
 uniform vec3 u_objNormal[MAX_OBJECTS];
 uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objType[MAX_OBJECTS];
 
-out vec4 FragColor;
+vec4 FragColor;
 
 float sceneDistance(vec3 p, out int hitIndex) {
     float minD = 1e20;
@@ -69,7 +67,7 @@ void main() {
     }
 
     if (hitIndex == -1) {
-        FragColor = vec4(vec3(0.05), 1.0);
+        gl_FragColor = vec4(vec3(0.05), 1.0);
         return;
     }
 
@@ -78,5 +76,5 @@ void main() {
     float lambert = max(dot(normal, lightDir), 0.0);
     vec3 base = u_objColor[hitIndex];
     vec3 color = base * (0.2 + 0.8 * lambert);
-    FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(color, 1.0);
 }

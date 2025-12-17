@@ -23,7 +23,7 @@ struct RayMarchingRender {
     std::vector<Object*> objects;
     sf::Shader shader;
     bool shaderLoaded = false;
-    static constexpr unsigned MAX_OBJECTS = 32;
+    static constexpr unsigned MAX_OBJECTS = 128;
 
 
     RayMarchingRender(unsigned width, unsigned height, double fov, const Vector3& light, const std::vector<Object*>& objects) :
