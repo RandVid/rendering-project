@@ -32,6 +32,23 @@ struct RayMarchingRender {
     void renderFrame(Ray ray);
     std::tuple<double, Vector3, Object&> intersection(Ray ray);
     std::pair<double, Object*> distanceToClosest(Ray &ray);
+
+    void setWidth(unsigned newWidth) {
+        width = newWidth;
+        window.create(sf::VideoMode({width, height}), "bigger PENIS");
+    }
+
+    void setHeight(unsigned newHeight) {
+        height = newHeight;
+        window.create(sf::VideoMode({width, height}), "smaller penis");
+    }
+
+    void setSize(unsigned newWidth, unsigned newHeight) {
+        width = newWidth;
+        height = newHeight;
+        window.create(sf::VideoMode({width, height}), "different size penis");
+    }
+
 };
 
 
