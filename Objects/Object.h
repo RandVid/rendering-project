@@ -6,6 +6,7 @@
 #define RENDERING_PROJECT_OBJECT_H
 #include "../Vector3.h"
 #include "SFML/Graphics/Color.hpp"
+#include "SDFUtils.h"
 
 
 class Vector3;
@@ -13,9 +14,14 @@ class Vector3;
 struct Object {
     virtual ~Object() = default;
 
-    virtual double distanceToSurface(Vector3&) = 0;
-    virtual sf::Color getColorAt(Vector3&) = 0;
-    virtual Vector3 getNormalAt(Vector3&) = 0;
+    virtual double distanceToSurface(const Vector3&) = 0;
+    virtual sf::Color getColorAt(const Vector3&) = 0;
+    virtual Vector3 getNormalAt(const Vector3&) = 0;
+
+    virtual Vector3 getCenterOrPoint() const { return Vector3(0,0,0); }
+    virtual float getRadiusOrSize() const { return 0.0f; }
+    virtual sf::Color getColorAtOrigin() const { return sf::Color::White; }
+    virtual Vector3 getNormalAtOrigin() const { return Vector3(0,1,0); }
 };
 
 

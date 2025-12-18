@@ -23,7 +23,7 @@ struct RayMarchingRender {
     std::vector<Object*> objects;
     sf::Shader shader;
     bool shaderLoaded = false;
-    static constexpr unsigned MAX_OBJECTS = 128;
+    static constexpr unsigned MAX_OBJECTS = 32;
 
 
     RayMarchingRender(unsigned width, unsigned height, double fov, const Vector3& light, const std::vector<Object*>& objects) :
@@ -35,7 +35,7 @@ struct RayMarchingRender {
     void renderFrame(Ray);
     bool ensureShaderLoaded();
     std::tuple<double, Vector3, Object&> intersection(const Vector3&, const Vector3&);
-    std::pair<double, Object*> distanceToClosest(Vector3&);
+    std::pair<double, Object*> distanceToClosest(const Vector3&);
 
     void setWidth(unsigned newWidth) {
         width = newWidth;
