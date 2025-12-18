@@ -276,8 +276,19 @@ void main() {
 
     vec3 normal = estimateNormal(p);
     vec3 lightDir = normalize(u_light);
+    
+    // Calculate view direction (from surface to camera)
+    vec3 viewDir = normalize(u_camOrigin - p);
+    
+    // Phong shading components
+    // 1. Diffuse (Lambertian)
     float lambert = max(dot(normal, lightDir), 0.0);
-
+    
+    // 2. Specular (Phong)
+    // Reflection vector: reflect light direction around normal
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float specular = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);  // 32 = shininess
+    
     // Cast shadow ray from hit point toward light
     float shadow = shadowRay(p, normal, lightDir);
 
@@ -299,8 +310,13 @@ void main() {
         base = u_objColor[hitIndex];
     }
 
-    // Apply Lambertian shading with shadow
-    // Ambient (0.2) + Diffuse (0.8 * lambert) * shadow
-    vec3 color = base * (0.2 + 0.8 * lambert * shadow);
+    // Apply Phong shading with shadow
+    // Ambient + Diffuse * shadow + Specular * shadow
+    // Coefficients: ambient=0.2, diffuse=0.6, specular=0.2
+    vec3 ambient = base * 0.2;
+    vec3 diffuse = base * 0.6 * lambert * shadow;
+    vec3 specularColor = vec3(1.0) * 0.2 * specular * shadow;  // White specular highlights
+    vec3 color = ambient + diffuse + specularColor;
+    
     gl_FragColor = vec4(color, 1.0);
 }
