@@ -3,6 +3,7 @@
 #include <cmath>
 #include <chrono>
 #include <optional>
+#include <set>
 
 #include "Ray.h"
 #include "Constants.h"
@@ -72,6 +73,9 @@ int main()
     const double moveSpeed = 0.1;  // Movement speed per frame
 
     window.setMouseCursorVisible(true);  // Show mouse cursor
+
+    // Track pressed keys for event-based input (avoids permission issues)
+    std::set<sf::Keyboard::Key> pressedKeys;
 
     double fps = 1;
     // ---------------- MAIN LOOP ----------------
@@ -163,6 +167,16 @@ int main()
 
                 camera.setDirection(forward.normalized());
             }
+            else if (event->is<sf::Event::KeyPressed>())
+            {
+                const auto* keyPressed = event->getIf<sf::Event::KeyPressed>();
+                pressedKeys.insert(keyPressed->code);
+            }
+            else if (event->is<sf::Event::KeyReleased>())
+            {
+                const auto* keyReleased = event->getIf<sf::Event::KeyReleased>();
+                pressedKeys.erase(keyReleased->code);
+            }
         }
 
         // WASD Movement - check keyboard state
@@ -184,32 +198,32 @@ int main()
         Vector3 forwardHorizontal = Vector3(forward.getX(), forward.getY(), 0).normalized();
 
         // W - Move forward
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+        if (pressedKeys.contains(sf::Keyboard::Key::W)) {
             moveDirection = moveDirection + forwardHorizontal;
         }
 
         // S - Move backward
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+        if (pressedKeys.contains(sf::Keyboard::Key::S)) {
             moveDirection = moveDirection - forwardHorizontal;
         }
         
         // A - Strafe left
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        if (pressedKeys.contains(sf::Keyboard::Key::A)) {
             moveDirection = moveDirection - right;
         }
 
         // D - Strafe right
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+        if (pressedKeys.contains(sf::Keyboard::Key::D)) {
             moveDirection = moveDirection + right;
         }
 
         // Q - Move up (positive Z)
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
+        if (pressedKeys.contains(sf::Keyboard::Key::Q)) {
             moveDirection = moveDirection - Z;
         }
 
         // E - Move down (negative Z)
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+        if (pressedKeys.contains(sf::Keyboard::Key::E)) {
             moveDirection = moveDirection + Z;
         }
 
@@ -229,7 +243,7 @@ int main()
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
-        std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
+        // std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
         fps = 1000.0 / duration.count();
     }
 
