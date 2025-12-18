@@ -11,20 +11,10 @@ const int MAX_OBJECTS = 32;
 uniform vec3 u_objPos[MAX_OBJECTS];
 uniform vec3 u_objColor[MAX_OBJECTS];
 uniform vec3 u_objColor2[MAX_OBJECTS];
-uniform vec3 u_objSize[MAX_OBJECTS];
 uniform vec3 u_objNormal[MAX_OBJECTS];
 uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objRadius2[MAX_OBJECTS];
 uniform float u_objType[MAX_OBJECTS];
-
-// CSG child B parameters (child A reuses base arrays); types for both
-uniform float u_csgTypeA[MAX_OBJECTS];
-uniform float u_csgTypeB[MAX_OBJECTS];
-uniform vec3 u_csgB_Pos[MAX_OBJECTS];
-uniform vec3 u_csgB_Normal[MAX_OBJECTS];
-uniform vec3 u_csgB_Size[MAX_OBJECTS];
-uniform float u_csgB_Radius[MAX_OBJECTS];
-uniform float u_csgB_Radius2[MAX_OBJECTS];
 
 vec4 FragColor;
 
@@ -62,30 +52,97 @@ float torusSDF(vec3 p, vec3 center, float R, float r) {
     return length(q) - r;
 }
 
+float mandelbulbSDF(vec3 p, vec3 center, float scale, float power, float iterations) {
+    // Quick bounding sphere check - if very far, return large distance
+    float distFromCenter = length(p - center);
+    float boundingRadius = scale * 3.0;  // Approximate bounding radius
+    // Only use bounding sphere for very far points to avoid interfering with close rendering
+    if (distFromCenter > boundingRadius * 3.0) {
+        return distFromCenter - boundingRadius;  // Distance to bounding sphere
+    }
+
+    // Transform point to Mandelbulb space
+    vec3 c = (p - center) / scale;
+    vec3 z = vec3(0.0);  // Start at origin
+    float dr = 1.0;      // Derivative accumulator
+    float bailout = 2.0;
+
+    // Iterate the Mandelbulb formula
+    for (float i = 0.0; i < iterations; i += 1.0) {
+        float r = length(z);
+
+        // Early exit if escaped
+        if (r > bailout) {
+            break;
+        }
+
+        // Avoid division by zero
+        if (r < 1e-10) {
+            r = 1e-10;
+            z = vec3(1e-10, 0.0, 0.0);
+        }
+
+        // Convert to spherical coordinates
+        float zr_ratio = clamp(z.z / r, -1.0, 1.0);
+        float theta = acos(zr_ratio);
+        float phi = atan(z.y, z.x);
+
+        // Update derivative: dr = n * r^(n-1) * dr + 1
+        dr = pow(r, power - 1.0) * power * dr + 1.0;
+
+        // Raise to power in spherical coordinates: (r, theta, phi) -> (r^n, n*theta, n*phi)
+        float zr = pow(r, power);
+        theta = theta * power;
+        phi = phi * power;
+
+        // Convert back to cartesian
+        z = vec3(
+        sin(theta) * cos(phi),
+        sin(theta) * sin(phi),
+        cos(theta)
+        ) * zr;
+
+        // Add constant: z = z^n + c
+        z = z + c;
+    }
+
+    // Calculate final magnitude
+    float r = length(z);
+
+    // Ensure reasonable values
+    if (r < 1e-10) r = 1e-10;
+    if (dr < 1e-10) dr = 1e-10;
+
+    // Distance estimator: 0.5 * log(r) * r / dr
+    float distance = 0.5 * log(r) * r / dr;
+
+    // Scale the distance
+    distance = distance * scale;
+
+    // Handle negative distances (inside set) - use very small positive value
+    // Make it smaller than EPS (0.001) to ensure proper hits
+    if (distance < 0.0) {
+        distance = 0.0005;  // Smaller than EPS to ensure hit detection
+    }
+
+    // Ensure minimum distance is reasonable but not too large
+    // This helps with ray marching convergence
+    if (distance < 0.0001) {
+        distance = 0.0001;
+    }
+
+    // Clamp to reasonable range
+    if (distance != distance || distance > 100.0) {
+        distance = 100.0;
+    }
+
+    return distance;
+}
+
 // Example: CSG operations
 float opUnion(float d1, float d2) { return min(d1, d2); }
 float opIntersection(float d1, float d2) { return max(d1, d2); }
 float opDifference(float d1, float d2) { return max(d1, -d2); }
-
-// ------------------------
-// Primitive evaluation by type
-// ------------------------
-float evalPrimitiveSDF(vec3 p, float type, vec3 pos, vec3 normal, vec3 size, float r1, float r2) {
-    if (type < 0.5) {
-        return sphereSDF(p, pos, r1);
-    } else if (type < 1.5) {
-        return planeSDF(p, pos, normal);
-    } else if (type < 2.5) {
-        return boxSDF(p, pos, size);
-    } else if (type < 3.5) {
-        return cylinderSDF(p, pos, r1, r2 * 2.0);
-    } else if (type < 4.5) {
-        return capsuleSDF(p, pos, r1, r2);
-    } else if (type < 5.5) {
-        return torusSDF(p, pos, r1, r2);
-    }
-    return 1e20;
-}
 
 // ------------------------
 // Scene distance
@@ -103,26 +160,31 @@ float sceneDistance(vec3 p, out int hitIndex) {
         } else if (t < 1.5) {
             d = planeSDF(p, u_objPos[i], u_objNormal[i]);
         } else if (t < 2.5) {
-            d = boxSDF(p, u_objPos[i], u_objSize[i]);
+            d = boxSDF(p, u_objPos[i], vec3(u_objRadius[i]));
         } else if (t < 3.5) {
-            d = cylinderSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i]*2.0);
+            d = cylinderSDF(p, u_objPos[i], u_objRadius[i], u_objRadius[i]*2.0);
         } else if (t < 4.5) {
             d = capsuleSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i]);
         } else if (t < 5.5) {
             d = torusSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i]);
+        } else if (t < 6.5) {
+            // Union of two spheres
+            float d1 = sphereSDF(p, u_objPos[i], u_objRadius[i]);
+            float d2 = sphereSDF(p, u_objNormal[i], u_objRadius2[i]);
+            d = min(d1, d2);
+        } else if (t < 7.5) {
+            // Intersection of two spheres
+            float d1 = sphereSDF(p, u_objPos[i], u_objRadius[i]);
+            float d2 = sphereSDF(p, u_objNormal[i], u_objRadius2[i]);
+            d = max(d1, d2);
+        } else if (t < 8.5) {
+            // Difference of two spheres
+            float d1 = sphereSDF(p, u_objPos[i], u_objRadius[i]);
+            float d2 = sphereSDF(p, u_objNormal[i], u_objRadius2[i]);
+            d = max(d1, -d2);
         } else if (t < 9.5) {
-            // Generic CSG using child types/params
-            float d1 = evalPrimitiveSDF(p, u_csgTypeA[i], u_objPos[i], u_objNormal[i], u_objSize[i], u_objRadius[i], u_objRadius2[i]);
-            float d2 = evalPrimitiveSDF(p, u_csgTypeB[i], u_csgB_Pos[i], u_csgB_Normal[i], u_csgB_Size[i], u_csgB_Radius[i], u_csgB_Radius2[i]);
-            if (t < 6.5) {
-                d = min(d1, d2);
-            } else if (t < 7.5) {
-                d = max(d1, d2);
-            } else if (t < 8.5) {
-                d = max(d1, -d2);
-            } else {
-                d = min(d1, d2);
-            }
+            // Mandelbulb fractal
+            d = mandelbulbSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i], u_objNormal[i].x);
         }
 
         if (d < minD) { minD = d; hitIndex = i; }
@@ -179,18 +241,18 @@ void main() {
     vec3 lightDir = normalize(u_light);
     float lambert = max(dot(normal, lightDir), 0.0);
 
-    // For CSG types compute child distances generically so we can pick a color
+    // For CSG types compute child sphere distances so we can pick a color
     vec3 base;
     if (u_objType[hitIndex] >= 6.0 && u_objType[hitIndex] <= 8.0) {
-        float d1 = evalPrimitiveSDF(p, u_csgTypeA[hitIndex], u_objPos[hitIndex], u_objNormal[hitIndex], u_objSize[hitIndex], u_objRadius[hitIndex], u_objRadius2[hitIndex]);
-        float d2 = evalPrimitiveSDF(p, u_csgTypeB[hitIndex], u_csgB_Pos[hitIndex], u_csgB_Normal[hitIndex], u_csgB_Size[hitIndex], u_csgB_Radius[hitIndex], u_csgB_Radius2[hitIndex]);
+        float d1 = sphereSDF(p, u_objPos[hitIndex], u_objRadius[hitIndex]);
+        float d2 = sphereSDF(p, u_objNormal[hitIndex], u_objRadius2[hitIndex]);
         if (u_objType[hitIndex] == 6.0) { // Union
             base = (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
         } else if (u_objType[hitIndex] == 7.0) { // Intersection
-            // For intersection the visible surface may belong to either child; choose closer
+            // For intersection the visible surface may belong to either sphere; choose closer
             base = (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
         } else { // Difference
-            // Difference shows the first object's surface (a \\ b)
+            // Difference shows the first object's surface (a \ b)
             base = u_objColor[hitIndex];
         }
     } else {

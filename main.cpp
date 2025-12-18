@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "RayMarchingRender.h"
+#include "Objects/Mandelbulb.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
 
@@ -40,6 +41,8 @@ int main()
 
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
     scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
+
+    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
 
 
     // Sun-like light source (bright yellow sphere in the sky)
@@ -121,7 +124,10 @@ int main()
             }
             else if (event->is<sf::Event::MouseMoved>())
             {
-                if (!mouseInWindow || !lmbDown)
+                // if (!mouseInWindow || !lmbDown)
+                //     continue;
+
+                if (!lmbDown)
                     continue;
 
                 const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>();
@@ -218,9 +224,12 @@ int main()
         window.display();
         window.clear();
 
+        if (dynamic_cast<Mandelbulb*>(scene[2]))
+            dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
+
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
-        // std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
+        std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
         fps = 1000.0 / duration.count();
     }
 
