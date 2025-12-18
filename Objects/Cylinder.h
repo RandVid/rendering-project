@@ -43,6 +43,7 @@ public:
     // GPU-friendly getters
     Vector3 getCenterOrPoint() const override { return center; }
     float getRadiusOrSize() const override { return radius; }
+    float getHeight() const { return halfHeight; }
     sf::Color getColorAtOrigin() const override { return color; }
     Vector3 getNormalAtOrigin() const override { return Vector3(0,0,0); } // shader computes
 };

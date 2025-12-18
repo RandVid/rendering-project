@@ -93,6 +93,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
     std::vector<float> objRadius2(count);
     std::vector<sf::Glsl::Vec3> objColor(count);
     std::vector<sf::Glsl::Vec3> objColor2(count);
+    std::vector<sf::Glsl::Vec3> objSize(count);
     std::vector<float> objType(count);
     std::vector<sf::Glsl::Vec3> objNormal(count);
 
@@ -154,7 +155,14 @@ void RayMarchingRender::renderFrame(Ray ray) {
             objRadius[i] = o->getRadiusOrSize();
             objRadius2[i] = 0.0f;
 
-            if (objType[i] == 4.0f) { // capsule
+            if (objType[i] == 2.0f) {
+                auto size = dynamic_cast<Box*>(o)->getSize();
+                objSize[i] = {static_cast<float>(size.getX()), static_cast<float>(size.getY()), static_cast<float>(size.getZ())};
+            }
+            else if (objType[i] == 3.0f) {
+                objRadius2[i] = dynamic_cast<Cylinder*>(o)->getHeight();
+            }
+            else if (objType[i] == 4.0f) { // capsule
                 objRadius2[i] = dynamic_cast<Capsule*>(o)->getHeight();
             } else if (objType[i] == 5.0f) { // torus
                 objRadius[i] = dynamic_cast<Torus*>(o)->getMajorRadius();
@@ -210,6 +218,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
     if (count > 0) {
         shader.setUniformArray("u_objPos", objPos.data(), count);
         shader.setUniformArray("u_objColor", objColor.data(), count);
+        shader.setUniformArray("u_objSize", objSize.data(), count);
         shader.setUniformArray("u_objColor2", objColor2.data(), count);
         shader.setUniformArray("u_objNormal", objNormal.data(), count);
         shader.setUniformArray("u_objRadius", objRadius.data(), count);

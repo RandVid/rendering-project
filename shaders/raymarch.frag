@@ -11,6 +11,7 @@ const int MAX_OBJECTS = 32;
 uniform vec3 u_objPos[MAX_OBJECTS];
 uniform vec3 u_objColor[MAX_OBJECTS];
 uniform vec3 u_objColor2[MAX_OBJECTS];
+uniform vec3 u_objSize[MAX_OBJECTS];
 uniform vec3 u_objNormal[MAX_OBJECTS];
 uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objRadius2[MAX_OBJECTS];
@@ -73,9 +74,9 @@ float sceneDistance(vec3 p, out int hitIndex) {
         } else if (t < 1.5) {
             d = planeSDF(p, u_objPos[i], u_objNormal[i]);
         } else if (t < 2.5) {
-            d = boxSDF(p, u_objPos[i], vec3(u_objRadius[i]));
+            d = boxSDF(p, u_objPos[i], u_objSize[i]);
         } else if (t < 3.5) {
-            d = cylinderSDF(p, u_objPos[i], u_objRadius[i], u_objRadius[i]*2.0);
+            d = cylinderSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i]*2.0);
         } else if (t < 4.5) {
             d = capsuleSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i]);
         } else if (t < 5.5) {
