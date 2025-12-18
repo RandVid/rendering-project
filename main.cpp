@@ -68,9 +68,7 @@ int main()
     bool lmbDown = false;
     double lastMouseX = renderer.width / 2.0;
     double lastMouseY = renderer.height / 2.0;
-
-    // Movement settings
-    const double moveSpeed = 0.1;  // Movement speed per frame
+    double moveSpeed = 10;
 
     window.setMouseCursorVisible(true);  // Show mouse cursor
 
@@ -181,7 +179,6 @@ int main()
 
         // WASD Movement - check keyboard state
         Vector3 moveDirection(0, 0, 0);
-        double moveSpeed = 10/fps;
 
         // Get current camera direction
         Vector3 forward = camera.getDirection().normalized();
@@ -227,9 +224,20 @@ int main()
             moveDirection = moveDirection + Z;
         }
 
+        if (pressedKeys.contains(sf::Keyboard::Key::LShift)) {
+            moveSpeed *= pow(2, 1/fps);
+        }
+
+        if (pressedKeys.contains(sf::Keyboard::Key::LControl)) {
+            moveSpeed /= pow(2, 1/fps);
+            if (moveSpeed < 0.01) moveSpeed = 0.01;
+        }
+
+        cout << moveSpeed << endl;
+
         // Apply movement if any key is pressed
         if (moveDirection.magnitude() > 0.001) {
-            moveDirection = moveDirection.normalized() * moveSpeed;
+            moveDirection = moveDirection.normalized() * moveSpeed / fps;
             camera.move(moveDirection);
         }
 
@@ -238,8 +246,8 @@ int main()
         window.display();
         window.clear();
 
-        if (dynamic_cast<Mandelbulb*>(scene[2]))
-            dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
+        // if (dynamic_cast<Mandelbulb*>(scene[2]))
+        //     dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
