@@ -1,127 +1,166 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
+#include <chrono>
+#include <optional>
 
 #include "Ray.h"
-#include "Angle.h"
 #include "Constants.h"
 #include <SFML/Graphics.hpp>
-
-#include "CSGoperations/Union.h"
-#include "CSGoperations/Intersection.h"
-#include "CSGoperations/Difference.h"
 
 #include "RayMarchingRender.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
-#include "Objects/Box.h"
-#include "Objects/Cylinder.h"
-#include "Objects/Capsule.h"
-#include "Objects/Torus.h"
-#include "Objects/Box.h"
-#include "Objects/Cylinder.h"
 
 using namespace std;
-
-void addCSGShapes(std::vector<Object*>& scene) {
-    // Example 1: Union of two spheres
-    Object* sphere1 = new Sphere({-2, 0, 10}, 5, sf::Color::Red);
-    Object* sphere2 = new Sphere({2, 0, 8}, 5, sf::Color::Blue);
-    Object* unionObj = new Union(sphere1, sphere2);
-    // scene.push_back(unionObj);
-    Object* intersectObj = new Intersection(sphere1, sphere2);
-    // scene.push_back(intersectObj);
-
-    Object* differenceObj = new Difference(sphere1, sphere2);
-    // scene.push_back(differenceObj);
-}
-
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    Ray camera = Ray((Z)*-50, Z*1-X*0.005);
 
-    /*
-    std::vector<Object*> scene = {
-        new Sphere({-1, 0, 0}, 1, sf::Color::Red),
-        new Sphere({1, 0, 0}, 0.5, sf::Color::Blue),
-        new Sphere({0, 0, 1}, 0.5, sf::Color::Green),
-        new Sphere({0, 0, -1}, 0.5, sf::Color::Yellow),
-    };
-    */
+    // ---------------- CAMERA ----------------
+    // Start camera at standing height (Z = 2) looking forward
+    // Z is up, Y is forward, X is right
+    Ray camera({0, 0, 2}, Y);
 
-    /*
-    for (int i = -30; i < 30; i++) {
-        cout << i << endl;
-        scene.push_back(new Sphere({static_cast<double>(i), 0, 0}, 0.5, sf::Color::White));
-    }
+    // FPS camera state - using proper spherical coordinates
+    // Yaw: rotation around Z axis (horizontal look left/right)
+    // Pitch: angle from horizontal plane (vertical look up/down)
+    double yaw = 0.0;      // 0 = looking along +Y
+    double pitch = 0.0;    // 0 = looking horizontally
+    const double mouseSensitivity = 0.003;
+    const double maxPitch = PI / 2.1;
 
-    scene.push_back(new Sphere({static_cast<double>(-30), 0, 0}, 5, sf::Color::White));
-    scene.push_back(new Sphere({static_cast<double>(30), 0, 0}, 5, sf::Color::White));
-    */
-
+    // ---------------- SCENE ----------------
     std::vector<Object*> scene;
+    
+    // White floor plane at Z = 0 (ground level)
+    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
+    
+    // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
+    scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
+    
 
-    // Add some primitive spheres
-    // scene.push_back(new Sphere({-1, 0, 0}, 1, sf::Color::Red));
-    // scene.push_back(new Sphere({1, 0, 0}, 0.5, sf::Color::Blue));
+    // Sun-like light source (bright yellow sphere in the sky)
+    scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 
-    // Add CSG objects
-    addCSGShapes(scene);
+    // Light direction (pointing from sun position)
+    Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();
+    
+    RayMarchingRender renderer(
+        1280,
+        720,
+        PI / 3,  // 60 degrees FOV - more natural, less warping
+        lightDir,
+        scene
+    );
 
-    // Add other shapes for testing
-    // scene.push_back(new Plane({0, -10, 0}, Y, sf::Color::White));
-    // scene.push_back(new Box({5, 0, 8}, {1,1,1}, sf::Color::Magenta));
-    // scene.push_back(new Cylinder({-5, 0, 8}, 1, 3, sf::Color::Cyan));
-    // scene.push_back(new Capsule({0, 4, 8}, {0, 6, 8}, 0.5, sf::Color::Green));
-    // scene.push_back(new Torus({0, -5, 8}, 2, 0.5, sf::Color::Yellow));
+    auto& window = renderer.window;
 
-    // scene.push_back(new Plane({0, 0, 0}, Z));
+    // Mouse control state
+    bool mouseInWindow = false;
+    bool firstMouseMove = true;
+    double lastMouseX = renderer.width / 2.0;
+    double lastMouseY = renderer.height / 2.0;
 
+    window.setMouseCursorVisible(false);
+    window.setMouseCursorGrabbed(true);  // Lock mouse cursor inside window
 
-    RayMarchingRender renderer = RayMarchingRender(1280, 720, PI/2, (X*-2+Y-Z*5).normalized(), scene);
-    auto &window = renderer.window;
-
-    int count = 0;
-
+    // ---------------- MAIN LOOP ----------------
     while (window.isOpen())
     {
         auto start = std::chrono::high_resolution_clock::now();
+
         while (const std::optional<sf::Event> event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
             {
                 window.close();
             }
-            else if (event->is<sf::Event::Resized>()) {
-                if (const auto* resized = event->getIf<sf::Event::Resized>()) {
-                    unsigned newWidth = resized->size.x;
-                    unsigned newHeight = resized->size.y;
-                    renderer.setSize(newWidth, newHeight);
-                }
+            else if (event->is<sf::Event::Resized>())
+            {
+                const auto* resized = event->getIf<sf::Event::Resized>();
+                renderer.setSize(resized->size.x, resized->size.y);
+                // Update center position after resize
+                lastMouseX = resized->size.x / 2.0;
+                lastMouseY = resized->size.y / 2.0;
+                firstMouseMove = true;
             }
-            else if (event->is<sf::Event::MouseMoved>()) {
+            else if (event->is<sf::Event::MouseEntered>())
+            {
+                mouseInWindow = true;
+                firstMouseMove = true;
+            }
+            else if (event->is<sf::Event::MouseLeft>())
+            {
+                mouseInWindow = false;
+            }
+            else if (event->is<sf::Event::MouseMoved>())
+            {
+                const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>();
+
+                double mouseX = mouseMoved->position.x;
+                double mouseY = mouseMoved->position.y;
+                
+                // Center of window
+                double centerX = renderer.width / 2.0;
+                double centerY = renderer.height / 2.0;
+
+                if (firstMouseMove)
+                {
+                    lastMouseX = centerX;
+                    lastMouseY = centerY;
+                    firstMouseMove = false;
+                    // Reset mouse to center
+                    sf::Mouse::setPosition(sf::Vector2i(static_cast<int>(centerX), static_cast<int>(centerY)), window);
+                    continue;
+                }
+
+                // Calculate delta from center (relative movement)
+                double deltaX = mouseX - centerX;
+                double deltaY = mouseY - centerY;
+
+                // Reset mouse to center to keep it locked
+                sf::Mouse::setPosition(sf::Vector2i(static_cast<int>(centerX), static_cast<int>(centerY)), window);
+
+                // FPS-style yaw & pitch
+                // Yaw rotates around Z axis (horizontal)
+                // Pitch is vertical angle from horizontal
+                yaw += deltaX * mouseSensitivity;
+                pitch -= deltaY * mouseSensitivity;  // Negative for natural mouse up = look up
+
+                // Clamp pitch to prevent flipping
+                if (pitch > maxPitch) pitch = maxPitch;
+                if (pitch < -maxPitch) pitch = -maxPitch;
+
+                // Convert spherical coordinates to direction vector
+                // Z is up, so:
+                // - Yaw rotates around Z (horizontal plane is XY)
+                // - Pitch is angle from horizontal
+                // Standard FPS: yaw=0 looks along +Y, pitch=0 is horizontal
+                Vector3 forward(
+                    std::cos(pitch) * std::sin(yaw),  // X component (right)
+                    std::cos(pitch) * std::cos(yaw),  // Y component (forward)
+                    std::sin(pitch)                    // Z component (up)
+                );
+
+                camera.setDirection(forward.normalized());
             }
         }
-        renderer.renderFrame(camera);
-        // house[0].rotate(Angle(-PI/40, Z));
-        // renderer.light.rotate(fromAngleAxis(-PI/10, Z));
-        camera.getOrigin().rotate(fromAngleAxis(-PI/40, Z));
-        camera.rotate(fromAngleAxis(-PI/400, Z));
 
+        // Render
+        renderer.renderFrame(camera);
         window.display();
         window.clear();
+
         auto end = std::chrono::high_resolution_clock::now();
-
-        // Compute duration in milliseconds (you can change to microseconds, seconds, etc.)
         std::chrono::duration<double, std::milli> duration = end - start;
+        std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
+    }
 
-        std::cout << "Program ran for " << 1000 / duration.count() << " fps\n";
-        // cout << count++ << endl;
-    }
-    for (const auto object : scene) {
+    for (auto* object : scene)
         delete object;
-    }
+
     return 0;
 }
