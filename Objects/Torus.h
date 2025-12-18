@@ -4,7 +4,7 @@
 #include "SDFUtils.h"
 #include "Object.h"
 
-class Torus : public Object {
+struct Torus : public Object {
     Vector3 center;
     double majorR;
     double minorR;

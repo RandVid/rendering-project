@@ -4,7 +4,7 @@
 #include "SDFUtils.h"
 #include "Object.h"
 
-class Cylinder : public Object {
+struct Cylinder : public Object {
     Vector3 center;
     double radius;
     double halfHeight;

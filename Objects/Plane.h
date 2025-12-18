@@ -9,7 +9,7 @@
 #include <functional>
 #include <utility>
 
-class Plane : public Object {
+struct Plane : public Object {
     Vector3 point;          // Any point on the plane
     Vector3 normal;         // Plane normal (should be normalized)
     std::function<sf::Color(const Vector3&)> color_func = [](const Vector3&) { return sf::Color::White; };

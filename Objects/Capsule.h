@@ -4,7 +4,7 @@
 #include "SDFUtils.h"
 #include "Object.h"
 
-class Capsule : public Object {
+struct Capsule : public Object {
     Vector3 a, b;
     double radius;
     sf::Color color;

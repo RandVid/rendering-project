@@ -4,7 +4,7 @@
 #include "Object.h"
 #include "SDFUtils.h"
 
-class Box : public Object {
+struct Box : public Object {
     Vector3 center;
     Vector3 halfSize;
     sf::Color color;

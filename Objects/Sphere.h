@@ -10,7 +10,7 @@
 #include "Object.h"
 
 
-class Sphere : public Object {
+struct Sphere : public Object {
     Vector3 center;
     double radius;
     std::function<sf::Color(const Vector3&)> color_func = [](const Vector3&){ return sf::Color::White; };
