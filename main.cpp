@@ -11,6 +11,11 @@
 #include "RayMarchingRender.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
+#include "Objects/Mandelbulb.h"
+#include "Objects/Torus.h"
+#include "Objects/Box.h"
+#include "Objects/Cylinder.h"
+#include "Objects/Capsule.h"
 
 using namespace std;
 
@@ -39,11 +44,26 @@ int main()
     scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
     
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
-    scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
+    //scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
     
+    // Mandelbulb fractal - positioned similar to other objects
+    // Scale 0.5 makes it roughly the same size as other shapes (1-2 units)
+    scene.push_back(new Mandelbulb({0, 10, 2}, 8, 8.0, sf::Color::Red, 0.5));
+
+    // Torus - donut shape
+    //scene.push_back(new Torus({-5, 10, 2}, 2.0, 0.5, sf::Color::Magenta));
+    
+    // Box - rectangular shape
+    scene.push_back(new Box({5, 10, 1.5}, {1.0, 1.0, 1.0}, sf::Color::Yellow));
+    
+    // Cylinder - vertical cylinder
+    //scene.push_back(new Cylinder({-8, 12, 1.5}, 0.8, 1.5, sf::Color::Blue));
+    
+    // Capsule - pill shape
+    //scene.push_back(new Capsule({8, 12, 1}, {8, 12, 3}, 0.6, sf::Color::Green));
 
     // Sun-like light source (bright yellow sphere in the sky)
-    scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
+    //scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 
     // Light direction (pointing from sun position)
     Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();

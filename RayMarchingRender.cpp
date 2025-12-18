@@ -14,6 +14,7 @@
 #include "Objects/Cylinder.h"
 #include "Objects/Capsule.h"
 #include "Objects/Torus.h"
+#include "Objects/Mandelbulb.h"
 #include "CSGoperations/Union.h"
 #include "CSGoperations/Difference.h"
 #include "CSGoperations/Intersection.h"
@@ -109,6 +110,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
         else if (dynamic_cast<Union*>(o)) objType[i] = 6.0f;
         else if (dynamic_cast<Intersection*>(o)) objType[i] = 7.0f;
         else if (dynamic_cast<Difference*>(o)) objType[i] = 8.0f;
+        else if (dynamic_cast<Mandelbulb*>(o)) objType[i] = 9.0f;
         else objType[i] = -1.0f;
 
         // For primitives and CSG, set data
@@ -159,16 +161,24 @@ void RayMarchingRender::renderFrame(Ray ray) {
             } else if (objType[i] == 5.0f) { // torus
                 objRadius[i] = dynamic_cast<Torus*>(o)->getMajorRadius();
                 objRadius2[i] = dynamic_cast<Torus*>(o)->getMinorRadius();
+            } else if (objType[i] == 9.0f) { // mandelbulb
+                Mandelbulb* mb = dynamic_cast<Mandelbulb*>(o);
+                objRadius[i] = static_cast<float>(mb->scale);
+                objRadius2[i] = static_cast<float>(mb->power);
+                // Store iterations in objNormal.x (we'll extract it in shader)
+                // Don't overwrite this - Mandelbulb doesn't use getNormalAtOrigin()
+                objNormal[i] = sf::Glsl::Vec3(static_cast<float>(mb->iterations), 0.0f, 0.0f);
+            } else {
+                // For other objects, set normal from getNormalAtOrigin()
+                Vector3 n = o->getNormalAtOrigin();
+                objNormal[i] = sf::Glsl::Vec3(static_cast<float>(n.getX()),
+                                            static_cast<float>(n.getY()),
+                                            static_cast<float>(n.getZ()));
             }
 
             sf::Color c = o->getColorAtOrigin();
             objColor[i] = sf::Glsl::Vec3(c.r / 255.f, c.g / 255.f, c.b / 255.f);
             objColor2[i] = objColor[i]; // same for primitives
-
-            Vector3 n = o->getNormalAtOrigin();
-            objNormal[i] = sf::Glsl::Vec3(static_cast<float>(n.getX()),
-                                        static_cast<float>(n.getY()),
-                                        static_cast<float>(n.getZ()));
         }
     }
 

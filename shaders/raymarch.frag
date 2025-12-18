@@ -52,6 +52,93 @@ float torusSDF(vec3 p, vec3 center, float R, float r) {
     return length(q) - r;
 }
 
+float mandelbulbSDF(vec3 p, vec3 center, float scale, float power, float iterations) {
+    // Quick bounding sphere check - if very far, return large distance
+    float distFromCenter = length(p - center);
+    float boundingRadius = scale * 3.0;  // Approximate bounding radius
+    // Only use bounding sphere for very far points to avoid interfering with close rendering
+    if (distFromCenter > boundingRadius * 3.0) {
+        return distFromCenter - boundingRadius;  // Distance to bounding sphere
+    }
+    
+    // Transform point to Mandelbulb space
+    vec3 c = (p - center) / scale;
+    vec3 z = vec3(0.0);  // Start at origin
+    float dr = 1.0;      // Derivative accumulator
+    float bailout = 2.0;
+    
+    // Iterate the Mandelbulb formula
+    for (float i = 0.0; i < iterations; i += 1.0) {
+        float r = length(z);
+        
+        // Early exit if escaped
+        if (r > bailout) {
+            break;
+        }
+        
+        // Avoid division by zero
+        if (r < 1e-10) {
+            r = 1e-10;
+            z = vec3(1e-10, 0.0, 0.0);
+        }
+        
+        // Convert to spherical coordinates
+        float zr_ratio = clamp(z.z / r, -1.0, 1.0);
+        float theta = acos(zr_ratio);
+        float phi = atan(z.y, z.x);
+        
+        // Update derivative: dr = n * r^(n-1) * dr + 1
+        dr = pow(r, power - 1.0) * power * dr + 1.0;
+        
+        // Raise to power in spherical coordinates: (r, theta, phi) -> (r^n, n*theta, n*phi)
+        float zr = pow(r, power);
+        theta = theta * power;
+        phi = phi * power;
+        
+        // Convert back to cartesian
+        z = vec3(
+            sin(theta) * cos(phi),
+            sin(theta) * sin(phi),
+            cos(theta)
+        ) * zr;
+        
+        // Add constant: z = z^n + c
+        z = z + c;
+    }
+    
+    // Calculate final magnitude
+    float r = length(z);
+    
+    // Ensure reasonable values
+    if (r < 1e-10) r = 1e-10;
+    if (dr < 1e-10) dr = 1e-10;
+    
+    // Distance estimator: 0.5 * log(r) * r / dr
+    float distance = 0.5 * log(r) * r / dr;
+    
+    // Scale the distance
+    distance = distance * scale;
+    
+    // Handle negative distances (inside set) - use very small positive value
+    // Make it smaller than EPS (0.001) to ensure proper hits
+    if (distance < 0.0) {
+        distance = 0.0005;  // Smaller than EPS to ensure hit detection
+    }
+    
+    // Ensure minimum distance is reasonable but not too large
+    // This helps with ray marching convergence
+    if (distance < 0.0001) {
+        distance = 0.0001;
+    }
+    
+    // Clamp to reasonable range
+    if (distance != distance || distance > 100.0) {
+        distance = 100.0;
+    }
+    
+    return distance;
+}
+
 // Example: CSG operations
 float opUnion(float d1, float d2) { return min(d1, d2); }
 float opIntersection(float d1, float d2) { return max(d1, d2); }
@@ -95,6 +182,9 @@ float sceneDistance(vec3 p, out int hitIndex) {
             float d1 = sphereSDF(p, u_objPos[i], u_objRadius[i]);
             float d2 = sphereSDF(p, u_objNormal[i], u_objRadius2[i]);
             d = max(d1, -d2);
+        } else if (t < 9.5) {
+            // Mandelbulb fractal
+            d = mandelbulbSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i], u_objNormal[i].x);
         }
 
         if (d < minD) { minD = d; hitIndex = i; }
