@@ -170,7 +170,8 @@ void main() {
     }
 
     if (hitIndex == -1) {
-        gl_FragColor = vec4(vec3(0.05), 1.0);
+        // Blue sky background
+        gl_FragColor = vec4(0.5, 0.7, 1.0, 1.0);
         return;
     }
 
