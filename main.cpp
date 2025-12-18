@@ -67,8 +67,9 @@ int main()
     // Movement settings
     const double moveSpeed = 0.1;  // Movement speed per frame
 
-    window.setMouseCursorVisible(false);
-    window.setMouseCursorGrabbed(true);  // Lock mouse cursor inside window
+    window.setMouseCursorVisible(true);  // Show mouse cursor
+
+    double fps = 1;
 
     // ---------------- MAIN LOOP ----------------
     while (window.isOpen())
@@ -85,9 +86,6 @@ int main()
             {
                 const auto* resized = event->getIf<sf::Event::Resized>();
                 renderer.setSize(resized->size.x, resized->size.y);
-                // Update center position after resize
-                lastMouseX = resized->size.x / 2.0;
-                lastMouseY = resized->size.y / 2.0;
                 firstMouseMove = true;
             }
             else if (event->is<sf::Event::MouseEntered>())
@@ -101,31 +99,29 @@ int main()
             }
             else if (event->is<sf::Event::MouseMoved>())
             {
+                // Only update camera when mouse is in window
+                if (!mouseInWindow) continue;
+                
                 const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>();
 
                 double mouseX = mouseMoved->position.x;
                 double mouseY = mouseMoved->position.y;
-                
-                // Center of window
-                double centerX = renderer.width / 2.0;
-                double centerY = renderer.height / 2.0;
 
                 if (firstMouseMove)
                 {
-                    lastMouseX = centerX;
-                    lastMouseY = centerY;
+                    lastMouseX = mouseX;
+                    lastMouseY = mouseY;
                     firstMouseMove = false;
-                    // Reset mouse to center
-                    sf::Mouse::setPosition(sf::Vector2i(static_cast<int>(centerX), static_cast<int>(centerY)), window);
                     continue;
                 }
 
-                // Calculate delta from center (relative movement)
-                double deltaX = mouseX - centerX;
-                double deltaY = mouseY - centerY;
+                // Calculate delta from last position (relative movement)
+                double deltaX = mouseX - lastMouseX;
+                double deltaY = mouseY - lastMouseY;
 
-                // Reset mouse to center to keep it locked
-                sf::Mouse::setPosition(sf::Vector2i(static_cast<int>(centerX), static_cast<int>(centerY)), window);
+                // Update last position
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
 
                 // FPS-style yaw & pitch
                 // Yaw rotates around Z axis (horizontal)
@@ -140,7 +136,7 @@ int main()
                 // Convert spherical coordinates to direction vector
                 // Z is up, so:
                 // - Yaw rotates around Z (horizontal plane is XY)
-                // - Pitch is angle from horizontal
+                // - Pitch is vertical angle from horizontal
                 // Standard FPS: yaw=0 looks along +Y, pitch=0 is horizontal
                 Vector3 forward(
                     std::cos(pitch) * std::sin(yaw),  // X component (right)
@@ -213,6 +209,7 @@ int main()
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
         std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
+        fps = 1000.0 / duration.count();
     }
 
     for (auto* object : scene)
