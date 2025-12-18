@@ -206,6 +206,43 @@ vec3 estimateNormal(vec3 p) {
 }
 
 // ------------------------
+// Shadow ray marching
+// ------------------------
+float shadowRay(vec3 p, vec3 normal, vec3 lightDir) {
+    // Offset from surface to avoid self-intersection
+    // Use a larger bias and also offset along light direction
+    const float shadowBias = 0.02;
+    vec3 shadowOrigin = p + normal * shadowBias + lightDir * shadowBias;
+    
+    // Ray march toward light
+    const float SHADOW_EPS = 0.005;  // Slightly larger epsilon to avoid surface acne
+    const float MAX_SHADOW_DIST = 100.0;
+    const int MAX_SHADOW_STEPS = 64;
+    
+    float distTraveled = 0.0;
+    
+    // Start with a minimum step to ensure we're away from the surface
+    distTraveled = shadowBias * 2.0;
+    
+    for (int i = 0; i < MAX_SHADOW_STEPS && distTraveled < MAX_SHADOW_DIST; ++i) {
+        int dummy;
+        vec3 currentPos = shadowOrigin + lightDir * distTraveled;
+        float d = sceneDistance(currentPos, dummy);
+        
+        // If we hit something, we're in shadow
+        if (d < SHADOW_EPS) {
+            return 0.0;  // Hard shadow: completely dark
+        }
+        
+        // Step forward by the distance (with minimum step to avoid getting stuck)
+        distTraveled += max(d, 0.02);
+    }
+    
+    // No occlusion found, fully lit
+    return 1.0;
+}
+
+// ------------------------
 // Main
 // ------------------------
 void main() {
@@ -241,6 +278,9 @@ void main() {
     vec3 lightDir = normalize(u_light);
     float lambert = max(dot(normal, lightDir), 0.0);
 
+    // Cast shadow ray from hit point toward light
+    float shadow = shadowRay(p, normal, lightDir);
+
     // For CSG types compute child sphere distances so we can pick a color
     vec3 base;
     if (u_objType[hitIndex] >= 6.0 && u_objType[hitIndex] <= 8.0) {
@@ -259,6 +299,8 @@ void main() {
         base = u_objColor[hitIndex];
     }
 
-    vec3 color = base * (0.2 + 0.8 * lambert);
+    // Apply Lambertian shading with shadow
+    // Ambient (0.2) + Diffuse (0.8 * lambert) * shadow
+    vec3 color = base * (0.2 + 0.8 * lambert * shadow);
     gl_FragColor = vec4(color, 1.0);
 }

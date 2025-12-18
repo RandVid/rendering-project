@@ -9,9 +9,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "RayMarchingRender.h"
-#include "Objects/Mandelbulb.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
+#include "Objects/Box.h"
 
 using namespace std;
 
@@ -34,23 +34,29 @@ int main()
     const double maxPitch = PI / 2.1;
 
     // ---------------- SCENE ----------------
+    // Shadow demonstration scene:
+    // - Big box at the top
+    // - Sphere below the box (should be in shadow, but isn't without shadow implementation)
     std::vector<Object*> scene;
 
-    // White floor plane at Z = 0 (ground level)
+    // Green floor plane at Z = 0 (ground level)
     scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
 
-    // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
-    scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
+    // Big box floating above (at Z = 8, centered at Y = 10)
+    // This box should cast a shadow on the sphere below
+    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White));
 
-    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
+    // Sphere below the box (at Y = 10, Z = 2)
+    // This sphere should be in shadow from the box above, but currently isn't
+    scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White));
 
+    // Light source positioned above and to the side
+    // This creates a clear shadow that should fall on the sphere
+    scene.push_back(new Sphere({-5, 10, 12}, 1.0, sf::Color::White));
 
-    // Sun-like light source (bright yellow sphere in the sky)
-    scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
-
-    // Light direction (pointing from sun position)
+    // Light direction (pointing from light position toward the scene)
     Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();
-
+    scene.push_back(new Sphere({0, -21, 16}, 0.2, sf::Color::Yellow));
     RayMarchingRender renderer(
         1280,
         720,
@@ -223,9 +229,6 @@ int main()
         renderer.renderFrame(camera);
         window.display();
         window.clear();
-
-        if (dynamic_cast<Mandelbulb*>(scene[2]))
-            dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
