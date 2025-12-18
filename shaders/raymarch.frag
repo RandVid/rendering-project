@@ -17,6 +17,15 @@ uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objRadius2[MAX_OBJECTS];
 uniform float u_objType[MAX_OBJECTS];
 
+// CSG child B parameters (child A reuses base arrays); types for both
+uniform float u_csgTypeA[MAX_OBJECTS];
+uniform float u_csgTypeB[MAX_OBJECTS];
+uniform vec3 u_csgB_Pos[MAX_OBJECTS];
+uniform vec3 u_csgB_Normal[MAX_OBJECTS];
+uniform vec3 u_csgB_Size[MAX_OBJECTS];
+uniform float u_csgB_Radius[MAX_OBJECTS];
+uniform float u_csgB_Radius2[MAX_OBJECTS];
+
 vec4 FragColor;
 
 // ------------------------
@@ -59,6 +68,26 @@ float opIntersection(float d1, float d2) { return max(d1, d2); }
 float opDifference(float d1, float d2) { return max(d1, -d2); }
 
 // ------------------------
+// Primitive evaluation by type
+// ------------------------
+float evalPrimitiveSDF(vec3 p, float type, vec3 pos, vec3 normal, vec3 size, float r1, float r2) {
+    if (type < 0.5) {
+        return sphereSDF(p, pos, r1);
+    } else if (type < 1.5) {
+        return planeSDF(p, pos, normal);
+    } else if (type < 2.5) {
+        return boxSDF(p, pos, size);
+    } else if (type < 3.5) {
+        return cylinderSDF(p, pos, r1, r2 * 2.0);
+    } else if (type < 4.5) {
+        return capsuleSDF(p, pos, r1, r2);
+    } else if (type < 5.5) {
+        return torusSDF(p, pos, r1, r2);
+    }
+    return 1e20;
+}
+
+// ------------------------
 // Scene distance
 // ------------------------
 float sceneDistance(vec3 p, out int hitIndex) {
@@ -81,21 +110,19 @@ float sceneDistance(vec3 p, out int hitIndex) {
             d = capsuleSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i]);
         } else if (t < 5.5) {
             d = torusSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i]);
-        } else if (t < 6.5) {
-            // Union of two spheres
-            float d1 = sphereSDF(p, u_objPos[i], u_objRadius[i]);
-            float d2 = sphereSDF(p, u_objNormal[i], u_objRadius2[i]);
-            d = min(d1, d2);
-        } else if (t < 7.5) {
-            // Intersection of two spheres
-            float d1 = sphereSDF(p, u_objPos[i], u_objRadius[i]);
-            float d2 = sphereSDF(p, u_objNormal[i], u_objRadius2[i]);
-            d = max(d1, d2);
-        } else if (t < 8.5) {
-            // Difference of two spheres
-            float d1 = sphereSDF(p, u_objPos[i], u_objRadius[i]);
-            float d2 = sphereSDF(p, u_objNormal[i], u_objRadius2[i]);
-            d = max(d1, -d2);
+        } else if (t < 9.5) {
+            // Generic CSG using child types/params
+            float d1 = evalPrimitiveSDF(p, u_csgTypeA[i], u_objPos[i], u_objNormal[i], u_objSize[i], u_objRadius[i], u_objRadius2[i]);
+            float d2 = evalPrimitiveSDF(p, u_csgTypeB[i], u_csgB_Pos[i], u_csgB_Normal[i], u_csgB_Size[i], u_csgB_Radius[i], u_csgB_Radius2[i]);
+            if (t < 6.5) {
+                d = min(d1, d2);
+            } else if (t < 7.5) {
+                d = max(d1, d2);
+            } else if (t < 8.5) {
+                d = max(d1, -d2);
+            } else {
+                d = min(d1, d2);
+            }
         }
 
         if (d < minD) { minD = d; hitIndex = i; }
@@ -151,18 +178,18 @@ void main() {
     vec3 lightDir = normalize(u_light);
     float lambert = max(dot(normal, lightDir), 0.0);
 
-    // For CSG types compute child sphere distances so we can pick a color
+    // For CSG types compute child distances generically so we can pick a color
     vec3 base;
     if (u_objType[hitIndex] >= 6.0 && u_objType[hitIndex] <= 8.0) {
-        float d1 = sphereSDF(p, u_objPos[hitIndex], u_objRadius[hitIndex]);
-        float d2 = sphereSDF(p, u_objNormal[hitIndex], u_objRadius2[hitIndex]);
+        float d1 = evalPrimitiveSDF(p, u_csgTypeA[hitIndex], u_objPos[hitIndex], u_objNormal[hitIndex], u_objSize[hitIndex], u_objRadius[hitIndex], u_objRadius2[hitIndex]);
+        float d2 = evalPrimitiveSDF(p, u_csgTypeB[hitIndex], u_csgB_Pos[hitIndex], u_csgB_Normal[hitIndex], u_csgB_Size[hitIndex], u_csgB_Radius[hitIndex], u_csgB_Radius2[hitIndex]);
         if (u_objType[hitIndex] == 6.0) { // Union
             base = (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
         } else if (u_objType[hitIndex] == 7.0) { // Intersection
-            // For intersection the visible surface may belong to either sphere; choose closer
+            // For intersection the visible surface may belong to either child; choose closer
             base = (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
         } else { // Difference
-            // Difference shows the first object's surface (a \ b)
+            // Difference shows the first object's surface (a \\ b)
             base = u_objColor[hitIndex];
         }
     } else {

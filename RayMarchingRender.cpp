@@ -97,6 +97,15 @@ void RayMarchingRender::renderFrame(Ray ray) {
     std::vector<float> objType(count);
     std::vector<sf::Glsl::Vec3> objNormal(count);
 
+    // CSG child arrays: A uses base arrays; define arrays for B and types for A/B
+    std::vector<float> csgTypeA(count, -1.0f);
+    std::vector<float> csgTypeB(count, -1.0f);
+    std::vector<sf::Glsl::Vec3> csgB_Pos(count);
+    std::vector<sf::Glsl::Vec3> csgB_Normal(count);
+    std::vector<sf::Glsl::Vec3> csgB_Size(count);
+    std::vector<float> csgB_Radius(count, 0.0f);
+    std::vector<float> csgB_Radius2(count, 0.0f);
+
     for (unsigned i = 0; i < count; ++i) {
         Object* o = objects[i];
 
@@ -114,7 +123,6 @@ void RayMarchingRender::renderFrame(Ray ray) {
 
         // For primitives and CSG, set data
         if (objType[i] >= 6.0f && objType[i] <= 8.0f) { // CSG: Union(6), Intersection(7), Difference(8)
-            // Assume Union/Intersection/Difference of two spheres
             Object* childA = nullptr;
             Object* childB = nullptr;
             if (auto* un = dynamic_cast<Union*>(o)) {
@@ -127,22 +135,88 @@ void RayMarchingRender::renderFrame(Ray ray) {
                 childA = diff->getA();
                 childB = diff->getB();
             }
+            auto setTypeFromObj = [](Object* obj) -> float {
+                if (dynamic_cast<Sphere*>(obj)) return 0.0f;
+                if (dynamic_cast<Plane*>(obj)) return 1.0f;
+                if (dynamic_cast<Box*>(obj)) return 2.0f;
+                if (dynamic_cast<Cylinder*>(obj)) return 3.0f;
+                if (dynamic_cast<Capsule*>(obj)) return 4.0f;
+                if (dynamic_cast<Torus*>(obj)) return 5.0f;
+                return -1.0f;
+            };
             if (childA && childB) {
-                auto* sphA = dynamic_cast<Sphere*>(childA);
-                auto* sphB = dynamic_cast<Sphere*>(childB);
-                if (sphA && sphB) {
-                    objPos[i] = sf::Glsl::Vec3(static_cast<float>(sphA->getCenter().getX()),
-                                               static_cast<float>(sphA->getCenter().getY()),
-                                               static_cast<float>(sphA->getCenter().getZ()));
-                    objRadius[i] = static_cast<float>(sphA->getRadius());
-                    objNormal[i] = sf::Glsl::Vec3(static_cast<float>(sphB->getCenter().getX()),
-                                                  static_cast<float>(sphB->getCenter().getY()),
-                                                  static_cast<float>(sphB->getCenter().getZ()));
-                    objRadius2[i] = static_cast<float>(sphB->getRadius());
-                    sf::Color cA = sphA->getColorAtOrigin();
-                    sf::Color cB = sphB->getColorAtOrigin();
-                    objColor[i] = sf::Glsl::Vec3(cA.r / 255.f, cA.g / 255.f, cA.b / 255.f);
-                    objColor2[i] = sf::Glsl::Vec3(cB.r / 255.f, cB.g / 255.f, cB.b / 255.f);
+                // Colors from children
+                sf::Color cA = childA->getColorAtOrigin();
+                sf::Color cB = childB->getColorAtOrigin();
+                objColor[i] = sf::Glsl::Vec3(cA.r / 255.f, cA.g / 255.f, cA.b / 255.f);
+                objColor2[i] = sf::Glsl::Vec3(cB.r / 255.f, cB.g / 255.f, cB.b / 255.f);
+
+                // Fill A into base arrays
+                csgTypeA[i] = setTypeFromObj(childA);
+                if (auto* s = dynamic_cast<Sphere*>(childA)) {
+                    objPos[i] = {static_cast<float>(s->getCenter().getX()), static_cast<float>(s->getCenter().getY()), static_cast<float>(s->getCenter().getZ())};
+                    objRadius[i] = static_cast<float>(s->getRadius());
+                    objNormal[i] = {0,0,0};
+                    objSize[i] = {0,0,0};
+                    objRadius2[i] = 0.0f;
+                } else if (auto* pl = dynamic_cast<Plane*>(childA)) {
+                    objPos[i] = {static_cast<float>(pl->getPoint().getX()), static_cast<float>(pl->getPoint().getY()), static_cast<float>(pl->getPoint().getZ())};
+                    objNormal[i] = {static_cast<float>(pl->getNormal().getX()), static_cast<float>(pl->getNormal().getY()), static_cast<float>(pl->getNormal().getZ())};
+                    objRadius[i] = 0.0f; objRadius2[i] = 0.0f; objSize[i] = {0,0,0};
+                } else if (auto* b = dynamic_cast<Box*>(childA)) {
+                    objPos[i] = {static_cast<float>(b->getCenterOrPoint().getX()), static_cast<float>(b->getCenterOrPoint().getY()), static_cast<float>(b->getCenterOrPoint().getZ())};
+                    auto hs = b->getSize();
+                    objSize[i] = {static_cast<float>(hs.getX()), static_cast<float>(hs.getY()), static_cast<float>(hs.getZ())};
+                    objRadius[i] = 0.0f; objRadius2[i] = 0.0f; objNormal[i] = {0,0,0};
+                } else if (auto* cy = dynamic_cast<Cylinder*>(childA)) {
+                    objPos[i] = {static_cast<float>(cy->getCenterOrPoint().getX()), static_cast<float>(cy->getCenterOrPoint().getY()), static_cast<float>(cy->getCenterOrPoint().getZ())};
+                    objRadius[i] = static_cast<float>(cy->getRadiusOrSize());
+                    objRadius2[i] = static_cast<float>(cy->getHeight());
+                    objNormal[i] = {0,0,0}; objSize[i] = {0,0,0};
+                } else if (auto* cap = dynamic_cast<Capsule*>(childA)) {
+                    Vector3 center = (cap->a + cap->b) * 0.5;
+                    objPos[i] = {static_cast<float>(center.getX()), static_cast<float>(center.getY()), static_cast<float>(center.getZ())};
+                    objRadius[i] = static_cast<float>(cap->radius);
+                    objRadius2[i] = static_cast<float>(cap->getHeight());
+                    objNormal[i] = {0,0,0}; objSize[i] = {0,0,0};
+                } else if (auto* to = dynamic_cast<Torus*>(childA)) {
+                    objPos[i] = {static_cast<float>(to->center.getX()), static_cast<float>(to->center.getY()), static_cast<float>(to->center.getZ())};
+                    objRadius[i] = static_cast<float>(to->getMajorRadius());
+                    objRadius2[i] = static_cast<float>(to->getMinorRadius());
+                    objNormal[i] = {0,0,0}; objSize[i] = {0,0,0};
+                }
+
+                // Fill B into csgB_* arrays
+                csgTypeB[i] = setTypeFromObj(childB);
+                if (auto* s = dynamic_cast<Sphere*>(childB)) {
+                    csgB_Pos[i] = {static_cast<float>(s->getCenter().getX()), static_cast<float>(s->getCenter().getY()), static_cast<float>(s->getCenter().getZ())};
+                    csgB_Radius[i] = static_cast<float>(s->getRadius());
+                    csgB_Normal[i] = {0,0,0}; csgB_Size[i] = {0,0,0}; csgB_Radius2[i] = 0.0f;
+                } else if (auto* pl = dynamic_cast<Plane*>(childB)) {
+                    csgB_Pos[i] = {static_cast<float>(pl->getPoint().getX()), static_cast<float>(pl->getPoint().getY()), static_cast<float>(pl->getPoint().getZ())};
+                    csgB_Normal[i] = {static_cast<float>(pl->getNormal().getX()), static_cast<float>(pl->getNormal().getY()), static_cast<float>(pl->getNormal().getZ())};
+                    csgB_Radius[i] = 0.0f; csgB_Radius2[i] = 0.0f; csgB_Size[i] = {0,0,0};
+                } else if (auto* b = dynamic_cast<Box*>(childB)) {
+                    csgB_Pos[i] = {static_cast<float>(b->getCenterOrPoint().getX()), static_cast<float>(b->getCenterOrPoint().getY()), static_cast<float>(b->getCenterOrPoint().getZ())};
+                    auto hs = b->getSize();
+                    csgB_Size[i] = {static_cast<float>(hs.getX()), static_cast<float>(hs.getY()), static_cast<float>(hs.getZ())};
+                    csgB_Radius[i] = 0.0f; csgB_Radius2[i] = 0.0f; csgB_Normal[i] = {0,0,0};
+                } else if (auto* cy = dynamic_cast<Cylinder*>(childB)) {
+                    csgB_Pos[i] = {static_cast<float>(cy->getCenterOrPoint().getX()), static_cast<float>(cy->getCenterOrPoint().getY()), static_cast<float>(cy->getCenterOrPoint().getZ())};
+                    csgB_Radius[i] = static_cast<float>(cy->getRadiusOrSize());
+                    csgB_Radius2[i] = static_cast<float>(cy->getHeight());
+                    csgB_Normal[i] = {0,0,0}; csgB_Size[i] = {0,0,0};
+                } else if (auto* cap = dynamic_cast<Capsule*>(childB)) {
+                    Vector3 center = (cap->a + cap->b) * 0.5;
+                    csgB_Pos[i] = {static_cast<float>(center.getX()), static_cast<float>(center.getY()), static_cast<float>(center.getZ())};
+                    csgB_Radius[i] = static_cast<float>(cap->radius);
+                    csgB_Radius2[i] = static_cast<float>(cap->getHeight());
+                    csgB_Normal[i] = {0,0,0}; csgB_Size[i] = {0,0,0};
+                } else if (auto* to = dynamic_cast<Torus*>(childB)) {
+                    csgB_Pos[i] = {static_cast<float>(to->center.getX()), static_cast<float>(to->center.getY()), static_cast<float>(to->center.getZ())};
+                    csgB_Radius[i] = static_cast<float>(to->getMajorRadius());
+                    csgB_Radius2[i] = static_cast<float>(to->getMinorRadius());
+                    csgB_Normal[i] = {0,0,0}; csgB_Size[i] = {0,0,0};
                 }
             }
         } else {
@@ -224,6 +298,14 @@ void RayMarchingRender::renderFrame(Ray ray) {
         shader.setUniformArray("u_objRadius", objRadius.data(), count);
         shader.setUniformArray("u_objRadius2", objRadius2.data(), count);
         shader.setUniformArray("u_objType", objType.data(), count);
+        // CSG child uniforms
+        shader.setUniformArray("u_csgTypeA", csgTypeA.data(), count);
+        shader.setUniformArray("u_csgTypeB", csgTypeB.data(), count);
+        shader.setUniformArray("u_csgB_Pos", csgB_Pos.data(), count);
+        shader.setUniformArray("u_csgB_Normal", csgB_Normal.data(), count);
+        shader.setUniformArray("u_csgB_Size", csgB_Size.data(), count);
+        shader.setUniformArray("u_csgB_Radius", csgB_Radius.data(), count);
+        shader.setUniformArray("u_csgB_Radius2", csgB_Radius2.data(), count);
     }
 
     // Draw full-screen quad with shader
