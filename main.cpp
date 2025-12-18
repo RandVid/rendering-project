@@ -34,20 +34,20 @@ int main()
 
     // ---------------- SCENE ----------------
     std::vector<Object*> scene;
-    
+
     // White floor plane at Z = 0 (ground level)
     scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
-    
+
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
     scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
-    
+
 
     // Sun-like light source (bright yellow sphere in the sky)
     scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 
     // Light direction (pointing from sun position)
     Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();
-    
+
     RayMarchingRender renderer(
         1280,
         720,
@@ -61,15 +61,16 @@ int main()
     // Mouse control state
     bool mouseInWindow = false;
     bool firstMouseMove = true;
+    bool lmbDown = false;
     double lastMouseX = renderer.width / 2.0;
     double lastMouseY = renderer.height / 2.0;
 
     // Movement settings
     const double moveSpeed = 0.1;  // Movement speed per frame
 
-    window.setMouseCursorVisible(false);
-    window.setMouseCursorGrabbed(true);  // Lock mouse cursor inside window
+    window.setMouseCursorVisible(true);  // Show mouse cursor
 
+    double fps = 1;
     // ---------------- MAIN LOOP ----------------
     while (window.isOpen())
     {
@@ -98,54 +99,60 @@ int main()
             else if (event->is<sf::Event::MouseLeft>())
             {
                 mouseInWindow = false;
+                lmbDown = false;
+            }
+            else if (event->is<sf::Event::MouseButtonPressed>())
+            {
+                const auto* mb = event->getIf<sf::Event::MouseButtonPressed>();
+                if (mb->button == sf::Mouse::Button::Left)
+                {
+                    lmbDown = true;
+                    firstMouseMove = true;   // чтобы не дёргалось при первом движении
+                }
+            }
+            else if (event->is<sf::Event::MouseButtonReleased>())
+            {
+                const auto* mb = event->getIf<sf::Event::MouseButtonReleased>();
+                if (mb->button == sf::Mouse::Button::Left)
+                {
+                    lmbDown = false;
+                    firstMouseMove = true;
+                }
             }
             else if (event->is<sf::Event::MouseMoved>())
             {
+                if (!mouseInWindow || !lmbDown)
+                    continue;
+
                 const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>();
 
                 double mouseX = mouseMoved->position.x;
                 double mouseY = mouseMoved->position.y;
-                
-                // Center of window
-                double centerX = renderer.width / 2.0;
-                double centerY = renderer.height / 2.0;
 
                 if (firstMouseMove)
                 {
-                    lastMouseX = centerX;
-                    lastMouseY = centerY;
+                    lastMouseX = mouseX;
+                    lastMouseY = mouseY;
                     firstMouseMove = false;
-                    // Reset mouse to center
-                    sf::Mouse::setPosition(sf::Vector2i(static_cast<int>(centerX), static_cast<int>(centerY)), window);
                     continue;
                 }
 
-                // Calculate delta from center (relative movement)
-                double deltaX = mouseX - centerX;
-                double deltaY = mouseY - centerY;
+                double deltaX = mouseX - lastMouseX;
+                double deltaY = mouseY - lastMouseY;
 
-                // Reset mouse to center to keep it locked
-                sf::Mouse::setPosition(sf::Vector2i(static_cast<int>(centerX), static_cast<int>(centerY)), window);
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
 
-                // FPS-style yaw & pitch
-                // Yaw rotates around Z axis (horizontal)
-                // Pitch is vertical angle from horizontal
                 yaw += deltaX * mouseSensitivity;
-                pitch -= deltaY * mouseSensitivity;  // Negative for natural mouse up = look up
+                pitch -= deltaY * mouseSensitivity;
 
-                // Clamp pitch to prevent flipping
                 if (pitch > maxPitch) pitch = maxPitch;
                 if (pitch < -maxPitch) pitch = -maxPitch;
 
-                // Convert spherical coordinates to direction vector
-                // Z is up, so:
-                // - Yaw rotates around Z (horizontal plane is XY)
-                // - Pitch is angle from horizontal
-                // Standard FPS: yaw=0 looks along +Y, pitch=0 is horizontal
                 Vector3 forward(
-                    std::cos(pitch) * std::sin(yaw),  // X component (right)
-                    std::cos(pitch) * std::cos(yaw),  // Y component (forward)
-                    std::sin(pitch)                    // Z component (up)
+                    std::cos(pitch) * std::sin(yaw),
+                    std::cos(pitch) * std::cos(yaw),
+                    std::sin(pitch)
                 );
 
                 camera.setDirection(forward.normalized());
@@ -154,10 +161,11 @@ int main()
 
         // WASD Movement - check keyboard state
         Vector3 moveDirection(0, 0, 0);
-        
+        double moveSpeed = 10/fps;
+
         // Get current camera direction
         Vector3 forward = camera.getDirection().normalized();
-        
+
         // Calculate right vector (for strafing)
         // Right = forward cross world up (Z)
         Vector3 right = forward.cross(Z).normalized();
@@ -165,15 +173,15 @@ int main()
             right = X;  // Fallback if forward is parallel to Z
         }
         right = right.normalized();
-        
+
         // Calculate forward movement (project forward onto horizontal plane, remove Z component)
         Vector3 forwardHorizontal = Vector3(forward.getX(), forward.getY(), 0).normalized();
-        
+
         // W - Move forward
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
             moveDirection = moveDirection + forwardHorizontal;
         }
-        
+
         // S - Move backward
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
             moveDirection = moveDirection - forwardHorizontal;
@@ -183,22 +191,22 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
             moveDirection = moveDirection - right;
         }
-        
+
         // D - Strafe right
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
             moveDirection = moveDirection + right;
         }
-        
+
         // Q - Move up (positive Z)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
-            moveDirection = moveDirection + Z;
-        }
-        
-        // E - Move down (negative Z)
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
             moveDirection = moveDirection - Z;
         }
-        
+
+        // E - Move down (negative Z)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+            moveDirection = moveDirection + Z;
+        }
+
         // Apply movement if any key is pressed
         if (moveDirection.magnitude() > 0.001) {
             moveDirection = moveDirection.normalized() * moveSpeed;
@@ -212,7 +220,8 @@ int main()
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
-        std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
+        // std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
+        fps = 1000.0 / duration.count();
     }
 
     for (auto* object : scene)
