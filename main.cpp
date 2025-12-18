@@ -64,6 +64,9 @@ int main()
     double lastMouseX = renderer.width / 2.0;
     double lastMouseY = renderer.height / 2.0;
 
+    // Movement settings
+    const double moveSpeed = 0.1;  // Movement speed per frame
+
     window.setMouseCursorVisible(false);
     window.setMouseCursorGrabbed(true);  // Lock mouse cursor inside window
 
@@ -147,6 +150,59 @@ int main()
 
                 camera.setDirection(forward.normalized());
             }
+        }
+
+        // WASD Movement - check keyboard state
+        Vector3 moveDirection(0, 0, 0);
+        
+        // Get current camera direction
+        Vector3 forward = camera.getDirection().normalized();
+        
+        // Calculate right vector (for strafing)
+        // Right = forward cross world up (Z)
+        Vector3 right = forward.cross(Z).normalized();
+        if (right.magnitude() < 0.001) {
+            right = X;  // Fallback if forward is parallel to Z
+        }
+        right = right.normalized();
+        
+        // Calculate forward movement (project forward onto horizontal plane, remove Z component)
+        Vector3 forwardHorizontal = Vector3(forward.getX(), forward.getY(), 0).normalized();
+        
+        // W - Move forward
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+            moveDirection = moveDirection + forwardHorizontal;
+        }
+        
+        // S - Move backward
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+            moveDirection = moveDirection - forwardHorizontal;
+        }
+        
+        // A - Strafe left
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+            moveDirection = moveDirection - right;
+        }
+        
+        // D - Strafe right
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+            moveDirection = moveDirection + right;
+        }
+        
+        // Q - Move up (positive Z)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
+            moveDirection = moveDirection + Z;
+        }
+        
+        // E - Move down (negative Z)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+            moveDirection = moveDirection - Z;
+        }
+        
+        // Apply movement if any key is pressed
+        if (moveDirection.magnitude() > 0.001) {
+            moveDirection = moveDirection.normalized() * moveSpeed;
+            camera.move(moveDirection);
         }
 
         // Render
