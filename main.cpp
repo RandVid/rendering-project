@@ -5,6 +5,7 @@
 #include <optional>
 #include <set>
 
+#include "Objects/Box.h"
 #include "Ray.h"
 #include "Constants.h"
 #include <SFML/Graphics.hpp>
@@ -43,11 +44,11 @@ int main()
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
     scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
 
-    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
+    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
 
-
+    scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Texturelabs_Atmosphere_126M.jpg"));
     // Sun-like light source (bright yellow sphere in the sky)
-    scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
+    //scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 
     // Light direction (pointing from sun position)
     Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();

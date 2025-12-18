@@ -18,6 +18,8 @@
 #include "CSGoperations/Union.h"
 #include "CSGoperations/Difference.h"
 #include "CSGoperations/Intersection.h"
+#include <map>
+#include <algorithm>
 
 std::pair<double, Object*> RayMarchingRender::distanceToClosest(const Vector3& p) {
     double closest_distance = std::numeric_limits<double>::infinity();
@@ -77,6 +79,11 @@ void RayMarchingRender::renderFrame(Ray ray) {
     if (!ensureShaderLoaded()) {
         return; // fallback: shader failed to load
     }
+    
+    // Load textures from objects if not already loaded
+    if (textures.empty()) {
+        loadTexturesFromObjects();
+    }
 
     // Prepare camera basis
     Vector3 camOrigin = ray.getOrigin();
@@ -96,6 +103,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
     std::vector<sf::Glsl::Vec3> objColor2(count);
     std::vector<float> objType(count);
     std::vector<sf::Glsl::Vec3> objNormal(count);
+    std::vector<float> objTextureIndex(count);  // Use float for shader compatibility
 
     for (unsigned i = 0; i < count; ++i) {
         Object* o = objects[i];
@@ -146,6 +154,8 @@ void RayMarchingRender::renderFrame(Ray ray) {
                     objColor2[i] = sf::Glsl::Vec3(cB.r / 255.f, cB.g / 255.f, cB.b / 255.f);
                 }
             }
+            // CSG objects don't have textures
+            objTextureIndex[i] = -1.0f;
         } else {
             // For primitives
             Vector3 center = o->getCenterOrPoint();
@@ -179,6 +189,14 @@ void RayMarchingRender::renderFrame(Ray ray) {
             sf::Color c = o->getColorAtOrigin();
             objColor[i] = sf::Glsl::Vec3(c.r / 255.f, c.g / 255.f, c.b / 255.f);
             objColor2[i] = objColor[i]; // same for primitives
+            
+            // Get texture index for this object
+            std::string texPath = getTexturePath(o);
+            if (!texPath.empty() && textureMap.find(texPath) != textureMap.end()) {
+                objTextureIndex[i] = static_cast<float>(textureMap[texPath]);
+            } else {
+                objTextureIndex[i] = -1.0f; // No texture
+            }
         }
     }
 
@@ -225,6 +243,12 @@ void RayMarchingRender::renderFrame(Ray ray) {
         shader.setUniformArray("u_objRadius", objRadius.data(), count);
         shader.setUniformArray("u_objRadius2", objRadius2.data(), count);
         shader.setUniformArray("u_objType", objType.data(), count);
+        shader.setUniformArray("u_objTextureIndex", objTextureIndex.data(), count);
+    }
+    
+    // Set first texture if available (simplified - using single texture for now)
+    if (!textures.empty()) {
+        shader.setUniform("u_boxTexture", textures[0]);
     }
 
     // Draw full-screen quad with shader
@@ -248,4 +272,61 @@ bool RayMarchingRender::ensureShaderLoaded() {
     }
     // failed
     return false;
+}
+
+std::string RayMarchingRender::getTexturePath(Object* obj) {
+    if (auto* box = dynamic_cast<Box*>(obj)) {
+        return box->texture;
+    } else if (auto* sphere = dynamic_cast<Sphere*>(obj)) {
+        return sphere->texture;
+    } else if (auto* mandelbulb = dynamic_cast<Mandelbulb*>(obj)) {
+        return mandelbulb->texture;
+    }
+    return "";
+}
+
+void RayMarchingRender::loadTexturesFromObjects() {
+    textures.clear();
+    textureMap.clear();
+    objectTextureIndices.clear();
+    
+    // Collect all unique texture paths
+    std::map<std::string, unsigned> pathToIndex;
+    unsigned nextIndex = 0;
+    
+    for (Object* obj : objects) {
+        std::string texPath = getTexturePath(obj);
+        if (!texPath.empty() && pathToIndex.find(texPath) == pathToIndex.end()) {
+            pathToIndex[texPath] = nextIndex++;
+        }
+    }
+    
+    // Load textures
+    textures.resize(pathToIndex.size());
+    for (const auto& pair : pathToIndex) {
+        const std::string& path = pair.first;
+        unsigned index = pair.second;
+        
+        // Try different path variations
+        std::vector<std::string> paths = {
+            path,
+            "../" + path,
+            "./" + path
+        };
+        
+        bool loaded = false;
+        for (const auto& tryPath : paths) {
+            if (textures[index].loadFromFile(tryPath)) {
+                textures[index].setRepeated(true);
+                textureMap[path] = index;
+                loaded = true;
+                break;
+            }
+        }
+        
+        if (!loaded) {
+            // If loading failed, remove from map
+            textureMap.erase(path);
+        }
+    }
 }

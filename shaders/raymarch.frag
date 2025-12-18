@@ -6,6 +6,7 @@ uniform vec3 u_camUp;
 uniform float u_fov;
 uniform vec3 u_light;
 uniform int u_objCount;
+uniform sampler2D u_boxTexture;
 
 const int MAX_OBJECTS = 32;
 uniform vec3 u_objPos[MAX_OBJECTS];
@@ -15,6 +16,7 @@ uniform vec3 u_objNormal[MAX_OBJECTS];
 uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objRadius2[MAX_OBJECTS];
 uniform float u_objType[MAX_OBJECTS];
+uniform float u_objTextureIndex[MAX_OBJECTS];
 
 vec4 FragColor;
 
@@ -206,6 +208,49 @@ vec3 estimateNormal(vec3 p) {
 }
 
 // ------------------------
+// UV coordinate calculation
+// ------------------------
+vec2 calculateSphereUV(vec3 localPos, vec3 normal) {
+    // Convert to spherical coordinates
+    // localPos is the position relative to sphere center
+    vec3 dir = normalize(localPos);
+    
+    // Calculate spherical coordinates
+    // theta: polar angle (0 to PI) - from +Z axis
+    // phi: azimuthal angle (0 to 2*PI) - around Z axis
+    float theta = acos(clamp(dir.z, -1.0, 1.0)); // 0 to PI
+    float phi = atan(dir.y, dir.x); // -PI to PI
+    
+    // Map to UV coordinates [0, 1]
+    float u = (phi + 3.14159265359) / (2.0 * 3.14159265359); // 0 to 1
+    float v = theta / 3.14159265359; // 0 to 1
+    
+    return vec2(u, v);
+}
+
+vec2 calculateBoxUV(vec3 localPos, vec3 normal, float boxSize) {
+    // Determine which face was hit by checking the normal
+    vec3 absNormal = abs(normal);
+    vec2 texUV;
+    
+    if (absNormal.x > absNormal.y && absNormal.x > absNormal.z) {
+        // Hit X face (left or right)
+        texUV = vec2(localPos.y, localPos.z) / (2.0 * boxSize) + 0.5;
+        if (normal.x < 0.0) texUV.x = 1.0 - texUV.x; // Flip for left face
+    } else if (absNormal.y > absNormal.z) {
+        // Hit Y face (front or back)
+        texUV = vec2(localPos.x, localPos.z) / (2.0 * boxSize) + 0.5;
+        if (normal.y < 0.0) texUV.x = 1.0 - texUV.x; // Flip for back face
+    } else {
+        // Hit Z face (top or bottom)
+        texUV = vec2(localPos.x, localPos.y) / (2.0 * boxSize) + 0.5;
+        if (normal.z < 0.0) texUV.y = 1.0 - texUV.y; // Flip for bottom face
+    }
+    
+    return texUV;
+}
+
+// ------------------------
 // Main
 // ------------------------
 void main() {
@@ -241,6 +286,30 @@ void main() {
     vec3 lightDir = normalize(u_light);
     float lambert = max(dot(normal, lightDir), 0.0);
 
+    // Calculate UV coordinates and sample texture for supported object types
+    vec3 localPos = p - u_objPos[hitIndex];
+    vec2 texUV;
+    bool useTexture = false;
+    float textureIndex = u_objTextureIndex[hitIndex];
+    
+    // Only use texture if object has a valid texture index (>= 0)
+    if (textureIndex >= 0.0) {
+        // Determine UV coordinates based on object type
+        if (u_objType[hitIndex] < 0.5) {
+            // Sphere - use spherical coordinates
+            texUV = calculateSphereUV(localPos, normal);
+            useTexture = true;
+        } else if (u_objType[hitIndex] >= 2.0 && u_objType[hitIndex] < 2.5) {
+            // Box - use face-based mapping
+            texUV = calculateBoxUV(localPos, normal, u_objRadius[hitIndex]);
+            useTexture = true;
+        } else if (u_objType[hitIndex] >= 9.0 && u_objType[hitIndex] < 9.5) {
+            // Mandelbulb - use spherical coordinates (similar to sphere)
+            texUV = calculateSphereUV(localPos, normal);
+            useTexture = true;
+        }
+    }
+    
     // For CSG types compute child sphere distances so we can pick a color
     vec3 base;
     if (u_objType[hitIndex] >= 6.0 && u_objType[hitIndex] <= 8.0) {
@@ -255,7 +324,12 @@ void main() {
             // Difference shows the first object's surface (a \ b)
             base = u_objColor[hitIndex];
         }
+    } else if (useTexture) {
+        // Sample texture for spheres, boxes, and mandelbulbs
+        vec4 texColor = texture2D(u_boxTexture, texUV);
+        base = texColor.rgb;
     } else {
+        // Use solid color for other object types
         base = u_objColor[hitIndex];
     }
 

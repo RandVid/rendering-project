@@ -6,6 +6,7 @@
 #define RENDERING_PROJECT_SPHERE_H
 #include <functional>
 #include <utility>
+#include <string>
 
 #include "Object.h"
 
@@ -14,12 +15,15 @@ struct Sphere : public Object {
     Vector3 center;
     double radius;
     std::function<sf::Color(const Vector3&)> color_func = [](const Vector3&){ return sf::Color::White; };
+    std::string texture;
     public:
-    Sphere(const Vector3& center, double radius) : center(center), radius(radius) {}
+    Sphere(const Vector3& center, double radius) : center(center), radius(radius), texture("") {}
     Sphere(const Vector3& center, double radius, std::function<sf::Color(const Vector3&)> color_func) :
-        center(center), radius(radius), color_func(std::move(color_func)) {}
+        center(center), radius(radius), color_func(std::move(color_func)), texture("") {}
     Sphere(const Vector3& center, double radius, sf::Color color) :
         Sphere(center, radius, [color](const Vector3&){ return color; }) {}
+    Sphere(const Vector3& center, double radius, sf::Color color, const std::string& tex) :
+        center(center), radius(radius), color_func([color](const Vector3&){ return color; }), texture(tex) {}
     double distanceToSurface(const Vector3& point) override { return (point - center).magnitude() - radius; }
     Vector3 getNormalAt(const Vector3& point) override { return (point - center).normalized(); }
     sf::Color getColorAt(const Vector3& point) override { return color_func(point); }

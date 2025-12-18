@@ -9,6 +9,8 @@
 #include "Objects/Object.h"
 #include "Angle.h"
 #include <vector>
+#include <map>
+#include <string>
 
 
 #ifndef TEST3D_SFMLRENDER_H
@@ -23,6 +25,9 @@ struct RayMarchingRender {
     std::vector<Object*> objects;
     sf::Shader shader;
     bool shaderLoaded = false;
+    std::vector<sf::Texture> textures;  // Store loaded textures
+    std::map<std::string, unsigned> textureMap;  // Map texture path to texture index
+    std::vector<int> objectTextureIndices;  // Map object index to texture index (-1 = no texture)
     static constexpr unsigned MAX_OBJECTS = 32;
 
 
@@ -34,6 +39,8 @@ struct RayMarchingRender {
         RayMarchingRender(width, height, fov, Z*-1, objects) {}
     void renderFrame(Ray);
     bool ensureShaderLoaded();
+    void loadTexturesFromObjects();
+    std::string getTexturePath(Object* obj);
     std::tuple<double, Vector3, Object&> intersection(const Vector3&, const Vector3&);
     std::pair<double, Object*> distanceToClosest(const Vector3&);
 

@@ -3,15 +3,17 @@
 
 #include "Object.h"
 #include "SDFUtils.h"
+#include <string>
 
 struct Box : public Object {
     Vector3 center;
     Vector3 halfSize;
     sf::Color color;
+    std::string texture;
 
 public:
-    Box(const Vector3& c, const Vector3& hs, sf::Color col)
-        : center(c), halfSize(hs), color(col) {}
+    Box(const Vector3& c, const Vector3& hs, sf::Color col, const std::string& tex = "")
+        : center(c), halfSize(hs), color(col), texture(tex) {}
 
     double distanceToSurface(const Vector3& p) override {
         Vector3 q = absVec(p - center) - halfSize;
