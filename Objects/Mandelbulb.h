@@ -5,6 +5,7 @@
 #include "../Vector3.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <string>
 
 struct Mandelbulb : public Object {
     Vector3 center;
@@ -13,6 +14,7 @@ struct Mandelbulb : public Object {
     double bailout;
     double scale;
     sf::Color color;
+    std::string texture;
     float reflectivity = 0.0f; // 0 = not reflective, 1 = mirror
 
 public:
@@ -20,6 +22,8 @@ public:
         : center(c), iterations(iter), power(p), bailout(2.0), scale(s), color(col) {}
     Mandelbulb(const Vector3& c, int iter, double p, sf::Color col, double s, float refl)
         : center(c), iterations(iter), power(p), bailout(2.0), scale(s), color(col), reflectivity(refl) {}
+    Mandelbulb(const Vector3& c, int iter = 8, double p = 8.0, sf::Color col = sf::Color::Cyan, double s = 1.0, const std::string& tex = "")
+        : center(c), iterations(iter), power(p), bailout(2.0), scale(s), color(col), texture(tex) {}
 
     // Mandelbulb distance estimator
     // Formula: z = z^n + c where z starts at origin

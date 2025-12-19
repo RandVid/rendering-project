@@ -6,6 +6,7 @@
 #define RENDERING_PROJECT_SPHERE_H
 #include <functional>
 #include <utility>
+#include <string>
 
 #include "Object.h"
 
@@ -15,12 +16,15 @@ struct Sphere : public Object {
     double radius;
     float reflectivity = 0.0f;  // 0.0 = no reflection, 1.0 = perfect mirror
     std::function<sf::Color(const Vector3&)> color_func = [](const Vector3&){ return sf::Color::White; };
+    std::string texture;
     public:
-    Sphere(const Vector3& center, double radius) : center(center), radius(radius) {}
+    Sphere(const Vector3& center, double radius) : center(center), radius(radius), texture("") {}
     Sphere(const Vector3& center, double radius, std::function<sf::Color(const Vector3&)> color_func) :
-        center(center), radius(radius), color_func(std::move(color_func)) {}
+        center(center), radius(radius), color_func(std::move(color_func)), texture("") {}
     Sphere(const Vector3& center, double radius, sf::Color color) :
         Sphere(center, radius, [color](const Vector3&){ return color; }) {}
+    Sphere(const Vector3& center, double radius, sf::Color color, const std::string& tex) :
+        center(center), radius(radius), color_func([color](const Vector3&){ return color; }), texture(tex) {}
     Sphere(const Vector3& center, double radius, sf::Color color, float reflectivity) :
         center(center), radius(radius), reflectivity(reflectivity), color_func([color](const Vector3&){ return color; }) {}
     double distanceToSurface(const Vector3& point) override { return (point - center).magnitude() - radius; }

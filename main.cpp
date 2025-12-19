@@ -5,6 +5,7 @@
 #include <optional>
 #include <set>
 
+#include "Objects/Box.h"
 #include "Ray.h"
 #include "Constants.h"
 #include <SFML/Graphics.hpp>
@@ -14,7 +15,6 @@
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
 #include "Objects/Terrain.h"
-#include "Objects/Box.h"
 
 using namespace std;
 
@@ -58,6 +58,7 @@ int main()
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below
     scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1.0f));
+    // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
 
     // // Optional: keep fractal far away
     // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
@@ -65,8 +66,9 @@ int main()
     // Give it some reflectivity so reflections are visible (0 = none, 1 = mirror)
     scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White, 0.8f));
 
+    // scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Texturelabs_Atmosphere_126M.jpg"));
     // Sun-like light source (bright yellow sphere in the sky)
-    scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
+    //scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 
     // Light direction (pointing from sun position)
     // Light source positioned above and to the side
