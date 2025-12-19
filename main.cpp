@@ -50,22 +50,23 @@ int main()
     std::vector<Object*> scene;
 
     // Terrain: gentle hills around origin. originXZ = (0,0,0) -> we use x,z for horizontal domain, y stores seed
-    // auto* terrain = new Terrain({0, 0, -2}, /*amplitude*/ 3.0f, /*frequency*/ 0.05f, /*seed*/ 3.0f, sf::Color(30, 140, 40));
-    // auto* terrain2 = new Terrain({0, 0, -50}, /*amplitude*/ 100.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 35, 40));
+    // auto* terrain = new Terrain({0, 0, 0}, /*amplitude*/ 30.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 140, 40));
+    // auto* terrain2 = new Terrain({0, 0, -50}, /*amplitude*/ 80.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 35, 40));
     // terrain->setWarp(2.0f, true).setRidged(false);
     // terrain2->setWarp(2.0f, true).setRidged(false);
     // scene.push_back(terrain);
     // scene.push_back(terrain2);
     // A sphere above terrain to look at
-    scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
+    // scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
 
     // Green floor plane at Z = 0 (ground level)
     scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green, 0.5f));
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
-    //scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
+    scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
+    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
 
     //scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/petyb.jpg"));
-    scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/petyb.jpg"));
+    scene.push_back(new Box({1, 1, 1}, {1, 2, 1}, sf::Color::Blue, "textures/petyb.jpg"));
     scene.push_back(new Box({5, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Pavel.png"));
     scene.push_back(new Box({9, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Anatoly.png"));
     scene.push_back(new QuaternionJulia(
@@ -79,8 +80,7 @@ int main()
 
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below
-    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1.0f));
-    // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
+    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1));
 
     // // Optional: keep fractal far away
     // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
@@ -294,8 +294,8 @@ int main()
         window.display();
         window.clear();
 
-        // if (dynamic_cast<Mandelbulb*>(scene[2]))
-        //     dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
+        if (dynamic_cast<Mandelbulb*>(scene[2]))
+        dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;

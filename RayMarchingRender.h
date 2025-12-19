@@ -34,7 +34,7 @@ struct RayMarchingRender {
 
     RayMarchingRender(unsigned width, unsigned height, double fov, const Vector3& light, const std::vector<Object*>& objects) :
         width(width), height(height), fov(fov), objects(objects), light(light),
-        window(sf::VideoMode({width, height}), "Penis") {}
+        window(sf::VideoMode({width, height}), "Presentation") {}
 
     RayMarchingRender(const short width, const short height, const double fov, const std::vector<Object*>& objects) :
         RayMarchingRender(width, height, fov, Z*-1, objects) {}
@@ -47,18 +47,18 @@ struct RayMarchingRender {
 
     void setWidth(unsigned newWidth) {
         width = newWidth;
-        window.create(sf::VideoMode({width, height}), "bigger PENIS");
+        window.create(sf::VideoMode({width, height}), "Presentation");
     }
 
     void setHeight(unsigned newHeight) {
         height = newHeight;
-        window.create(sf::VideoMode({width, height}), "smaller penis");
+        window.create(sf::VideoMode({width, height}), "Presentation");
     }
 
     void setSize(unsigned newWidth, unsigned newHeight) {
         width = newWidth;
         height = newHeight;
-        window.create(sf::VideoMode({width, height}), "different size penis");
+        window.create(sf::VideoMode({width, height}), "Presentation");
     }
 
 };
