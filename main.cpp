@@ -40,11 +40,11 @@ int main()
     std::vector<Object*> scene;
 
     // Green floor plane at Z = 0 (ground level)
-    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green, 0.5f));
+    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green, 0.4f));
 
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below
-    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1.0f));
+    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 0.0f));
 
     // Sphere below the box (at Y = 10, Z = 2)
     // Give it some reflectivity so reflections are visible (0 = none, 1 = mirror)

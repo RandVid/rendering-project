@@ -25,6 +25,22 @@ const float REFLECTION_BIAS = 0.02;
 // Artistic boost for reflected contribution (not physically correct, but avoids "too dark" look)
 const float REFLECTION_STRENGTH = 0.9;
 
+// ------------------------
+// Indirect diffuse (very small GI approximation)
+// ------------------------
+// 0 = off, 1 = on
+const int INDIRECT_ENABLED = 1;
+// How many hemisphere samples per bounce (1 = cheapest)
+const int INDIRECT_SAMPLES = 5;
+// How many diffuse bounces to trace (1 = classic "one-bounce GI")
+const int INDIRECT_DEPTH = 1;
+// Strength of the indirect contribution
+const float INDIRECT_STRENGTH = 0.1;
+// Bias to avoid self-intersection when shooting indirect rays
+const float INDIRECT_BIAS = 0.03;
+// Clamp indirect samples to reduce "fireflies" (bright noisy pixels)
+const float INDIRECT_SAMPLE_CLAMP = 1.0;
+
 vec3 skyColor() {
     return vec3(0.5, 0.7, 1.0);
 }
@@ -292,6 +308,20 @@ vec3 shadePhong(vec3 p, vec3 normal, vec3 viewDir, int hitIndex) {
     return ambient + diffuse + specularColor;
 }
 
+// Indirect GI should be *diffuse only* to keep variance low (specular causes fireflies).
+vec3 shadeDiffuseOnly(vec3 p, vec3 normal, int hitIndex) {
+    vec3 lightDir = normalize(u_light);
+    float lambert = max(dot(normal, lightDir), 0.0);
+    float shadow = shadowRay(p, normal, lightDir);
+
+    vec3 base = baseColorAt(hitIndex, p);
+
+    // Same coefficients as your main shading, but no specular.
+    vec3 ambient = base * 0.2;
+    vec3 diffuse = base * 0.6 * lambert * shadow;
+    return ambient + diffuse;
+}
+
 bool rayMarch(vec3 ro, vec3 rd, out vec3 hitPos, out int hitIndex) {
     const float EPS = 0.001;
     const float MAX_DIST = 200.0;
@@ -311,6 +341,119 @@ bool rayMarch(vec3 ro, vec3 rd, out vec3 hitPos, out int hitIndex) {
 
     hitPos = p;
     return hitIndex != -1;
+}
+
+// ------------------------
+// Random + cosine-weighted hemisphere sampling (no textures)
+// ------------------------
+float hash12(vec2 p) {
+    // Cheap hash: stable per pixel and varies with p
+    vec3 p3  = fract(vec3(p.xyx) * 0.1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return fract((p3.x + p3.y) * p3.z);
+}
+
+vec3 cosineSampleHemisphere(float u1, float u2) {
+    // Cosine-weighted hemisphere in tangent space (z = up)
+    float r = sqrt(u1);
+    float phi = 6.28318530718 * u2;
+    float x = r * cos(phi);
+    float y = r * sin(phi);
+    float z = sqrt(max(0.0, 1.0 - u1));
+    return vec3(x, y, z);
+}
+
+mat3 makeTBN(vec3 n) {
+    // Build an orthonormal basis around n
+    vec3 up = (abs(n.z) < 0.999) ? vec3(0.0, 0.0, 1.0) : vec3(1.0, 0.0, 0.0);
+    vec3 t = normalize(cross(up, n));
+    vec3 b = cross(n, t);
+    return mat3(t, b, n);
+}
+
+// Trace a tiny indirect diffuse path (non-recursive). This is a Monte Carlo estimate:
+// - sample hemisphere directions
+// - march to find what they hit
+// - use that hit's local shading as incoming radiance
+vec3 traceIndirectDiffuse(vec3 p0, vec3 n0, vec3 primaryAlbedo) {
+    if (INDIRECT_ENABLED == 0 || INDIRECT_DEPTH <= 0 || INDIRECT_SAMPLES <= 0) {
+        return vec3(0.0);
+    }
+
+    // Start just above the surface
+    vec3 rayOrigin = p0 + n0 * INDIRECT_BIAS;
+    vec3 curNormal = n0;
+
+    vec3 accum = vec3(0.0);
+    vec3 throughput = primaryAlbedo * INDIRECT_STRENGTH;
+
+    // Deterministic seed per pixel
+    vec2 baseSeed = gl_FragCoord.xy;
+
+    // Path trace a few diffuse bounces
+    for (int bounce = 0; bounce < INDIRECT_DEPTH; ++bounce) {
+        vec3 bounceSum = vec3(0.0);
+
+        for (int s = 0; s < INDIRECT_SAMPLES; ++s) {
+            // Vary seed by bounce/sample to decorrelate
+            float u1 = hash12(baseSeed + vec2(float(bounce * 37 + s * 11), 1.23));
+            float u2 = hash12(baseSeed + vec2(float(bounce * 19 + s * 23), 4.56));
+
+            vec3 localDir = cosineSampleHemisphere(u1, u2);
+            vec3 worldDir = normalize(makeTBN(curNormal) * localDir);
+
+            vec3 hitPos;
+            int hitIndex;
+            bool hit = rayMarch(rayOrigin, worldDir, hitPos, hitIndex);
+
+            if (!hit) {
+                bounceSum += skyColor();
+                continue;
+            }
+
+            vec3 hn = estimateNormal(hitPos);
+            // Diffuse-only indirect (much lower variance than Phong)
+            vec3 Li = shadeDiffuseOnly(hitPos, hn, hitIndex);
+            // Firefly clamp (prevents rare bright samples from dominating)
+            Li = min(Li, vec3(INDIRECT_SAMPLE_CLAMP));
+            bounceSum += Li;
+        }
+
+        vec3 Li = bounceSum / float(INDIRECT_SAMPLES);
+        accum += throughput * Li;
+
+        // For >1 bounce, walk the path using one representative direction (the same MC sample)
+        // This keeps it cheap and stable, but it's still just an approximation.
+        if (bounce + 1 >= INDIRECT_DEPTH) {
+            break;
+        }
+
+        // Pick one direction for path continuation (reuse sample 0)
+        float u1c = hash12(baseSeed + vec2(float(bounce * 37), 7.89));
+        float u2c = hash12(baseSeed + vec2(float(bounce * 19), 9.87));
+        vec3 localDirC = cosineSampleHemisphere(u1c, u2c);
+        vec3 worldDirC = normalize(makeTBN(curNormal) * localDirC);
+
+        vec3 hitPosC;
+        int hitIndexC;
+        bool hitC = rayMarch(rayOrigin, worldDirC, hitPosC, hitIndexC);
+        if (!hitC) {
+            break;
+        }
+
+        vec3 hnC = estimateNormal(hitPosC);
+        vec3 albedoC = baseColorAt(hitIndexC, hitPosC);
+
+        throughput *= albedoC;
+        if (max(throughput.r, max(throughput.g, throughput.b)) < 0.01) {
+            break;
+        }
+
+        rayOrigin = hitPosC + hnC * INDIRECT_BIAS;
+        curNormal = hnC;
+    }
+
+    return accum;
 }
 
 // Trace the *reflected* path (non-recursive). Returns the reflected radiance seen along a ray.
@@ -384,6 +527,11 @@ void main() {
     // Keep the full local shading, then add reflected contribution on top.
     // This is intentionally "brighter" than energy conservation to avoid dull results.
     vec3 color = local0;
+
+    // Add 1-sample indirect diffuse bounce (GI approximation)
+    vec3 primaryAlbedo = baseColorAt(hitIndex, hitPos);
+    color += traceIndirectDiffuse(hitPos, n0, primaryAlbedo);
+
     if (MAX_REFLECTION_DEPTH > 0 && refl0 > 0.001) {
         vec3 reflDir0 = normalize(reflect(rayDir, n0));
         vec3 reflOrigin0 = hitPos + n0 * REFLECTION_BIAS;
