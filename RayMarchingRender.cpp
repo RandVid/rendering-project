@@ -15,6 +15,7 @@
 #include "Objects/Capsule.h"
 #include "Objects/Torus.h"
 #include "Objects/Mandelbulb.h"
+#include "Objects/QuaternionJulia.h"
 #include "CSGoperations/Union.h"
 #include "CSGoperations/Difference.h"
 #include "CSGoperations/Intersection.h"
@@ -119,6 +120,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
         else if (dynamic_cast<Intersection*>(o)) objType[i] = 7.0f;
         else if (dynamic_cast<Difference*>(o)) objType[i] = 8.0f;
         else if (dynamic_cast<Mandelbulb*>(o)) objType[i] = 9.0f;
+        else if (dynamic_cast<QuaternionJulia*>(o)) objType[i] = 10.0f;
         else objType[i] = -1.0f;
 
         // For primitives and CSG, set data
@@ -178,6 +180,17 @@ void RayMarchingRender::renderFrame(Ray ray) {
                 // Store iterations in objNormal.x (we'll extract it in shader)
                 // Don't overwrite this - Mandelbulb doesn't use getNormalAtOrigin()
                 objNormal[i] = sf::Glsl::Vec3(static_cast<float>(mb->iterations), 0.0f, 0.0f);
+            } else if (objType[i] == 10.0f) { // quaternion julia
+                QuaternionJulia* qj = dynamic_cast<QuaternionJulia*>(o);
+                objRadius[i] = static_cast<float>(qj->scale);
+                objRadius2[i] = 0.0f;
+                // Store Julia constant c in objNormal, iterations in objNormal.x
+                Vector3 juliaC = qj->c;
+                objNormal[i] = sf::Glsl::Vec3(static_cast<float>(qj->iterations), 
+                                             static_cast<float>(juliaC.getX()),
+                                             static_cast<float>(juliaC.getY()));
+                // Store z component of c in objRadius2 (we'll use it in shader)
+                objRadius2[i] = static_cast<float>(juliaC.getZ());
             } else {
                 // For other objects, set normal from getNormalAtOrigin()
                 Vector3 n = o->getNormalAtOrigin();
@@ -246,10 +259,16 @@ void RayMarchingRender::renderFrame(Ray ray) {
         shader.setUniformArray("u_objTextureIndex", objTextureIndex.data(), count);
     }
     
-    // Set first texture if available (simplified - using single texture for now)
-    if (!textures.empty()) {
-        shader.setUniform("u_boxTexture", textures[0]);
-    }
+    // Set textures to individual shader uniforms (GLSL doesn't support dynamic sampler array indexing)
+    // Only set textures that were successfully loaded
+    if (numTexturesLoaded > 0) shader.setUniform("u_texture0", textures[0]);
+    if (numTexturesLoaded > 1) shader.setUniform("u_texture1", textures[1]);
+    if (numTexturesLoaded > 2) shader.setUniform("u_texture2", textures[2]);
+    if (numTexturesLoaded > 3) shader.setUniform("u_texture3", textures[3]);
+    if (numTexturesLoaded > 4) shader.setUniform("u_texture4", textures[4]);
+    if (numTexturesLoaded > 5) shader.setUniform("u_texture5", textures[5]);
+    if (numTexturesLoaded > 6) shader.setUniform("u_texture6", textures[6]);
+    if (numTexturesLoaded > 7) shader.setUniform("u_texture7", textures[7]);
 
     // Draw full-screen quad with shader
     sf::RectangleShape quad(sf::Vector2f(static_cast<float>(width), static_cast<float>(height)));
@@ -281,6 +300,8 @@ std::string RayMarchingRender::getTexturePath(Object* obj) {
         return sphere->texture;
     } else if (auto* mandelbulb = dynamic_cast<Mandelbulb*>(obj)) {
         return mandelbulb->texture;
+    } else if (auto* quaternionJulia = dynamic_cast<QuaternionJulia*>(obj)) {
+        return quaternionJulia->texture;
     }
     return "";
 }
@@ -327,6 +348,8 @@ void RayMarchingRender::loadTexturesFromObjects() {
         if (!loaded) {
             // If loading failed, remove from map
             textureMap.erase(path);
+        } else {
+            numTexturesLoaded = std::max(numTexturesLoaded, index + 1);
         }
     }
 }

@@ -4,6 +4,7 @@
 #include <chrono>
 #include <optional>
 #include <set>
+#include <random>
 
 #include "Objects/Box.h"
 #include "Ray.h"
@@ -12,6 +13,7 @@
 
 #include "RayMarchingRender.h"
 #include "Objects/Mandelbulb.h"
+#include "Objects/QuaternionJulia.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
 
@@ -21,6 +23,11 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
+    
+    // Random number generator for QuaternionJulia animation
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> signDist(0, 1);  // 0 or 1 for sign
 
     // ---------------- CAMERA ----------------
     // Start camera at standing height (Z = 2) looking forward
@@ -42,11 +49,20 @@ int main()
     scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
 
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
-    scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
+    //scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
 
-    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
-
-    scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Texturelabs_Atmosphere_126M.jpg"));
+    //scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/petyb.jpg"));
+    scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/petyb.jpg"));
+    scene.push_back(new Box({5, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Pavel.png"));
+    scene.push_back(new Box({9, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Anatoly.png"));
+    scene.push_back(new QuaternionJulia(
+        {0, 5, 30},           // center position
+        {0.3, 0.5, 0.1},     // Julia constant c (affects the fractal shape)
+        12,                   // iterations (more = more detail)
+        20.0,                  // scale
+        sf::Color::Magenta,   // color
+        "textures/fire.jpg"  // optional texture
+    ));
     // Sun-like light source (bright yellow sphere in the sky)
     //scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 
@@ -239,8 +255,9 @@ int main()
         window.display();
         window.clear();
 
-        if (dynamic_cast<Mandelbulb*>(scene[2]))
-            dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
+        // if (dynamic_cast<Mandelbulb*>(scene[2]))
+        //     dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
+
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;

@@ -6,7 +6,6 @@ uniform vec3 u_camUp;
 uniform float u_fov;
 uniform vec3 u_light;
 uniform int u_objCount;
-uniform sampler2D u_boxTexture;
 
 const int MAX_OBJECTS = 32;
 uniform vec3 u_objPos[MAX_OBJECTS];
@@ -17,6 +16,14 @@ uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objRadius2[MAX_OBJECTS];
 uniform float u_objType[MAX_OBJECTS];
 uniform float u_objTextureIndex[MAX_OBJECTS];
+uniform sampler2D u_texture0;
+uniform sampler2D u_texture1;
+uniform sampler2D u_texture2;
+uniform sampler2D u_texture3;
+uniform sampler2D u_texture4;
+uniform sampler2D u_texture5;
+uniform sampler2D u_texture6;
+uniform sampler2D u_texture7;
 
 vec4 FragColor;
 
@@ -141,6 +148,83 @@ float mandelbulbSDF(vec3 p, vec3 center, float scale, float power, float iterati
     return distance;
 }
 
+float quaternionJuliaSDF(vec3 p, vec3 center, float scale, vec3 juliaC, float iterations) {
+    // Quick bounding sphere check
+    float distFromCenter = length(p - center);
+    float boundingRadius = scale * 2.0;
+    if (distFromCenter > boundingRadius * 3.0) {
+        return distFromCenter - boundingRadius;
+    }
+    
+    // Transform point to Julia set space
+    vec3 z = (p - center) / scale;
+    float dr = 1.0;
+    float bailout = 2.0;
+    
+    // Iterate the quaternion Julia set formula: z = z^2 + c
+    for (float i = 0.0; i < iterations; i += 1.0) {
+        float r = length(z);
+        
+        // Early exit if escaped
+        if (r > bailout) {
+            break;
+        }
+        
+        // Avoid division by zero
+        if (r < 1e-10) {
+            r = 1e-10;
+            z = vec3(1e-10, 0.0, 0.0);
+        }
+        
+        // Quaternion square for 3D vector: z^2 = (x^2 - y^2 - z^2, 2xy, 2xz)
+        float x = z.x;
+        float y = z.y;
+        float zz = z.z;
+        
+        vec3 zSquared = vec3(
+            x * x - y * y - zz * zz,
+            2.0 * x * y,
+            2.0 * x * zz
+        );
+        
+        // Add Julia constant: z = z^2 + c
+        z = zSquared + juliaC;
+        
+        // Update derivative: dr = 2 * |z| * dr
+        dr = 2.0 * r * dr + 1.0;
+    }
+    
+    // Calculate final magnitude
+    float r = length(z);
+    
+    // Ensure reasonable values
+    if (r < 1e-10) r = 1e-10;
+    if (dr < 1e-10) dr = 1e-10;
+    
+    // Distance estimator: 0.5 * log(r) * r / dr
+    float distance = 0.5 * log(r) * r / dr;
+    
+    // Scale the distance
+    distance = distance * scale;
+    
+    // Handle negative distances
+    if (distance < 0.0) {
+        distance = 0.0005;
+    }
+    
+    // Ensure minimum distance
+    if (distance < 0.0001) {
+        distance = 0.0001;
+    }
+    
+    // Clamp to reasonable range
+    if (distance != distance || distance > 100.0) {
+        distance = 100.0;
+    }
+    
+    return distance;
+}
+
 // Example: CSG operations
 float opUnion(float d1, float d2) { return min(d1, d2); }
 float opIntersection(float d1, float d2) { return max(d1, d2); }
@@ -187,6 +271,10 @@ float sceneDistance(vec3 p, out int hitIndex) {
         } else if (t < 9.5) {
             // Mandelbulb fractal
             d = mandelbulbSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i], u_objNormal[i].x);
+        } else if (t < 10.5) {
+            // Quaternion Julia set
+            vec3 juliaC = vec3(u_objNormal[i].y, u_objNormal[i].z, u_objRadius2[i]);
+            d = quaternionJuliaSDF(p, u_objPos[i], u_objRadius[i], juliaC, u_objNormal[i].x);
         }
 
         if (d < minD) { minD = d; hitIndex = i; }
@@ -307,6 +395,10 @@ void main() {
             // Mandelbulb - use spherical coordinates (similar to sphere)
             texUV = calculateSphereUV(localPos, normal);
             useTexture = true;
+        } else if (u_objType[hitIndex] >= 10.0 && u_objType[hitIndex] < 10.5) {
+            // Quaternion Julia - use spherical coordinates (similar to sphere)
+            texUV = calculateSphereUV(localPos, normal);
+            useTexture = true;
         }
     }
     
@@ -326,7 +418,31 @@ void main() {
         }
     } else if (useTexture) {
         // Sample texture for spheres, boxes, and mandelbulbs
-        vec4 texColor = texture2D(u_boxTexture, texUV);
+        // Use texture index to select the correct texture
+        int texIdx = int(textureIndex);
+        vec4 texColor;
+        
+        // Select texture based on index (GLSL doesn't support dynamic sampler array indexing)
+        if (texIdx == 0) {
+            texColor = texture2D(u_texture0, texUV);
+        } else if (texIdx == 1) {
+            texColor = texture2D(u_texture1, texUV);
+        } else if (texIdx == 2) {
+            texColor = texture2D(u_texture2, texUV);
+        } else if (texIdx == 3) {
+            texColor = texture2D(u_texture3, texUV);
+        } else if (texIdx == 4) {
+            texColor = texture2D(u_texture4, texUV);
+        } else if (texIdx == 5) {
+            texColor = texture2D(u_texture5, texUV);
+        } else if (texIdx == 6) {
+            texColor = texture2D(u_texture6, texUV);
+        } else if (texIdx == 7) {
+            texColor = texture2D(u_texture7, texUV);
+        } else {
+            // Fallback to solid color if texture index is out of range
+            texColor = vec4(u_objColor[hitIndex], 1.0);
+        }
         base = texColor.rgb;
     } else {
         // Use solid color for other object types
