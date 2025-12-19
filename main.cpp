@@ -13,6 +13,7 @@
 #include "Objects/Mandelbulb.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
+#include "Objects/Terrain.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ int main()
     // ---------------- CAMERA ----------------
     // Start camera at standing height (Z = 2) looking forward
     // Z is up, Y is forward, X is right
-    Ray camera({0, 0, 2}, Y);
+    Ray camera({0, 0, 100}, Z*-1+X*0.001);
 
     // FPS camera state - using proper spherical coordinates
     // Yaw: rotation around Z axis (horizontal look left/right)
@@ -37,14 +38,19 @@ int main()
     // ---------------- SCENE ----------------
     std::vector<Object*> scene;
 
-    // White floor plane at Z = 0 (ground level)
-    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
+    // Terrain: gentle hills around origin. originXZ = (0,0,0) -> we use x,z for horizontal domain, y stores seed
+    auto* terrain = new Terrain({0, 0, 0}, /*amplitude*/ 30.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 140, 40));
+    auto* terrain2 = new Terrain({0, 0, -50}, /*amplitude*/ 100.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 35, 40));
+    terrain->setWarp(2.0f, true).setRidged(false);
+    terrain2->setWarp(2.0f, true).setRidged(false);
+    scene.push_back(terrain);
+    scene.push_back(terrain2);
 
-    // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
-    scene.push_back(new Sphere({0, 10, 1}, 1.0, sf::Color::Red));
+    // A sphere above terrain to look at
+    scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
 
+    // Optional: keep fractal far away
     scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
-
 
     // Sun-like light source (bright yellow sphere in the sky)
     scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
@@ -251,7 +257,7 @@ int main()
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
-        // std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
+        std::cout << "FPS: " << 1000.0 / duration.count() << "\n";
         fps = 1000.0 / duration.count();
     }
 

@@ -15,6 +15,7 @@
 #include "Objects/Capsule.h"
 #include "Objects/Torus.h"
 #include "Objects/Mandelbulb.h"
+#include "Objects/Terrain.h"
 #include "CSGoperations/Union.h"
 #include "CSGoperations/Difference.h"
 #include "CSGoperations/Intersection.h"
@@ -96,6 +97,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
     std::vector<sf::Glsl::Vec3> objColor2(count);
     std::vector<float> objType(count);
     std::vector<sf::Glsl::Vec3> objNormal(count);
+    std::vector<float> objExtra(count);
 
     for (unsigned i = 0; i < count; ++i) {
         Object* o = objects[i];
@@ -111,6 +113,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
         else if (dynamic_cast<Intersection*>(o)) objType[i] = 7.0f;
         else if (dynamic_cast<Difference*>(o)) objType[i] = 8.0f;
         else if (dynamic_cast<Mandelbulb*>(o)) objType[i] = 9.0f;
+        else if (dynamic_cast<Terrain*>(o)) objType[i] = 10.0f;
         else objType[i] = -1.0f;
 
         // For primitives and CSG, set data
@@ -168,6 +171,22 @@ void RayMarchingRender::renderFrame(Ray ray) {
                 // Store iterations in objNormal.x (we'll extract it in shader)
                 // Don't overwrite this - Mandelbulb doesn't use getNormalAtOrigin()
                 objNormal[i] = sf::Glsl::Vec3(static_cast<float>(mb->iterations), 0.0f, 0.0f);
+            } else if (objType[i] == 10.0f) { // terrain
+                // Pack terrain parameters using existing arrays to avoid new uniforms
+                // u_objPos = (origin.x, seed, origin.z)
+                // u_objRadius = amplitude
+                // u_objRadius2 = base frequency
+                // u_objNormal = (octaves, lacunarity, gain)
+                // u_objColor2 = (warpStrength, ridgedToggle, warpToggle)
+                Terrain* t = dynamic_cast<Terrain*>(o);
+                // Center already set from getCenterOrPoint(): (origin.x, seed, origin.z)
+                objRadius[i] = t->getRadiusOrSize();
+                objRadius2[i] = t->getFrequency();
+                // getNormalAtOrigin encodes (octaves, lacunarity, gain)
+                Vector3 ng = t->getNormalAtOrigin();
+                objNormal[i] = sf::Glsl::Vec3(static_cast<float>(ng.getX()), static_cast<float>(ng.getY()), static_cast<float>(ng.getZ()));
+                objColor2[i] = sf::Glsl::Vec3(t->getWarpStrength(), t->isRidged() ? 1.0f : 0.0f, t->isWarpEnabled() ? 1.0f : 0.0f);
+                objExtra[i] = t->originXZ.getZ();
             } else {
                 // For other objects, set normal from getNormalAtOrigin()
                 Vector3 n = o->getNormalAtOrigin();
@@ -178,7 +197,10 @@ void RayMarchingRender::renderFrame(Ray ray) {
 
             sf::Color c = o->getColorAtOrigin();
             objColor[i] = sf::Glsl::Vec3(c.r / 255.f, c.g / 255.f, c.b / 255.f);
-            objColor2[i] = objColor[i]; // same for primitives
+            // Do not override objColor2 for terrain (used to pack warp/ridged toggles)
+            if (objType[i] != 10.0f) {
+                objColor2[i] = objColor[i]; // same for primitives
+            }
         }
     }
 
@@ -225,6 +247,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
         shader.setUniformArray("u_objRadius", objRadius.data(), count);
         shader.setUniformArray("u_objRadius2", objRadius2.data(), count);
         shader.setUniformArray("u_objType", objType.data(), count);
+        shader.setUniformArray("u_objExtra", objExtra.data(), count);
     }
 
     // Draw full-screen quad with shader

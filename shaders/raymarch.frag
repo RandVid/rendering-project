@@ -15,6 +15,7 @@ uniform vec3 u_objNormal[MAX_OBJECTS];
 uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objRadius2[MAX_OBJECTS];
 uniform float u_objType[MAX_OBJECTS];
+uniform float u_objExtra[MAX_OBJECTS];
 
 vec4 FragColor;
 
@@ -145,6 +146,79 @@ float opIntersection(float d1, float d2) { return max(d1, d2); }
 float opDifference(float d1, float d2) { return max(d1, -d2); }
 
 // ------------------------
+// Noise/FBM utilities for terrain
+// ------------------------
+float hash12(vec2 p) {
+    // Dave Hoskins–style hash
+    vec3 p3 = fract(vec3(p.x, p.y, p.x) * 0.1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return fract((p3.x + p3.y) * p3.z);
+}
+
+float valueNoise(vec2 p, float seed) {
+    // Seed offset keeps determinism per-object
+    vec2 so = vec2(seed * 57.0, seed * 113.0);
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    float a = hash12(i + so);
+    float b = hash12(i + vec2(1.0, 0.0) + so);
+    float c = hash12(i + vec2(0.0, 1.0) + so);
+    float d = hash12(i + vec2(1.0, 1.0) + so);
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
+float fbm2D(vec2 p, float baseFreq, int octaves, float lacunarity, float gain, float seed, float warpStrength, float warpToggle, float ridgedToggle) {
+    // Optional light domain warp for richer features
+    vec2 pp = p;
+    if (warpToggle > 0.5 && warpStrength > 0.0) {
+        float wf = max(0.01, baseFreq * 0.5);
+        float wx = valueNoise(p * wf + vec2(13.1 * seed, 37.7 * seed), seed);
+        float wy = valueNoise(p * wf + vec2(91.4 * seed + 17.0, 27.9 * seed + 11.0), seed);
+        pp += (vec2(wx, wy) * 2.0 - 1.0) * warpStrength;
+    }
+
+    float amp = 1.0;
+    float freq = baseFreq;
+    float sum = 0.0;
+    int oct = 8;
+    for (int i = 0; i < oct; ++i) {
+        float n = valueNoise(pp * freq + vec2(17.0 * seed, 29.0 * seed), seed);
+        if (ridgedToggle > 0.5) {
+            n = 1.0 - abs(2.0 * n - 1.0);
+        }
+        sum += n * amp;
+        freq *= lacunarity;
+        amp *= gain;
+    }
+    return sum;
+}
+
+float terrainHeightAt(vec3 p, vec3 originXZ_seed, float amplitude, float baseFreq, vec3 oct_lac_gain, vec3 warpRidged) {
+    // origin.xz is horizontal origin; origin.y encodes seed
+    vec2 xy = p.xy - vec2(originXZ_seed.x, originXZ_seed.z);
+    float seed = originXZ_seed.y;
+    float octF = floor(oct_lac_gain.x + 0.5); // round to nearest
+    float lac = oct_lac_gain.y;
+    float g = oct_lac_gain.z;
+    int oct = int(clamp(octF, 1.0, 8.0));
+    float height = amplitude * fbm2D(xy, baseFreq, oct, lac, g, seed, warpRidged.x, warpRidged.z, warpRidged.y);
+    return height;
+}
+
+float terrainSDF(vec3 p, int idx) {
+    // Distance estimator compatible with sphere tracing with Z-up: d = z - height(xy)
+    float h = terrainHeightAt(p, u_objPos[idx], u_objRadius[idx], u_objRadius2[idx], u_objNormal[idx], u_objColor2[idx]);
+    return p.z - h - u_objExtra[idx];
+}
+
+float slopeFactorFromNormal(vec3 n) {
+    // Convenience hook for materials: higher on steep slopes (0 on flat)
+    // Z is up in this project
+    return 1.0 - clamp(n.z, 0.0, 1.0);
+}
+
+// ------------------------
 // Scene distance
 // ------------------------
 float sceneDistance(vec3 p, out int hitIndex) {
@@ -185,6 +259,9 @@ float sceneDistance(vec3 p, out int hitIndex) {
         } else if (t < 9.5) {
             // Mandelbulb fractal
             d = mandelbulbSDF(p, u_objPos[i], u_objRadius[i], u_objRadius2[i], u_objNormal[i].x);
+        } else if (t < 10.5) {
+            // Procedural terrain heightfield
+            d = terrainSDF(p, i);
         }
 
         if (d < minD) { minD = d; hitIndex = i; }
@@ -218,8 +295,8 @@ void main() {
     vec3 p = ro;
 
     const float EPS = 0.001;
-    const float MAX_DIST = 200.0;
-    const int MAX_STEPS = 128;
+    const float MAX_DIST = 2000.0;
+    const int MAX_STEPS = 512;
 
     float distTraveled = 0.0;
     int hitIndex = -1;
