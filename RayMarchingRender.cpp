@@ -4,10 +4,8 @@
 
 #include "RayMarchingRender.h"
 #include "Quaternion.h"
-#include <thread>
 #include <vector>
 
-#include "CameraBasis.h"
 #include "Objects/Sphere.h"
 #include "Objects/Plane.h"
 #include "Objects/Box.h"
@@ -98,6 +96,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
     std::vector<float> objType(count);
     std::vector<sf::Glsl::Vec3> objNormal(count);
     std::vector<float> objExtra(count);
+    std::vector<float> objReflectivity(count);
 
     for (unsigned i = 0; i < count; ++i) {
         Object* o = objects[i];
@@ -202,6 +201,9 @@ void RayMarchingRender::renderFrame(Ray ray) {
                 objColor2[i] = objColor[i]; // same for primitives
             }
         }
+
+        // Get reflectivity for all objects
+        objReflectivity[i] = o->getReflectivity();
     }
 
     // for (unsigned i = 0; i < count; ++i) {
@@ -248,6 +250,19 @@ void RayMarchingRender::renderFrame(Ray ray) {
         shader.setUniformArray("u_objRadius2", objRadius2.data(), count);
         shader.setUniformArray("u_objType", objType.data(), count);
         shader.setUniformArray("u_objExtra", objExtra.data(), count);
+        shader.setUniformArray("u_objReflectivity", objReflectivity.data(), count);
+    } else {
+        // Set empty arrays to avoid shader errors
+        std::vector<sf::Glsl::Vec3> emptyVec3(1);
+        std::vector<float> emptyFloat(1, 0.0f);
+        shader.setUniformArray("u_objPos", emptyVec3.data(), 1);
+        shader.setUniformArray("u_objColor", emptyVec3.data(), 1);
+        shader.setUniformArray("u_objColor2", emptyVec3.data(), 1);
+        shader.setUniformArray("u_objNormal", emptyVec3.data(), 1);
+        shader.setUniformArray("u_objRadius", emptyFloat.data(), 1);
+        shader.setUniformArray("u_objRadius2", emptyFloat.data(), 1);
+        shader.setUniformArray("u_objType", emptyFloat.data(), 1);
+        shader.setUniformArray("u_objReflectivity", emptyFloat.data(), 1);
     }
 
     // Draw full-screen quad with shader
@@ -269,6 +284,7 @@ bool RayMarchingRender::ensureShaderLoaded() {
         shaderLoaded = true;
         return true;
     }
-    // failed
+    // failed - print error
+    std::cerr << "ERROR: Failed to load shader!" << std::endl;
     return false;
 }

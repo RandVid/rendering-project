@@ -16,6 +16,17 @@ uniform float u_objRadius[MAX_OBJECTS];
 uniform float u_objRadius2[MAX_OBJECTS];
 uniform float u_objType[MAX_OBJECTS];
 uniform float u_objExtra[MAX_OBJECTS];
+uniform float u_objReflectivity[MAX_OBJECTS];
+
+// Reflection depth (0 = no reflections)
+const int MAX_REFLECTION_DEPTH = 2;
+
+// Reflection tuning
+const float REFLECTION_BIAS = 0.02;
+
+vec3 skyColor() {
+    return vec3(0.5, 0.7, 1.0);
+}
 
 vec4 FragColor;
 
@@ -283,6 +294,101 @@ vec3 estimateNormal(vec3 p) {
 }
 
 // ------------------------
+// Shadow ray marching
+// ------------------------
+float shadowRay(vec3 p, vec3 normal, vec3 lightDir) {
+    // Offset from surface to avoid self-intersection
+    // Use a larger bias and also offset along light direction
+    const float shadowBias = 0.02;
+    vec3 shadowOrigin = p + normal * shadowBias + lightDir * shadowBias;
+
+    // Ray march toward light
+    const float SHADOW_EPS = 0.005;  // Slightly larger epsilon to avoid surface acne
+    const float MAX_SHADOW_DIST = 100.0;
+    const int MAX_SHADOW_STEPS = 64;
+
+    float distTraveled = 0.0;
+
+    // Start with a minimum step to ensure we're away from the surface
+    distTraveled = shadowBias * 2.0;
+
+    for (int i = 0; i < MAX_SHADOW_STEPS && distTraveled < MAX_SHADOW_DIST; ++i) {
+        int dummy;
+        vec3 currentPos = shadowOrigin + lightDir * distTraveled;
+        float d = sceneDistance(currentPos, dummy);
+
+        // If we hit something, we're in shadow
+        if (d < SHADOW_EPS) {
+            return 0.0;  // Hard shadow: completely dark
+        }
+
+        // Step forward by the distance (with minimum step to avoid getting stuck)
+        distTraveled += max(d, 0.02);
+    }
+
+    // No occlusion found, fully lit
+    return 1.0;
+}
+
+// ------------------------
+// Helpers (non-recursive reflections)
+// ------------------------
+
+vec3 baseColorAt(int hitIndex, vec3 p) {
+    // For CSG types compute child sphere distances so we can pick a color
+    if (u_objType[hitIndex] >= 6.0 && u_objType[hitIndex] <= 8.0) {
+        float d1 = sphereSDF(p, u_objPos[hitIndex], u_objRadius[hitIndex]);
+        float d2 = sphereSDF(p, u_objNormal[hitIndex], u_objRadius2[hitIndex]);
+        if (u_objType[hitIndex] == 6.0) { // Union
+            return (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
+        } else if (u_objType[hitIndex] == 7.0) { // Intersection
+            return (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
+        } else { // Difference
+            return u_objColor[hitIndex];
+        }
+    }
+    return u_objColor[hitIndex];
+}
+
+vec3 shadePhong(vec3 p, vec3 normal, vec3 viewDir, int hitIndex) {
+    vec3 lightDir = normalize(u_light);
+    float lambert = max(dot(normal, lightDir), 0.0);
+
+    vec3 specReflectDir = reflect(-lightDir, normal);
+    float specular = pow(max(dot(viewDir, specReflectDir), 0.0), 32.0);  // 32 = shininess
+
+    float shadow = shadowRay(p, normal, lightDir);
+
+    vec3 base = baseColorAt(hitIndex, p);
+
+    vec3 ambient = base * 0.2;
+    vec3 diffuse = base * 0.6 * lambert * shadow;
+    vec3 specularColor = vec3(1.0) * 0.2 * specular * shadow;
+    return ambient + diffuse + specularColor;
+}
+
+bool rayMarch(vec3 ro, vec3 rd, out vec3 hitPos, out int hitIndex) {
+    const float EPS = 0.001;
+    const float MAX_DIST = 2000.0;
+    const int MAX_STEPS = 512;
+
+    vec3 p = ro;
+    float distTraveled = 0.0;
+    hitIndex = -1;
+
+    for (int i = 0; i < MAX_STEPS && distTraveled < MAX_DIST; ++i) {
+        int tmp;
+        float d = sceneDistance(p, tmp);
+        if (d < EPS) { hitIndex = tmp; break; }
+        p += max(d, 0.0) * rd;
+        distTraveled += max(d, 0.0);
+    }
+
+    hitPos = p;
+    return hitIndex != -1;
+}
+
+// ------------------------
 // Main
 // ------------------------
 void main() {
@@ -290,52 +396,51 @@ void main() {
     uv.x *= u_resolution.x / u_resolution.y;
 
     float f = tan(u_fov * 0.5);
-    vec3 dir = normalize(u_camForward + uv.x * f * u_camRight + uv.y * f * u_camUp);
-    vec3 ro = u_camOrigin;
-    vec3 p = ro;
+    vec3 rayDir = normalize(u_camForward + uv.x * f * u_camRight + uv.y * f * u_camUp);
+    vec3 rayOrigin = u_camOrigin;
 
-    const float EPS = 0.001;
-    const float MAX_DIST = 2000.0;
-    const int MAX_STEPS = 512;
+    vec3 accum = vec3(0.0);
+    float throughput = 1.0;
 
-    float distTraveled = 0.0;
-    int hitIndex = -1;
-    for (int i = 0; i < MAX_STEPS && distTraveled < MAX_DIST; ++i) {
-        int tmp;
-        float d = sceneDistance(p, tmp);
-        if (d < EPS) { hitIndex = tmp; break; }
-        p += max(d, 0.0) * dir;
-        distTraveled += max(d, 0.0);
-    }
+    // Non-recursive reflection bounces
+    for (int bounce = 0; bounce <= MAX_REFLECTION_DEPTH; ++bounce) {
+        vec3 hitPos;
+        int hitIndex;
+        bool hit = rayMarch(rayOrigin, rayDir, hitPos, hitIndex);
 
-    if (hitIndex == -1) {
-        // Blue sky background
-        gl_FragColor = vec4(0.5, 0.7, 1.0, 1.0);
-        return;
-    }
-
-    vec3 normal = estimateNormal(p);
-    vec3 lightDir = normalize(u_light);
-    float lambert = max(dot(normal, lightDir), 0.0);
-
-    // For CSG types compute child sphere distances so we can pick a color
-    vec3 base;
-    if (u_objType[hitIndex] >= 6.0 && u_objType[hitIndex] <= 8.0) {
-        float d1 = sphereSDF(p, u_objPos[hitIndex], u_objRadius[hitIndex]);
-        float d2 = sphereSDF(p, u_objNormal[hitIndex], u_objRadius2[hitIndex]);
-        if (u_objType[hitIndex] == 6.0) { // Union
-            base = (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
-        } else if (u_objType[hitIndex] == 7.0) { // Intersection
-            // For intersection the visible surface may belong to either sphere; choose closer
-            base = (d1 < d2) ? u_objColor[hitIndex] : u_objColor2[hitIndex];
-        } else { // Difference
-            // Difference shows the first object's surface (a \ b)
-            base = u_objColor[hitIndex];
+        if (!hit) {
+            accum += throughput * skyColor();
+            break;
         }
-    } else {
-        base = u_objColor[hitIndex];
+
+        vec3 n = estimateNormal(hitPos);
+        vec3 viewDir = normalize(-rayDir);
+
+        vec3 local = shadePhong(hitPos, n, viewDir, hitIndex);
+
+        float reflectivity = 0.0;
+        if (hitIndex >= 0 && hitIndex < u_objCount) {
+            reflectivity = clamp(u_objReflectivity[hitIndex], 0.0, 1.0);
+        }
+
+        // If no reflections requested, behave like before (just shade the first hit)
+        if (MAX_REFLECTION_DEPTH == 0) {
+            accum = local;
+            break;
+        }
+
+        // Mix local shading with reflection (energy conserving style)
+        accum += throughput * (1.0 - reflectivity) * local;
+        throughput *= reflectivity;
+
+        if (throughput < 0.001) {
+            break;
+        }
+
+        // Continue with reflected ray
+        rayOrigin = hitPos + n * REFLECTION_BIAS;
+        rayDir = normalize(reflect(rayDir, n));
     }
 
-    vec3 color = base * (0.2 + 0.8 * lambert);
-    gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(accum, 1.0);
 }

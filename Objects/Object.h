@@ -22,6 +22,7 @@ struct Object {
     virtual float getRadiusOrSize() const { return 0.0f; }
     virtual sf::Color getColorAtOrigin() const { return sf::Color::White; }
     virtual Vector3 getNormalAtOrigin() const { return Vector3(0,1,0); }
+    virtual float getReflectivity() const { return 0.0f; }  // Default: no reflection
 };
 
 

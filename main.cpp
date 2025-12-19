@@ -14,6 +14,7 @@
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
 #include "Objects/Terrain.h"
+#include "Objects/Box.h"
 
 using namespace std;
 
@@ -36,6 +37,9 @@ int main()
     const double maxPitch = PI / 2.1;
 
     // ---------------- SCENE ----------------
+    // Shadow demonstration scene:
+    // - Big box at the top
+    // - Sphere below the box (should be in shadow, but isn't without shadow implementation)
     std::vector<Object*> scene;
 
     // Terrain: gentle hills around origin. originXZ = (0,0,0) -> we use x,z for horizontal domain, y stores seed
@@ -45,19 +49,32 @@ int main()
     terrain2->setWarp(2.0f, true).setRidged(false);
     scene.push_back(terrain);
     scene.push_back(terrain2);
+    // Green floor plane at Z = 0 (ground level)
+    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
 
     // A sphere above terrain to look at
     scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
+    // Big box floating above (at Z = 8, centered at Y = 10)
+    // This box should cast a shadow on the sphere below
+    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White));
 
     // Optional: keep fractal far away
     scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
+    // Sphere below the box (at Y = 10, Z = 2)
+    // Give it some reflectivity so reflections are visible (0 = none, 1 = mirror)
+    scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White, 0.0f));
 
     // Sun-like light source (bright yellow sphere in the sky)
     scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 
     // Light direction (pointing from sun position)
-    Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();
+    // Light source positioned above and to the side
+    // This creates a clear shadow that should fall on the sphere
+    scene.push_back(new Sphere({-5, 10, 12}, 1.0, sf::Color::White));
 
+    // Light direction (pointing from light position toward the scene)
+    Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();
+    scene.push_back(new Sphere({0, -21, 16}, 0.2, sf::Color::Yellow));
     RayMarchingRender renderer(
         1280,
         720,
