@@ -12,11 +12,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "RayMarchingRender.h"
+#include "Objects/Cylinder.h"
 #include "Objects/Mandelbulb.h"
 #include "Objects/QuaternionJulia.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
 #include "Objects/Terrain.h"
+#include "Objects/Torus.h"
 
 using namespace std;
 
@@ -33,7 +35,7 @@ int main()
     // ---------------- CAMERA ----------------
     // Start camera at standing height (Z = 2) looking forward
     // Z is up, Y is forward, X is right
-    Ray camera({0, 0, 10}, Z*-1+X*0.001);
+    Ray camera({-9, 42, 10}, Y);
 
     // FPS camera state - using proper spherical coordinates
     // Yaw: rotation around Z axis (horizontal look left/right)
@@ -60,12 +62,12 @@ int main()
     // scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
 
     // Green floor plane at Z = 0 (ground level)
-    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
+    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green, 0.2));
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
     //scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
     //scene.push_back(new Mandelbulb({20, 25, 10}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
-    scene.push_back(new Box({141, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide16.png"));
-    scene.push_back(new Box({131, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide15.png"));
+    // scene.push_back(new Box({141, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide16.png"));
+    // scene.push_back(new Box({131, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide15.png"));
     scene.push_back(new Box({121, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide14.png"));
     scene.push_back(new Box({111, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide13.png"));
     scene.push_back(new Box({101, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide12.png"));
@@ -83,8 +85,8 @@ int main()
 
     //scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/fire.jpg"));
     scene.push_back(new Box({1, 1, 1}, {1, 2, 1}, sf::Color::Blue, "textures/petyb.jpg"));
-    scene.push_back(new Box({5, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Pavel.png"));
-    scene.push_back(new Box({9, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Anatoly.png"));
+    // scene.push_back(new Box({5, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Pavel.png"));
+    // scene.push_back(new Box({9, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Anatoly.png"));
     // scene.push_back(new QuaternionJulia(
     //     {0, 5, 30},           // center position
     //     {0.3, 0.5, 0.1},     // Julia constant c (affects the fractal shape)
@@ -96,17 +98,18 @@ int main()
 
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below
-    //scene.push_back(new Box({15, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1));
+    scene.push_back(new Box({15, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 0.5));
 
     // // Optional: keep fractal far away
     // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
     // Sphere below the box (at Y = 10, Z = 2)
     // Give it some reflectivity so reflections are visible (0 = none, 1 = mirror)
-    //scene.push_back(new Sphere({20, 20, 2}, 1.5, sf::Color::White, 0.8f));
+    scene.push_back(new Sphere({20, 20, 2}, 1.5, sf::Color::White, 0.8f));
 
     // scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Texturelabs_Atmosphere_126M.jpg"));
     // Sun-like light source (bright yellow sphere in the sky)
-    //scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
+    scene.push_back(new Cylinder({-30, 20, 15}, 2.0, 3.0, sf::Color(255, 255, 200)));
+    // scene.push_back(new Torus({30, 20, 40}, 2.0, 3.0, sf::Color(255, 255, 200)));
 
     // Light direction (pointing from sun position)
     // Light source positioned above and to the side
@@ -115,9 +118,9 @@ int main()
 
     // Light direction (pointing from light position toward the scene)
     Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();
-    scene.push_back(new Sphere({0, -21, 16}, 0.2, sf::Color::Yellow));
+    // scene.push_back(new Sphere({0, -21, 16}, 0.2, sf::Color::Yellow));
     RayMarchingRender renderer(
-        1280,
+        1200,
         720,
         PI / 3,  // 60 degrees FOV - more natural, less warping
         lightDir,
