@@ -22,6 +22,8 @@ const int MAX_REFLECTION_DEPTH = 2;
 
 // Reflection tuning
 const float REFLECTION_BIAS = 0.02;
+// Artistic boost for reflected contribution (not physically correct, but avoids "too dark" look)
+const float REFLECTION_STRENGTH = 0.9;
 
 vec3 skyColor() {
     return vec3(0.5, 0.7, 1.0);
@@ -311,22 +313,12 @@ bool rayMarch(vec3 ro, vec3 rd, out vec3 hitPos, out int hitIndex) {
     return hitIndex != -1;
 }
 
-// ------------------------
-// Main
-// ------------------------
-void main() {
-    vec2 uv = (gl_FragCoord.xy / u_resolution) * 2.0 - 1.0;
-    uv.x *= u_resolution.x / u_resolution.y;
-
-    float f = tan(u_fov * 0.5);
-    vec3 rayDir = normalize(u_camForward + uv.x * f * u_camRight + uv.y * f * u_camUp);
-    vec3 rayOrigin = u_camOrigin;
-
+// Trace the *reflected* path (non-recursive). Returns the reflected radiance seen along a ray.
+vec3 traceReflectionPath(vec3 rayOrigin, vec3 rayDir) {
     vec3 accum = vec3(0.0);
     float throughput = 1.0;
 
-    // Non-recursive reflection bounces
-    for (int bounce = 0; bounce <= MAX_REFLECTION_DEPTH; ++bounce) {
+    for (int bounce = 0; bounce < MAX_REFLECTION_DEPTH; ++bounce) {
         vec3 hitPos;
         int hitIndex;
         bool hit = rayMarch(rayOrigin, rayDir, hitPos, hitIndex);
@@ -339,31 +331,67 @@ void main() {
         vec3 n = estimateNormal(hitPos);
         vec3 viewDir = normalize(-rayDir);
 
+        // Local shading of what we see in the reflection
         vec3 local = shadePhong(hitPos, n, viewDir, hitIndex);
+        accum += throughput * local;
 
-        float reflectivity = 0.0;
+        // Continue reflecting if the hit surface is reflective
+        float refl = 0.0;
         if (hitIndex >= 0 && hitIndex < u_objCount) {
-            reflectivity = clamp(u_objReflectivity[hitIndex], 0.0, 1.0);
+            refl = clamp(u_objReflectivity[hitIndex], 0.0, 1.0);
         }
+        throughput *= refl;
 
-        // If no reflections requested, behave like before (just shade the first hit)
-        if (MAX_REFLECTION_DEPTH == 0) {
-            accum = local;
+        if (throughput < 0.01) {
             break;
         }
 
-        // Mix local shading with reflection (energy conserving style)
-        accum += throughput * (1.0 - reflectivity) * local;
-        throughput *= reflectivity;
-
-        if (throughput < 0.001) {
-            break;
-        }
-
-        // Continue with reflected ray
         rayOrigin = hitPos + n * REFLECTION_BIAS;
         rayDir = normalize(reflect(rayDir, n));
     }
 
-    gl_FragColor = vec4(accum, 1.0);
+    return accum;
+}
+
+// ------------------------
+// Main
+// ------------------------
+void main() {
+    vec2 uv = (gl_FragCoord.xy / u_resolution) * 2.0 - 1.0;
+    uv.x *= u_resolution.x / u_resolution.y;
+
+    float f = tan(u_fov * 0.5);
+    vec3 rayDir = normalize(u_camForward + uv.x * f * u_camRight + uv.y * f * u_camUp);
+    vec3 rayOrigin = u_camOrigin;
+
+    // Primary hit
+    vec3 hitPos;
+    int hitIndex;
+    if (!rayMarch(rayOrigin, rayDir, hitPos, hitIndex)) {
+        gl_FragColor = vec4(skyColor(), 1.0);
+        return;
+    }
+
+    vec3 n0 = estimateNormal(hitPos);
+    vec3 viewDir0 = normalize(-rayDir);
+    vec3 local0 = shadePhong(hitPos, n0, viewDir0, hitIndex);
+
+    float refl0 = 0.0;
+    if (hitIndex >= 0 && hitIndex < u_objCount) {
+        refl0 = clamp(u_objReflectivity[hitIndex], 0.0, 1.0);
+    }
+
+    // Keep the full local shading, then add reflected contribution on top.
+    // This is intentionally "brighter" than energy conservation to avoid dull results.
+    vec3 color = local0;
+    if (MAX_REFLECTION_DEPTH > 0 && refl0 > 0.001) {
+        vec3 reflDir0 = normalize(reflect(rayDir, n0));
+        vec3 reflOrigin0 = hitPos + n0 * REFLECTION_BIAS;
+        vec3 reflected = traceReflectionPath(reflOrigin0, reflDir0);
+        color += refl0 * REFLECTION_STRENGTH * reflected;
+    }
+
+    // Prevent extreme blowouts
+    color = clamp(color, 0.0, 1.0);
+    gl_FragColor = vec4(color, 1.0);
 }

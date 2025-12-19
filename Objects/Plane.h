@@ -12,6 +12,7 @@
 struct Plane : public Object {
     Vector3 point;          // Any point on the plane
     Vector3 normal;         // Plane normal (should be normalized)
+    float reflectivity = 0.0f; // 0 = not reflective, 1 = mirror
     std::function<sf::Color(const Vector3&)> color_func = [](const Vector3&) { return sf::Color::White; };
 
 public:
@@ -26,6 +27,11 @@ public:
     // Position + normal + fixed color
     Plane(const Vector3& point, const Vector3& normal, sf::Color color)
         : Plane(point, normal, [color](const Vector3&) { return color; }) {}
+    
+    // Position + normal + fixed color + reflectivity
+    Plane(const Vector3& point, const Vector3& normal, sf::Color color, float refl)
+        : point(point), normal(normal.normalized()), reflectivity(refl),
+          color_func([color](const Vector3&) { return color; }) {}
 
     double distanceToSurface(const Vector3& p) override {
         // Signed distance from point to plane
@@ -58,6 +64,7 @@ public:
     float getRadiusOrSize() const override { return 0.0f; }
     sf::Color getColorAtOrigin() const override { return color_func(const_cast<Vector3&>(point)); }
     Vector3 getNormalAtOrigin() const override { return normal; }
+    float getReflectivity() const override { return reflectivity; }
 };
 
 #endif // RENDERING_PROJECT_PLANE_H

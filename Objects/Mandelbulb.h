@@ -13,10 +13,13 @@ struct Mandelbulb : public Object {
     double bailout;
     double scale;
     sf::Color color;
+    float reflectivity = 0.0f; // 0 = not reflective, 1 = mirror
 
 public:
     Mandelbulb(const Vector3& c, int iter = 8, double p = 8.0, sf::Color col = sf::Color::Cyan, double s = 1.0)
         : center(c), iterations(iter), power(p), bailout(2.0), scale(s), color(col) {}
+    Mandelbulb(const Vector3& c, int iter, double p, sf::Color col, double s, float refl)
+        : center(c), iterations(iter), power(p), bailout(2.0), scale(s), color(col), reflectivity(refl) {}
 
     // Mandelbulb distance estimator
     // Formula: z = z^n + c where z starts at origin
@@ -124,6 +127,7 @@ public:
     float getRadiusOrSize() const override { return static_cast<float>(scale * 2.0); }
     sf::Color getColorAtOrigin() const override { return color; }
     Vector3 getNormalAtOrigin() const override { return Vector3(0, 1, 0); }
+    float getReflectivity() const override { return reflectivity; }
 };
 
 #endif
