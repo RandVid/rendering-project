@@ -6,7 +6,6 @@
 #include "Quaternion.h"
 #include <vector>
 
-#include "CameraBasis.h"
 #include "Objects/Sphere.h"
 #include "Objects/Plane.h"
 #include "Objects/Box.h"
@@ -89,9 +88,11 @@ void RayMarchingRender::renderFrame(Ray ray) {
     // Prepare camera basis
     Vector3 camOrigin = ray.getOrigin();
     Vector3 camForward = ray.getDirection().normalized();
-    Vector3 camRight = camForward.cross(Z).normalized();
+    Vector3 camRight = camForward.cross(Z);
     if (camRight.magnitude() == 0) { // fallback if forward parallel to Z
         camRight = Vector3(1,0,0);
+    } else {
+        camRight = camRight.normalized();
     }
     Vector3 camUp = camRight.cross(camForward).normalized();
 

@@ -5,6 +5,7 @@
 #include <optional>
 #include <set>
 #include <random>
+#include <string>
 
 #include "Objects/Box.h"
 #include "Ray.h"
@@ -13,14 +14,47 @@
 
 #include "RayMarchingRender.h"
 #include "Objects/Cylinder.h"
-#include "Objects/Mandelbulb.h"
-#include "Objects/QuaternionJulia.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
-#include "Objects/Terrain.h"
-#include "Objects/Torus.h"
 
 using namespace std;
+
+// ---------------- TELEPORT NODES (doubly-linked list) ----------------
+struct TeleportNode {
+    std::string name;
+    Vector3 pos;
+    Vector3 dir; // should be normalized-ish
+    TeleportNode* prev = nullptr;
+    TeleportNode* next = nullptr;
+};
+
+static TeleportNode* makeNode(std::string name, const Vector3& pos, const Vector3& dir) {
+    auto* n = new TeleportNode();
+    n->name = std::move(name);
+    n->pos = pos;
+    n->dir = dir.normalized();
+    return n;
+}
+
+static void linkNodes(TeleportNode* a, TeleportNode* b) {
+    if (a) a->next = b;
+    if (b) b->prev = a;
+}
+
+static void deleteNodeChain(TeleportNode* head) {
+    while (head) {
+        TeleportNode* nxt = head->next;
+        delete head;
+        head = nxt;
+    }
+}
+
+static void yawPitchFromDirZUp(const Vector3& dir, double& yaw, double& pitch) {
+    Vector3 f = dir.normalized();
+    // yaw=0 looks along +Y, yaw positive rotates toward +X
+    yaw = std::atan2(f.getX(), f.getY());
+    pitch = std::asin(std::max(-1.0, std::min(1.0, f.getZ())));
+}
 
 int main()
 {
@@ -44,6 +78,44 @@ int main()
     double pitch = 0.0;    // 0 = looking horizontally
     const double mouseSensitivity = 0.003;
     const double maxPitch = PI / 2.1;
+
+    // ---------------- TELEPORT CHAIN ----------------
+    // Left/Right: move between nodes and teleport immediately.
+    // Up: teleport to current node (no selection change).
+    TeleportNode* tp0 = makeNode("n0", Vector3(-9, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp1 = makeNode("n1", Vector3(1, 42, 10), Vector3(0, 1,0));
+    TeleportNode* tp2 = makeNode("n2", Vector3(11, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp3 = makeNode("n3", Vector3(21, 42, 10), Vector3(0, 1, 0));
+    
+
+    TeleportNode* tp4 = makeNode("n4", Vector3(31, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp5 = makeNode("n5", Vector3(41, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp6 = makeNode("n6", Vector3(51, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp7 = makeNode("n7", Vector3(61, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp8 = makeNode("n8", Vector3(71, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp9 = makeNode("n9", Vector3(81, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp10 = makeNode("n10", Vector3(91, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp11 = makeNode("n11", Vector3(101, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp12 = makeNode("n12", Vector3(111, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp13 = makeNode("n13", Vector3(121, 42, 10), Vector3(0, 1, 0));
+    TeleportNode* tp14 = makeNode("n14", Vector3(131, 42, 10), Vector3(0, 1, 0));
+
+    
+    linkNodes(tp0, tp1);
+    linkNodes(tp1, tp2);
+    linkNodes(tp2, tp3);
+    linkNodes(tp3, tp4);
+    linkNodes(tp4, tp5);
+    linkNodes(tp5, tp6);
+    linkNodes(tp6, tp7);
+    linkNodes(tp7, tp8);
+    linkNodes(tp8, tp9);
+    linkNodes(tp9, tp10);
+    linkNodes(tp10, tp11);
+    linkNodes(tp11, tp12);
+    linkNodes(tp12, tp13);
+    linkNodes(tp13, tp14);
+    TeleportNode* selectedTeleport = tp0;
 
     // ---------------- SCENE ----------------
     // Shadow demonstration scene:
@@ -142,6 +214,16 @@ int main()
     // Track pressed keys for event-based input (avoids permission issues)
     std::set<sf::Keyboard::Key> pressedKeys;
 
+    auto teleportToSelected = [&]() {
+        if (!selectedTeleport) return;
+        camera.setOrigin(selectedTeleport->pos);
+        camera.setDirection(selectedTeleport->dir.normalized());
+        yawPitchFromDirZUp(selectedTeleport->dir, yaw, pitch);
+        // prevent mouse delta jump after teleport
+        firstMouseMove = true;
+        std::cout << "[Teleport] moved to: " << selectedTeleport->name << "\n";
+    };
+
     double fps = 1;
     // ---------------- MAIN LOOP ----------------
     while (window.isOpen())
@@ -236,6 +318,23 @@ int main()
             {
                 const auto* keyPressed = event->getIf<sf::Event::KeyPressed>();
                 pressedKeys.insert(keyPressed->code);
+
+                // Teleport node navigation (single-step, on press)
+                if (keyPressed->code == sf::Keyboard::Key::Left) {
+                    if (selectedTeleport && selectedTeleport->prev) {
+                        selectedTeleport = selectedTeleport->prev;
+                        std::cout << "[Teleport] selected: " << selectedTeleport->name << "\n";
+                        teleportToSelected();
+                    }
+                } else if (keyPressed->code == sf::Keyboard::Key::Right) {
+                    if (selectedTeleport && selectedTeleport->next) {
+                        selectedTeleport = selectedTeleport->next;
+                        std::cout << "[Teleport] selected: " << selectedTeleport->name << "\n";
+                        teleportToSelected();
+                    }
+                } else if (keyPressed->code == sf::Keyboard::Key::Up) {
+                    teleportToSelected();
+                }
             }
             else if (event->is<sf::Event::KeyReleased>())
             {
@@ -252,14 +351,21 @@ int main()
 
         // Calculate right vector (for strafing)
         // Right = forward cross world up (Z)
-        Vector3 right = forward.cross(Z).normalized();
+        Vector3 right = forward.cross(Z);
         if (right.magnitude() < 0.001) {
             right = X;  // Fallback if forward is parallel to Z
+        } else {
+            right = right.normalized();
         }
-        right = right.normalized();
 
         // Calculate forward movement (project forward onto horizontal plane, remove Z component)
-        Vector3 forwardHorizontal = Vector3(forward.getX(), forward.getY(), 0).normalized();
+        Vector3 forwardHorizontal(forward.getX(), forward.getY(), 0);
+        if (forwardHorizontal.magnitude() < 0.001) {
+            // If looking straight up/down, choose a stable "forward" direction on the ground plane
+            forwardHorizontal = Y;
+        } else {
+            forwardHorizontal = forwardHorizontal.normalized();
+        }
 
         // W - Move forward
         if (pressedKeys.contains(sf::Keyboard::Key::W)) {
@@ -324,6 +430,8 @@ int main()
 
     for (auto* object : scene)
         delete object;
+
+    deleteNodeChain(tp0);
 
     return 0;
 }
