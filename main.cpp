@@ -26,7 +26,7 @@ int main()
     // ---------------- CAMERA ----------------
     // Start camera at standing height (Z = 2) looking forward
     // Z is up, Y is forward, X is right
-    Ray camera({0, 0, 100}, Z*-1+X*0.001);
+    Ray camera({0, 0, 10}, Z*-1+X*0.001);
 
     // FPS camera state - using proper spherical coordinates
     // Yaw: rotation around Z axis (horizontal look left/right)
@@ -43,26 +43,27 @@ int main()
     std::vector<Object*> scene;
 
     // Terrain: gentle hills around origin. originXZ = (0,0,0) -> we use x,z for horizontal domain, y stores seed
-    auto* terrain = new Terrain({0, 0, 0}, /*amplitude*/ 30.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 140, 40));
-    auto* terrain2 = new Terrain({0, 0, -50}, /*amplitude*/ 100.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 35, 40));
-    terrain->setWarp(2.0f, true).setRidged(false);
-    terrain2->setWarp(2.0f, true).setRidged(false);
-    scene.push_back(terrain);
-    scene.push_back(terrain2);
+    // auto* terrain = new Terrain({0, 0, -2}, /*amplitude*/ 3.0f, /*frequency*/ 0.05f, /*seed*/ 3.0f, sf::Color(30, 140, 40));
+    // auto* terrain2 = new Terrain({0, 0, -50}, /*amplitude*/ 100.0f, /*frequency*/ 0.005f, /*seed*/ 3.0f, sf::Color(30, 35, 40));
+    // terrain->setWarp(2.0f, true).setRidged(false);
+    // terrain2->setWarp(2.0f, true).setRidged(false);
+    // scene.push_back(terrain);
+    // scene.push_back(terrain2);
+    // A sphere above terrain to look at
+    scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
+
     // Green floor plane at Z = 0 (ground level)
     scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
 
-    // A sphere above terrain to look at
-    scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below
     scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White));
 
-    // Optional: keep fractal far away
-    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
+    // // Optional: keep fractal far away
+    // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
     // Sphere below the box (at Y = 10, Z = 2)
     // Give it some reflectivity so reflections are visible (0 = none, 1 = mirror)
-    scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White, 0.0f));
+    scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White, 0.8f));
 
     // Sun-like light source (bright yellow sphere in the sky)
     scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
