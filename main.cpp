@@ -4,6 +4,7 @@
 #include <chrono>
 #include <optional>
 #include <set>
+#include <random>
 
 #include "Objects/Box.h"
 #include "Ray.h"
@@ -12,6 +13,7 @@
 
 #include "RayMarchingRender.h"
 #include "Objects/Mandelbulb.h"
+#include "Objects/QuaternionJulia.h"
 #include "Objects/Plane.h"
 #include "Objects/Sphere.h"
 #include "Objects/Terrain.h"
@@ -22,6 +24,11 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
+
+    // Random number generator for QuaternionJulia animation
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> signDist(0, 1);  // 0 or 1 for sign
 
     // ---------------- CAMERA ----------------
     // Start camera at standing height (Z = 2) looking forward
@@ -54,6 +61,21 @@ int main()
 
     // Green floor plane at Z = 0 (ground level)
     scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green, 0.5f));
+    // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
+    //scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
+
+    //scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/petyb.jpg"));
+    scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/petyb.jpg"));
+    scene.push_back(new Box({5, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Pavel.png"));
+    scene.push_back(new Box({9, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Anatoly.png"));
+    scene.push_back(new QuaternionJulia(
+        {0, 5, 30},           // center position
+        {0.3, 0.5, 0.1},     // Julia constant c (affects the fractal shape)
+        12,                   // iterations (more = more detail)
+        20.0,                  // scale
+        sf::Color::Magenta,   // color
+        "textures/fire.jpg"  // optional texture
+    ));
 
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below

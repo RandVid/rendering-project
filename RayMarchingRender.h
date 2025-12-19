@@ -28,6 +28,7 @@ struct RayMarchingRender {
     std::vector<sf::Texture> textures;  // Store loaded textures
     std::map<std::string, unsigned> textureMap;  // Map texture path to texture index
     std::vector<int> objectTextureIndices;  // Map object index to texture index (-1 = no texture)
+    unsigned numTexturesLoaded = 0;  // Track how many textures are actually loaded
     static constexpr unsigned MAX_OBJECTS = 32;
 
 
