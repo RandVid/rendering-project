@@ -53,11 +53,11 @@ int main()
     scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
 
     // Green floor plane at Z = 0 (ground level)
-    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
+    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green, 0.5f));
 
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below
-    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White));
+    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1.0f));
 
     // // Optional: keep fractal far away
     // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));

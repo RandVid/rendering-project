@@ -8,10 +8,13 @@ struct Box : public Object {
     Vector3 center;
     Vector3 halfSize;
     sf::Color color;
+    float reflectivity = 0.0f; // 0 = not reflective, 1 = mirror
 
 public:
     Box(const Vector3& c, const Vector3& hs, sf::Color col)
         : center(c), halfSize(hs), color(col) {}
+    Box(const Vector3& c, const Vector3& hs, sf::Color col, float refl)
+        : center(c), halfSize(hs), color(col), reflectivity(refl) {}
 
     double distanceToSurface(const Vector3& p) override {
         Vector3 q = absVec(p - center) - halfSize;
@@ -43,6 +46,7 @@ public:
     Vector3 getSize() const { return halfSize; }
     sf::Color getColorAtOrigin() const override { return color; }
     Vector3 getNormalAtOrigin() const override { return Vector3(0,0,0); } // shader will compute
+    float getReflectivity() const override { return reflectivity; }
 };
 
 #endif
