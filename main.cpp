@@ -47,8 +47,8 @@ int main()
     scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White));
 
     // Sphere below the box (at Y = 10, Z = 2)
-    // This sphere should be in shadow from the box above, but currently isn't
-    scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White));
+    // Give it some reflectivity so reflections are visible (0 = none, 1 = mirror)
+    scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White, 0.0f));
 
     // Light source positioned above and to the side
     // This creates a clear shadow that should fall on the sphere
