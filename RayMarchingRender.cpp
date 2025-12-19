@@ -171,7 +171,14 @@ void RayMarchingRender::renderFrame(Ray ray) {
             objRadius[i] = o->getRadiusOrSize();
             objRadius2[i] = 0.0f;
 
-            if (objType[i] == 4.0f) { // capsule
+            if (objType[i] == 2.0f) { // box - store full size in objNormal
+                Box* box = dynamic_cast<Box*>(o);
+                Vector3 halfSize = box->getSize();
+                objNormal[i] = sf::Glsl::Vec3(static_cast<float>(halfSize.getX()),
+                                             static_cast<float>(halfSize.getY()),
+                                             static_cast<float>(halfSize.getZ()));
+                objRadius[i] = static_cast<float>(halfSize.getX()); // Keep X for compatibility
+            } else if (objType[i] == 4.0f) { // capsule
                 objRadius2[i] = dynamic_cast<Capsule*>(o)->getHeight();
             } else if (objType[i] == 5.0f) { // torus
                 objRadius[i] = dynamic_cast<Torus*>(o)->getMajorRadius();
