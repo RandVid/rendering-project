@@ -52,17 +52,20 @@ int main()
     //scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
 
     //scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/petyb.jpg"));
+    
+    scene.push_back(new Box({1, 20, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide1.png"));
+    scene.push_back(new Box({-9, 20, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide2.png"));
     scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/petyb.jpg"));
     scene.push_back(new Box({5, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Pavel.png"));
     scene.push_back(new Box({9, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Anatoly.png"));
-    scene.push_back(new QuaternionJulia(
-        {0, 5, 30},           // center position
-        {0.3, 0.5, 0.1},     // Julia constant c (affects the fractal shape)
-        12,                   // iterations (more = more detail)
-        20.0,                  // scale
-        sf::Color::Magenta,   // color
-        "textures/fire.jpg"  // optional texture
-    ));
+    // scene.push_back(new QuaternionJulia(
+    //     {0, 5, 30},           // center position
+    //     {0.3, 0.5, 0.1},     // Julia constant c (affects the fractal shape)
+    //     12,                   // iterations (more = more detail)
+    //     20.0,                  // scale
+    //     sf::Color::Magenta,   // color
+    //     "textures/fire.jpg"  // optional texture
+    // ));
     // Sun-like light source (bright yellow sphere in the sky)
     //scene.push_back(new Sphere({0, 20, 15}, 2.0, sf::Color(255, 255, 200)));
 

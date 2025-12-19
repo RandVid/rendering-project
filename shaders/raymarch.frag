@@ -246,7 +246,8 @@ float sceneDistance(vec3 p, out int hitIndex) {
         } else if (t < 1.5) {
             d = planeSDF(p, u_objPos[i], u_objNormal[i]);
         } else if (t < 2.5) {
-            d = boxSDF(p, u_objPos[i], vec3(u_objRadius[i]));
+            // Box - use full size vector from objNormal
+            d = boxSDF(p, u_objPos[i], u_objNormal[i]);
         } else if (t < 3.5) {
             d = cylinderSDF(p, u_objPos[i], u_objRadius[i], u_objRadius[i]*2.0);
         } else if (t < 4.5) {
@@ -316,22 +317,22 @@ vec2 calculateSphereUV(vec3 localPos, vec3 normal) {
     return vec2(u, v);
 }
 
-vec2 calculateBoxUV(vec3 localPos, vec3 normal, float boxSize) {
+vec2 calculateBoxUV(vec3 localPos, vec3 normal, vec3 boxSize) {
     // Determine which face was hit by checking the normal
     vec3 absNormal = abs(normal);
     vec2 texUV;
     
     if (absNormal.x > absNormal.y && absNormal.x > absNormal.z) {
-        // Hit X face (left or right)
-        texUV = vec2(localPos.y, localPos.z) / (2.0 * boxSize) + 0.5;
+        // Hit X face (left or right) - use Y and Z dimensions
+        texUV = vec2(localPos.y, localPos.z) / (2.0 * vec2(boxSize.y, boxSize.z)) + 0.5;
         if (normal.x < 0.0) texUV.x = 1.0 - texUV.x; // Flip for left face
     } else if (absNormal.y > absNormal.z) {
-        // Hit Y face (front or back)
-        texUV = vec2(localPos.x, localPos.z) / (2.0 * boxSize) + 0.5;
+        // Hit Y face (front or back) - use X and Z dimensions
+        texUV = vec2(localPos.x, localPos.z) / (2.0 * vec2(boxSize.x, boxSize.z)) + 0.5;
         if (normal.y < 0.0) texUV.x = 1.0 - texUV.x; // Flip for back face
     } else {
-        // Hit Z face (top or bottom)
-        texUV = vec2(localPos.x, localPos.y) / (2.0 * boxSize) + 0.5;
+        // Hit Z face (top or bottom) - use X and Y dimensions
+        texUV = vec2(localPos.x, localPos.y) / (2.0 * vec2(boxSize.x, boxSize.y)) + 0.5;
         if (normal.z < 0.0) texUV.y = 1.0 - texUV.y; // Flip for bottom face
     }
     
@@ -388,8 +389,9 @@ void main() {
             texUV = calculateSphereUV(localPos, normal);
             useTexture = true;
         } else if (u_objType[hitIndex] >= 2.0 && u_objType[hitIndex] < 2.5) {
-            // Box - use face-based mapping
-            texUV = calculateBoxUV(localPos, normal, u_objRadius[hitIndex]);
+            // Box - use face-based mapping with actual box dimensions
+            vec3 boxSize = u_objNormal[hitIndex];
+            texUV = calculateBoxUV(localPos, normal, boxSize);
             useTexture = true;
         } else if (u_objType[hitIndex] >= 9.0 && u_objType[hitIndex] < 9.5) {
             // Mandelbulb - use spherical coordinates (similar to sphere)
