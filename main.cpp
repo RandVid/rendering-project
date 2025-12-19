@@ -60,33 +60,49 @@ int main()
     // scene.push_back(new Sphere({0, 10, 6}, 1.0, sf::Color::Red));
 
     // Green floor plane at Z = 0 (ground level)
-    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green, 0.5f));
+    scene.push_back(new Plane({0, 0, 0}, Z, sf::Color::Green));
     // A sphere on the floor to look at (at position Y=10, Z=1 for radius)
-    scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
-    scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
+    //scene.push_back(new Sphere({0, 10, 1}, 5.0, sf::Color::Red, "textures/petyb.jpg"));
+    //scene.push_back(new Mandelbulb({20, 25, 10}, 8, 1.0, sf::Color::Red, 30, "textures/Texturelabs_Atmosphere_126M.jpg"));
+    scene.push_back(new Box({141, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide16.png"));
+    scene.push_back(new Box({131, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide15.png"));
+    scene.push_back(new Box({121, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide14.png"));
+    scene.push_back(new Box({111, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide13.png"));
+    scene.push_back(new Box({101, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide12.png"));
+    scene.push_back(new Box({91, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide11.png"));
+    scene.push_back(new Box({81, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide10.png"));
+    scene.push_back(new Box({71, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide9.png"));
+    scene.push_back(new Box({61, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide8.png"));
+    scene.push_back(new Box({51, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide7.png"));
+    scene.push_back(new Box({41, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide6.png"));
+    scene.push_back(new Box({31, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide5.png"));
+    scene.push_back(new Box({21, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide4.png"));
+    scene.push_back(new Box({11, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide3.png"));
+    scene.push_back(new Box({1, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide2.png"));
+    scene.push_back(new Box({-9, 50, 10}, {5, 3, 3}, sf::Color::Blue, "textures/slide1.png"));
 
-    //scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/petyb.jpg"));
+    //scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 30, "textures/fire.jpg"));
     scene.push_back(new Box({1, 1, 1}, {1, 2, 1}, sf::Color::Blue, "textures/petyb.jpg"));
     scene.push_back(new Box({5, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Pavel.png"));
     scene.push_back(new Box({9, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Anatoly.png"));
-    scene.push_back(new QuaternionJulia(
-        {0, 5, 30},           // center position
-        {0.3, 0.5, 0.1},     // Julia constant c (affects the fractal shape)
-        12,                   // iterations (more = more detail)
-        20.0,                  // scale
-        sf::Color::Magenta,   // color
-        "textures/fire.jpg"  // optional texture
-    ));
+    // scene.push_back(new QuaternionJulia(
+    //     {0, 5, 30},           // center position
+    //     {0.3, 0.5, 0.1},     // Julia constant c (affects the fractal shape)
+    //     12,                   // iterations (more = more detail)
+    //     20.0,                  // scale
+    //     sf::Color::Magenta,   // color
+    //     "textures/fire.jpg"  // optional texture
+    // ));
 
     // Big box floating above (at Z = 8, centered at Y = 10)
     // This box should cast a shadow on the sphere below
-    scene.push_back(new Box({0, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1));
+    //scene.push_back(new Box({15, 10, 8}, {2.0, 2.0, 1.0}, sf::Color::White, 1));
 
     // // Optional: keep fractal far away
     // scene.push_back(new Mandelbulb({0, 5, 50}, 8, 1.0, sf::Color::Red, 40));
     // Sphere below the box (at Y = 10, Z = 2)
     // Give it some reflectivity so reflections are visible (0 = none, 1 = mirror)
-    scene.push_back(new Sphere({0, 20, 2}, 1.5, sf::Color::White, 0.8f));
+    //scene.push_back(new Sphere({20, 20, 2}, 1.5, sf::Color::White, 0.8f));
 
     // scene.push_back(new Box({1, 1, 1}, {1, 1, 1}, sf::Color::Blue, "textures/Texturelabs_Atmosphere_126M.jpg"));
     // Sun-like light source (bright yellow sphere in the sky)
@@ -95,7 +111,7 @@ int main()
     // Light direction (pointing from sun position)
     // Light source positioned above and to the side
     // This creates a clear shadow that should fall on the sphere
-    scene.push_back(new Sphere({-5, 10, 12}, 1.0, sf::Color::White));
+    //scene.push_back(new Sphere({-5, 10, 12}, 1.0, sf::Color::White));
 
     // Light direction (pointing from light position toward the scene)
     Vector3 lightDir = (Vector3(0, -20, 15) - Vector3(0, 0, 2)).normalized();
@@ -294,8 +310,8 @@ int main()
         window.display();
         window.clear();
 
-        if (dynamic_cast<Mandelbulb*>(scene[2]))
-        dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
+        // if (dynamic_cast<Mandelbulb*>(scene[2]))
+        //     dynamic_cast<Mandelbulb*>(scene[2])->power += 0.5 / fps;
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;

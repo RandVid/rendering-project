@@ -30,6 +30,14 @@ uniform sampler2D u_texture4;
 uniform sampler2D u_texture5;
 uniform sampler2D u_texture6;
 uniform sampler2D u_texture7;
+uniform sampler2D u_texture8;
+uniform sampler2D u_texture9;
+uniform sampler2D u_texture10;
+uniform sampler2D u_texture11;
+uniform sampler2D u_texture12;
+uniform sampler2D u_texture13;
+uniform sampler2D u_texture14;
+uniform sampler2D u_texture15;
 
 // Reflection depth (0 = no reflections)
 const int MAX_REFLECTION_DEPTH = 2;
@@ -349,6 +357,14 @@ vec4 sampleTextureByIndex(int texIdx, vec2 uv) {
     if (texIdx == 5) return texture2D(u_texture5, uv);
     if (texIdx == 6) return texture2D(u_texture6, uv);
     if (texIdx == 7) return texture2D(u_texture7, uv);
+    if (texIdx == 8) return texture2D(u_texture8, uv);
+    if (texIdx == 9) return texture2D(u_texture9, uv);
+    if (texIdx == 10) return texture2D(u_texture10, uv);
+    if (texIdx == 11) return texture2D(u_texture11, uv);
+    if (texIdx == 12) return texture2D(u_texture12, uv);
+    if (texIdx == 13) return texture2D(u_texture13, uv);
+    if (texIdx == 14) return texture2D(u_texture14, uv);
+    if (texIdx == 15) return texture2D(u_texture15, uv);
     return vec4(1.0);
 }
 

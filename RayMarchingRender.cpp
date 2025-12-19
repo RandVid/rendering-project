@@ -306,7 +306,7 @@ void RayMarchingRender::renderFrame(Ray ray) {
     }
     
     // Set textures to individual shader uniforms (GLSL doesn't support dynamic sampler array indexing)
-    // Only set textures that were successfully loaded
+    // Only set textures that were successfully loaded (up to 16 textures)
     if (numTexturesLoaded > 0) shader.setUniform("u_texture0", textures[0]);
     if (numTexturesLoaded > 1) shader.setUniform("u_texture1", textures[1]);
     if (numTexturesLoaded > 2) shader.setUniform("u_texture2", textures[2]);
@@ -315,6 +315,14 @@ void RayMarchingRender::renderFrame(Ray ray) {
     if (numTexturesLoaded > 5) shader.setUniform("u_texture5", textures[5]);
     if (numTexturesLoaded > 6) shader.setUniform("u_texture6", textures[6]);
     if (numTexturesLoaded > 7) shader.setUniform("u_texture7", textures[7]);
+    if (numTexturesLoaded > 8) shader.setUniform("u_texture8", textures[8]);
+    if (numTexturesLoaded > 9) shader.setUniform("u_texture9", textures[9]);
+    if (numTexturesLoaded > 10) shader.setUniform("u_texture10", textures[10]);
+    if (numTexturesLoaded > 11) shader.setUniform("u_texture11", textures[11]);
+    if (numTexturesLoaded > 12) shader.setUniform("u_texture12", textures[12]);
+    if (numTexturesLoaded > 13) shader.setUniform("u_texture13", textures[13]);
+    if (numTexturesLoaded > 14) shader.setUniform("u_texture14", textures[14]);
+    if (numTexturesLoaded > 15) shader.setUniform("u_texture15", textures[15]);
 
     // Draw full-screen quad with shader
     sf::RectangleShape quad(sf::Vector2f(static_cast<float>(width), static_cast<float>(height)));
